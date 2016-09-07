@@ -11,13 +11,33 @@ var reducers = function(state, action) {
       highlight: null,
     });
   } else if (action.type === actions.SELECT) {
-    var highlight = action.id
-    // console.log(highlight, typeof highlight, 'highlight', state.highlight, typeof state.highlight, 'state');
-    if (state.highlight === highlight) {
-      highlight = null
+    var highlight = action.id;
+    var positions = state.positions;
+    if (state.highlight) {
+      if (highlight !== state.highlight) {
+        var hl = positions[highlight];
+        var shl = positions[state.highlight];
+        if (shl.white && (!hl.black || hl.black === 1)) {
+          shl.white = shl.white - 1;
+          hl.white = hl.white + 1;
+          if (hl.black) {
+            hl.black = hl.black - 1;
+            positions[21].black = positions[21].black + 1;
+          }
+        } else if (shl.black && (!hl.white || hl.white === 1)) {
+          shl.black = shl.black - 1;
+          hl.black = hl.black + 1;
+          if (hl.white) {
+            hl.white = hl.white - 1;
+            positions[21].white = positions[21].white + 1;
+          }
+        }
+      }
+      highlight = null;
     }
     return Object.assign({}, state, {
       highlight: highlight,
+      positions: positions,
     });
   } else {
     return state;
