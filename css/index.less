@@ -1,5 +1,7 @@
 @board: #8C6D57;
 @dkboard: darken(@board, 20%);
+@ltboard: #baa18f;
+@highlight: #A35F6F;
 
 body {
 	margin-right: 0;
@@ -44,6 +46,10 @@ body {
 						}
 					}
 				}
+				
+				.highlight {
+					background-color: @highlight;
+				}
 
 				.bar {
 					height: 275px;
@@ -60,13 +66,17 @@ body {
 				.space {
 					height: 250px;
 					width: 78px;
-					background-position: center center fixed;
+					background-position: top fixed;
 					background-repeat: no-repeat;
-					background-size: cover;
+					background-size: auto auto;
 				}
 			}
 
 			.board-top {
+				li {
+					vertical-align: top;
+				}
+
 				.bar {
 					border-top: 2px solid @dkboard;
 				}
@@ -75,15 +85,27 @@ body {
 					background-image: url(top-space.png);
 					margin-bottom: 26px;
 				}
+
+				.space.highlight {
+					background-image: url(top-space-highlight.png);
+					margin-bottom: 26px;
+				}
 			}
 
 			.board-bottom {
+				li {
+					vertical-align: bottom;
+				}
+
 				.bar {
 					border-bottom: 2px solid @dkboard;
 				}
 				
 				.space {
 					background-image: url(bottom-space.png);
+				}
+				.space.highlight {
+					background-image: url(bottom-space-highlight.png);
 				}
 			}
 		}

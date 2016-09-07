@@ -6,7 +6,7 @@ var Home = React.createClass({
 	  	  	var piecesArr = this.props.pieces.map(function(piece, index) {
 				return <li key={index}>{piece}</li>;
 			});
-	    return <ul className='home'>{this.props.pieces}</ul>;
+	    return <ul>{this.props.pieces}</ul>;
   	}
 });
 

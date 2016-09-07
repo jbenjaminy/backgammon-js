@@ -6,7 +6,7 @@ var Bar = React.createClass({
 	  	var piecesArr = this.props.pieces.map(function(piece, index) {
 			return <li key={index}>{piece}</li>;
 		});
-	    return <ul className='bar'>{piecesArr}</ul>;
+	    return <ul>{piecesArr}</ul>;
 	}
 });
 

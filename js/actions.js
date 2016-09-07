@@ -7,6 +7,17 @@ var newGame = function() {
   };
 };
 
+var SELECT = 'SELECT';
+var select = function(id) {
+  return {
+    type: SELECT,
+    id: id
+  };
+};
+
 /*----------- EXPORTS ----------*/
 exports.NEW_GAME = NEW_GAME;
 exports.newGame = newGame;
+
+exports.SELECT = SELECT;
+exports.select = select;
