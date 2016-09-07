@@ -1,5 +1,5 @@
 @board: #8C6D57;
-@dkboard: darken(@board, 5%);
+@dkboard: darken(@board, 20%);
 
 body {
 	margin-right: 0;
@@ -12,12 +12,18 @@ body {
 
 		.board {
 			background-color: @board;
-			border: 1px solid @dkboard;
-			height: 900px;
+			border: 5px solid @dkboard;
+			height: 550px;
+			width: 1143px;
+			margin: 0 auto;
+			margin-top: 5%;
 
 			.board-bottom, .board-top {
+				width: 100%;
 				height: 50%;
-				display: inline-block;
+				padding-left: 0;
+				margin-top: -1.5px;
+				margin-bottom: 0;
 				
 				li {
 					z-index: 1;
@@ -25,40 +31,59 @@ body {
 					list-style-type: none;
 
 					ul {
-						display: block;
+						padding-left: 0;
 
 						li {
+							z-index: 2;
 							display: block;
 							list-style-type: none;
+
+							img {
+								margin-left: 15px;
+							}
 						}
 					}
 				}
 
 				.bar {
-					height: 100%;
-					width: 150px;
-					border-left: 1px solid @dkboard;
-					border-right: 1px solid @dkboard;
+					height: 275px;
+					width: 80px;
+					border-left: 2px solid @dkboard;
+					border-right: 2px solid @dkboard;
 				}
 
 				.home {
-					height: 100%;
-					width: 200px;
+					height: 275px;
+					width: 120px;
 					border: 2px solid @dkboard;
 				}
+				.space {
+					height: 250px;
+					width: 78px;
+					background-position: center center fixed;
+					background-repeat: no-repeat;
+					background-size: cover;
+				}
+			}
 
-				.board-top {
-
-					.space {
-						background-image: url(top-space.png);
-					}
+			.board-top {
+				.bar {
+					border-top: 2px solid @dkboard;
 				}
 
-				.board-bottom {
-					
-					.space {
-						background-image: url(bottom-space.png);
-					}
+				.space {
+					background-image: url(top-space.png);
+					margin-bottom: 26px;
+				}
+			}
+
+			.board-bottom {
+				.bar {
+					border-bottom: 2px solid @dkboard;
+				}
+				
+				.space {
+					background-image: url(bottom-space.png);
 				}
 			}
 		}

@@ -26,11 +26,11 @@ var Board = React.createClass({
 				}
 			}
 			if (i === 1 || i === 28) {
-				var container = <Home pieces={pieces}/>;
+				var container = <li><Home pieces={pieces}/></li>;
 			} else if (i === 8 || i === 21) {
-				var container = <Bar pieces={pieces}/>;
+				var container = <li><Bar pieces={pieces}/></li>;
 			} else {
-				var container = <Space pieces={pieces}/>;
+				var container = <li className='space'><Space pieces={pieces}/></li>;
 			}
 			if (i < 15) {
 				topBoard.unshift(container);
@@ -38,16 +38,16 @@ var Board = React.createClass({
 				bottomBoard.push(container);
 			}
 		}
-		var topArr = topBoard.map(function(space, index) {
-			return <li key={index}>{space}</li>;
-		});
-		var bottomArr = topBoard.map(function(space, index) {
-			return <li key={index}>{space}</li>;
-		})
+		// var topArr = topBoard.map(function(space, index) {
+		// 	return <li key={index}>{space}</li>;
+		// });
+		// var bottomArr = topBoard.map(function(space, index) {
+		// 	return <li key={index}>{space}</li>;
+		// })
 		return (
 			<div className="board">
-				<ul className="board-top">{topArr}</ul>
-				<ul className="board-bottom">{bottomArr}</ul>
+				<ul className="board-top">{topBoard}</ul>
+				<ul className="board-bottom">{bottomBoard}</ul>
 			</div>
 		);
 	}
