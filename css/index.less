@@ -11,105 +11,141 @@ body {
 
 	#app {
 		height: 100%;
-
-		.board {
-			background-color: @board;
-			border: 5px solid @dkboard;
-			height: 550px;
-			width: 1143px;
-			margin: 0 auto;
-			margin-top: 5%;
-
-			.board-bottom, .board-top {
-				width: 100%;
-				height: 50%;
-				padding-left: 0;
-				margin-top: -1.5px;
-				margin-bottom: 0;
-				
-				li {
-					z-index: 1;
+		.game-container {
+			.top-display {
+				.hidden {
+					display: none;
+				}
+				.col {
 					display: inline-block;
-					list-style-type: none;
+					width: 33%;
+				}
+				.player-one {
+					text-align: left;
+				}
+				.player-two {
+					text-align: right;
+				}
+				.mid {
+					padding-left: 0.5%;
+					padding-right: 0.5%;
+					text-align: center;
 
 					ul {
-						padding-left: 0;
-
 						li {
-							z-index: 2;
-							display: block;
+							display: inline-block;
 							list-style-type: none;
+						}
+					}
 
-							img {
-								margin-left: 16.5px;
+					.buttons {
+						.undo {
+							padding-left: 10px;
+							padding-right: 10px;
+						}
+					} 
+				}
+			}
+
+			.board {
+				background-color: @board;
+				border: 5px solid @dkboard;
+				height: 550px;
+				width: 1143px;
+				margin: 0 auto;
+				margin-top: 5%;
+
+				.board-bottom, .board-top {
+					width: 100%;
+					height: 50%;
+					padding-left: 0;
+					margin-top: -1.5px;
+					margin-bottom: 0;
+					
+					li {
+						z-index: 1;
+						display: inline-block;
+						list-style-type: none;
+
+						ul {
+							padding-left: 0;
+
+							li {
+								z-index: 2;
+								display: block;
+								list-style-type: none;
+
+								img {
+									margin-left: 16.5px;
+								}
 							}
 						}
 					}
-				}
-				
-				.highlight {
-					background-color: @highlight;
-				}
+					
+					.highlight {
+						background-color: @highlight;
+					}
 
-				.bar {
-					height: 275px;
-					width: 80px;
-					border-left: 2px solid @dkboard;
-					border-right: 2px solid @dkboard;
-				}
+					.bar {
+						height: 275px;
+						width: 80px;
+						border-left: 2px solid @dkboard;
+						border-right: 2px solid @dkboard;
+					}
 
-				.home {
-					height: 275px;
-					width: 120px;
-					border: 2px solid @dkboard;
-				}
-				.space {
-					height: 250px;
-					width: 78px;
-					background-position: top fixed;
-					background-repeat: no-repeat;
-					background-size: auto auto;
-				}
-			}
-
-			.board-top {
-				li {
-					vertical-align: top;
-				}
-
-				.bar {
-					border-top: 2px solid @dkboard;
-				}
-
-				.space {
-					background-image: url(top-space.png);
-					margin-bottom: 26px;
-				}
-
-				.space.highlight {
-					background-image: url(top-space-highlight.png);
-					margin-bottom: 26px;
-				}
-			}
-
-			.board-bottom {
-				li {
-					vertical-align: bottom;
-
-					ul {
-						height: 100%;
+					.home {
+						height: 275px;
+						width: 120px;
+						border: 2px solid @dkboard;
+					}
+					.space {
+						height: 250px;
+						width: 78px;
+						background-position: top fixed;
+						background-repeat: no-repeat;
+						background-size: auto auto;
 					}
 				}
 
-				.bar {
-					border-bottom: 2px solid @dkboard;
+				.board-top {
+					li {
+						vertical-align: top;
+					}
+
+					.bar {
+						border-top: 2px solid @dkboard;
+					}
+
+					.space {
+						background-image: url(top-space.png);
+						margin-bottom: 26px;
+					}
+
+					.space.highlight {
+						background-image: url(top-space-highlight.png);
+						margin-bottom: 26px;
+					}
 				}
-				
-				.space {
-					background-image: url(bottom-space.png);
-				}
-				.space.highlight {
-					background-image: url(bottom-space-highlight.png);
+
+				.board-bottom {
+					li {
+						vertical-align: bottom;
+
+						ul {
+							height: 100%;
+						}
+					}
+
+					.bar {
+						border-bottom: 2px solid @dkboard;
+					}
+					
+					.space {
+						background-image: url(bottom-space.png);
+					}
+					.space.highlight {
+						background-image: url(bottom-space-highlight.png);
+					}
 				}
 			}
 		}
