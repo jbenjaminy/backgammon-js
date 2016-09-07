@@ -16,9 +16,16 @@ var firstRoll = function(player) {
 };
 
 var ROLL_DICE = 'ROLL_DICE';
-var rollDice = function(player) {
+var rollDice = function() {
 	return {
 		type: ROLL_DICE
+	};
+};
+
+var END_TURN = 'END_TURN';
+var endTurn = function() {
+	return {
+		type: END_TURN
 	};
 };
 
@@ -39,6 +46,9 @@ exports.firstRoll = firstRoll;
 
 exports.ROLL_DICE = ROLL_DICE;
 exports.rollDice = rollDice;
+
+exports.END_TURN = END_TURN;
+exports.endTurn = endTurn;
 
 exports.SELECT = SELECT;
 exports.select = select;

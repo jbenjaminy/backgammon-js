@@ -40,11 +40,11 @@ var Board = React.createClass({
 				}
 			}
 			if (i === 1 || i === 28) {
-				var container = <li className={homeClasses} id={i} onClick={this.selectSpace(i)}><Home pieces={pieces}/></li>;
+				var container = <li className={homeClasses} key={i} onClick={this.selectSpace(i)}><Home pieces={pieces}/></li>;
 			} else if (i === 8 || i === 21) {
-				var container = <li className={barClasses} id={i} onClick={this.selectSpace(i)}><Bar pieces={pieces}/></li>;
+				var container = <li className={barClasses} key={i} onClick={this.selectSpace(i)}><Bar pieces={pieces}/></li>;
 			} else {
-				var container = <li className={spaceClasses} id={i} onClick={this.selectSpace(i)}><Space pieces={pieces}/></li>;
+				var container = <li className={spaceClasses} key={i} onClick={this.selectSpace(i)}><Space pieces={pieces}/></li>;
 			}
 			if (i < 15) {
 				topBoard.unshift(container);
