@@ -10,9 +10,19 @@ var Piece = require('./piece');
 
 var Board = React.createClass({
 	selectSpace: function(id) {
-    var props = this.props;
-    	return function() {
-        	props.dispatch(actions.select(id))
+		var props = this.props;
+		// account for requiring moving trapped pieces off first;
+		if (!props.rolling && (props.positions[id][props.turn] > 0)) {
+		    return function() {
+        		props.dispatch(actions.findValidMoves(id));
+        		props.dispatch(actions.select(id));
+        	}
+		} else if (props.highlight) {
+			props.validMoves.forEach(function(move) {
+				if (move.position === id) {
+					props.dispatch(actions.updatePositions(id, props.highlight));
+				}
+			});
 		}
 	},
 	render: function() {
@@ -65,7 +75,10 @@ var Board = React.createClass({
 var mapStateToProps = function(state, props) {
 	return {
 		positions: state.positions,
-		highlight: state.highlight
+		highlight: state.highlight,
+		rolling: state.rolling,
+		turn: state.turn,
+		validMoves: state.validMoves
 	};
 };
 

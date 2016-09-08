@@ -6,15 +6,17 @@ var Dice = require('./dice');
 
 var TopDisplay = React.createClass({
 	rollDice: function() {
-		this.props.dispatch(actions.rollDice());
-		var props = this.props;
-		setTimeout(function() {
-			if (!props.inGame) {
-				props.dispatch(actions.makeRoll(1));
-			} else {
-				props.dispatch(actions.makeRoll(2));
-			}
-		}, 1500);
+		if (this.props.rolling) {
+			this.props.dispatch(actions.rollDice());
+			var props = this.props;
+			setTimeout(function() {
+				if (!props.inGame) {
+					props.dispatch(actions.makeRoll(1));
+				} else {
+					props.dispatch(actions.makeRoll(2));
+				}
+			}, 1500);
+		}
 	},
 	finishTurn: function() {
 		this.props.dispatch(actions.endTurn());
@@ -70,7 +72,8 @@ var mapStateToProps = function(state, props) {
 		inGame: state.inGame,
 		players: state.players,
 		message: state.message,
-		dice: state.dice
+		dice: state.dice,
+		rolling: state.rolling
 	};
 };
 
