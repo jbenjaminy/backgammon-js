@@ -9,7 +9,7 @@ var filename = [packageData.name, packageData.version, 'js'];
 module.exports = {
   entry: path.resolve(__dirname, 'js/index.jsx'),
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'static'),
     filename: filename.join('.')
   },
   devtool: 'source-map',
