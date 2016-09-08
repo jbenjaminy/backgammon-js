@@ -129,9 +129,9 @@ var makeRollError = function(error) {
   	};
 };
 
-var findValidMoves = function(id) {
+var findValidMoves = function(player, fromPos, availMoves) {
     return function(dispatch) {
-        var url = 'http://localhost:5000/valid_moves/' + id;
+        var url = 'http://localhost:5000/valid_moves/' + player + '/' + fromPos + '/' + availMoves;
         var request = {
                 headers: {
                     'Accept': 'application/json',
@@ -179,9 +179,9 @@ var findValidMovesError = function(error) {
     };
 };
 
-var updatePositions = function(toPos, fromPos) {
+var updatePositions = function(toPos, fromPos, roll) {
     return function(dispatch) {
-        var url = 'http://localhost:5000/update_pos/' + toPos + '/' + fromPos;
+        var url = 'http://localhost:5000/update_pos/' + toPos + '/' + fromPos + '/' + roll;
         var request = {
                 headers: {
                     'Accept': 'application/json',
@@ -200,9 +200,9 @@ var updatePositions = function(toPos, fromPos) {
         .then(function(response) {
             return response.json();
         })
-        .then(function(positions) {
+        .then(function(positions, roll) {
             return dispatch(
-                updatePositionsSuccess(positions)
+                updatePositionsSuccess(positions, roll)
             );
         })
         .catch(function(error) {
@@ -214,10 +214,11 @@ var updatePositions = function(toPos, fromPos) {
 };
 
 var UPDATE_POSITIONS_SUCCESS = 'UPDATE_POSITIONS_SUCCESS';
-var updatePositionsSuccess = function(positions) {
+var updatePositionsSuccess = function(positions, roll) {
     return {
         type: UPDATE_POSITIONS_SUCCESS,
-        positions: positions
+        positions: positions,
+        roll: roll
     };
 };
 

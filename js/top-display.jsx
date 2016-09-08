@@ -19,7 +19,10 @@ var TopDisplay = React.createClass({
 		}
 	},
 	finishTurn: function() {
-		this.props.dispatch(actions.endTurn());
+		if (availableMoves.length === 0) {
+			this.props.dispatch(actions.endTurn());
+		} 
+		// TODO: else state.message === 'MUST USE ALL ROLLS BEFORE ENDING TURN'
 	},
 	restartGame: function() {
 		this.props.dispatch(actions.pageLoad());
@@ -73,7 +76,8 @@ var mapStateToProps = function(state, props) {
 		players: state.players,
 		message: state.message,
 		dice: state.dice,
-		rolling: state.rolling
+		rolling: state.rolling,
+		availableMoves: state.availableMoves
 	};
 };
 

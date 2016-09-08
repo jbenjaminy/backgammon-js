@@ -1,4 +1,5 @@
 ## To-Do:
+	1) Account for situation where one move is possible but won't make it possible for you to use other move and there is another situation where you are able to use both moves.
 	2) Add backend/algorithms:
 		-undo move
 

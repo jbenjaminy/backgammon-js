@@ -18,7 +18,7 @@ def generate_roll(num_dice):
 	rand_list = []
 	for n in range(int(num_dice)):
 		rand_num = random.randrange(1, 7)
-		if len(rand_list) == 1 and rand_num == rand_list[0]:
+		if (len(rand_list) == 1) and (rand_num == rand_list[0]):
 			rand_list.append(rand_num)
 			rand_list.append(rand_num)
 			rand_list.append(rand_num)
@@ -26,18 +26,33 @@ def generate_roll(num_dice):
 			rand_list.append(rand_num)
 	return json.dumps(rand_list)
 
-@app.route("/valid_moves/<id>")
-def find_valid_moves(id):
+@app.route("/valid_moves/<player>/<from_pos>/<avail_moves>")
+def find_valid_moves(player, from_pos, avail_moves):
 	valid_moves = []
+	start = from_pos
+	for move in avail_moves:
+		# account for moving to home space
+		if ((cur_pos[from_pos][player] > 0) and (cur_pos[21][player] == 0)) or (from_pos == 21 and cur_pos[21][player]):
+			if player == 'white':
+				end = start - move
+				if (start > 21 and end <= 21) or (start > 8 and end <= 8):
+					end = end - 1
+				elif start == 21:
+					end = 28 - move
+				if ((end > 1) and (cur_pos[end].black < 2)):
+					valid_moves.append({'position': end, 'roll': move})
+			elif player == 'black':
+				end = start + move
+				if ((start < 21) and (end >= 21)) or ((start < 8) and (end >= 8)):
+					end = end + 1
+				elif start == 21:
+					end = 1 + move
+				if ((end < 28) and (cur_pos[end].white < 2)):
+					valid_moves.append({'position': end, 'roll': move})
 	return json.dumps(valid_moves)
-	# check for empty spaces and spaces with only one of opponents pieces
-	# make sure moving in right direction and don't include bar/home
-	# account for moving off bar
-	# account for moving to home space
-	# want back array with objects:
-		# [{position: 6, roll: 4}]
-@app.route("/update_pos/<to_pos>/<from_pos>")
-def update_pos(to_pos, from_pos):
+
+@app.route("/update_pos/<to_pos>/<from_pos>/<roll>")
+def update_pos(to_pos, from_pos, roll):
 	to = cur_pos[to_pos]
 	frm = cur_pos[from_pos]
 	if frm.white:
@@ -52,7 +67,7 @@ def update_pos(to_pos, from_pos):
 		if to.white == 1:
 			cur_pos[to_pos].white = to.white - 1
 			cur_pos[21].white = cur_pos[21].white + 1
-	return json.dumps(cur_pos)
+	return json.dumps(cur_pos, roll)
 
 if __name__ == "__main__":
     app.run()

@@ -17,6 +17,7 @@ var reducers = function(state, action) {
             highlight: null,
             rolling: true,
             validMoves: null,
+            availableMoves: null
         });
     } else if (action.type === actions.NEW_GAME_SUCCESS) {
         return Object.assign({}, state, {
@@ -71,6 +72,7 @@ var reducers = function(state, action) {
             message: message,
             inGame: inGame,
             rolling: rolling,
+            availableMoves: dice
         });
     } else if (action.type === actions.MAKE_ROLL_ERROR) {
         console.error(action.error);
@@ -95,12 +97,22 @@ var reducers = function(state, action) {
             highlight: highlight,
         });
     } else if (action.type === actions.FIND_VALID_MOVES_SUCCESS) {
-
+        return Object.assign({}, state, {
+            validMoves: action.validMoves,
+        });
     } else if (action.type === actions.FIND_VALID_MOVES_ERROR) {
         console.error(action.error);
         return state;
     } else if (action.type === actions.UPDATE_POSITIONS_SUCCESS) {
+        var moves = state.availableMoves;
+        for (var i = 0; i < moves.length; i ++) {
+            if (moves[i] === action.roll) {
+                moves = moves.slice(0, i).concat(i+1, moves.legth);
+                break
+            }
+        }
         return Object.assign({}, state, {
+            availableMoves: moves,
             positions: action.positions,
             highlight: null,
         });
