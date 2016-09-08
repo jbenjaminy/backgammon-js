@@ -7,6 +7,7 @@ var store = require('./store');
 var GameContainer = require('./game-container');
 
 document.addEventListener('DOMContentLoaded', function() {
+	store.dispatch(actions.pageLoad());
 	store.dispatch(actions.newGame());
 
   	ReactDOM.render(

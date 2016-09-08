@@ -1,45 +1,87 @@
 var fetch = require('isomorphic-fetch');
 
-var NEW_GAME = 'NEW_GAME';
-var newGame = function() {
-  	return {
-    	type: NEW_GAME
-  	};
-};
-
-var FIRST_ROLL = 'FIRST_ROLL';
-var firstRoll = function(player) {
-	return {
-		type: FIRST_ROLL,
-		player: player
-	};
+var PAGE_LOAD = 'PAGE_LOAD';
+var pageLoad = function() {
+    return {
+        type: PAGE_LOAD
+    };
 };
 
 var ROLL_DICE = 'ROLL_DICE';
 var rollDice = function() {
-	return {
-		type: ROLL_DICE
-	};
+    return {
+        type: ROLL_DICE
+    };
 };
 
 var SELECT = 'SELECT';
 var select = function(id) {
-  	return {
-    	type: SELECT,
-    	id: id
-  	};
+    return {
+        type: SELECT,
+        id: id
+    };
 };
 
 var END_TURN = 'END_TURN';
 var endTurn = function() {
-	return {
-		type: END_TURN
-	};
+    return {
+        type: END_TURN
+    };
+};
+
+var newGame = function() {
+    return function(dispatch) {
+        var url = 'http://localhost:5000/new_game';
+        var request = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            };
+        return fetch(url, request)
+        .then(function(response) {
+            if (response.status < 200 || response.status >= 300) {
+                var error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
+            return response;
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(positions) {
+            return dispatch(
+                newGameSuccess(positions)
+            );
+        })
+        .catch(function(error) {
+            return dispatch(
+                newGameError(error)
+            );
+        });
+    }
+};
+
+var NEW_GAME_SUCCESS = 'NEW_GAME_SUCCESS';
+var newGameSuccess = function(positions) {
+    return {
+        type: NEW_GAME_SUCCESS,
+        positions: positions
+    };
+};
+
+var NEW_GAME_ERROR = 'NEW_GAME_ERROR';
+var newGameError = function(error) {
+    return {
+        type: NEW_GAME_ERROR,
+        error: error
+    };
 };
 
 var makeRoll = function(numDice) {
     return function(dispatch) {
-        var url = 'http://localhost:8080/roll/' + numDice;
+        var url = 'http://localhost:5000/roll/' + numDice;
         var request = {
                 headers: {
                     'Accept': 'application/json',
@@ -88,11 +130,8 @@ var makeRollError = function(error) {
 };
 
 /*----------- EXPORTS ----------*/
-exports.NEW_GAME = NEW_GAME;
-exports.newGame = newGame;
-
-exports.FIRST_ROLL = FIRST_ROLL;
-exports.firstRoll = firstRoll;
+exports.PAGE_LOAD = PAGE_LOAD;
+exports.pageLoad = pageLoad;
 
 exports.ROLL_DICE = ROLL_DICE;
 exports.rollDice = rollDice;
@@ -103,7 +142,14 @@ exports.select = select;
 exports.END_TURN = END_TURN;
 exports.endTurn = endTurn;
 
+exports.newGame = newGame;
+exports.NEW_GAME_SUCCESS = NEW_GAME_SUCCESS;
+exports.newGameSuccess = newGameSuccess;
+exports.NEW_GAME_ERROR = NEW_GAME_ERROR;
+exports.newGameError = newGameError;
+
 exports.makeRoll = makeRoll;
 exports.MAKE_ROLL_SUCCESS = MAKE_ROLL_SUCCESS;
 exports.makeRollSuccess = makeRollSuccess;
 exports.MAKE_ROLL_ERROR = MAKE_ROLL_ERROR;
+exports.makeRollError = makeRollError;

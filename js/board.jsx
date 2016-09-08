@@ -18,39 +18,40 @@ var Board = React.createClass({
 	render: function() {
 		var topBoard = [];
 		var bottomBoard = [];
-
-		for (var i = 1; i < 29; i++) {
-			var homeClasses = 'home ';
-			var barClasses = 'bar ';
-			var spaceClasses = 'space ';
-			var pieces = [];
-			if (i === this.props.highlight) {
-				homeClasses += 'highlight';
-				barClasses += 'highlight';
-				spaceClasses += 'highlight';
-			}
-			if (this.props.positions[i].white) {
-				for (var j = 1; j <= this.props.positions[i].white; j++) {
-					pieces.push(<Piece color='white'/>);
+		if (this.props.positions) {
+			for (var i = 1; i < 29; i++) {
+				var homeClasses = 'home ';
+				var barClasses = 'bar ';
+				var spaceClasses = 'space ';
+				var pieces = [];
+				if (i === this.props.highlight) {
+					homeClasses += 'highlight';
+					barClasses += 'highlight';
+					spaceClasses += 'highlight';
 				}
-			}
-			if (this.props.positions[i].black) {
-				for (var j = 1; j <= this.props.positions[i].black; j++) {
-					pieces.push(<Piece color='black'/>);
+				if (this.props.positions[i].white) {
+					for (var j = 1; j <= this.props.positions[i].white; j++) {
+						pieces.push(<Piece color='white'/>);
+					}
 				}
-			}
-			if (i === 1 || i === 28) {
-				var container = <li className={homeClasses} key={i} onClick={this.selectSpace(i)}><Home pieces={pieces}/></li>;
-			} else if (i === 8 || i === 21) {
-				var container = <li className={barClasses} key={i} onClick={this.selectSpace(i)}><Bar pieces={pieces}/></li>;
-			} else {
-				var container = <li className={spaceClasses} key={i} onClick={this.selectSpace(i)}><Space pieces={pieces}/></li>;
-			}
-			if (i < 15) {
-				topBoard.unshift(container);
-			} else {
-				bottomBoard.push(container);
-			}
+				if (this.props.positions[i].black) {
+					for (var j = 1; j <= this.props.positions[i].black; j++) {
+						pieces.push(<Piece color='black'/>);
+					}
+				}
+				if (i === 1 || i === 28) {
+					var container = <li className={homeClasses} key={i} onClick={this.selectSpace(i)}><Home pieces={pieces}/></li>;
+				} else if (i === 8 || i === 21) {
+					var container = <li className={barClasses} key={i} onClick={this.selectSpace(i)}><Bar pieces={pieces}/></li>;
+				} else {
+					var container = <li className={spaceClasses} key={i} onClick={this.selectSpace(i)}><Space pieces={pieces}/></li>;
+				}
+				if (i < 15) {
+					topBoard.unshift(container);
+				} else {
+					bottomBoard.push(container);
+				}
+			}	
 		}
 		return (
 			<div className="board">
