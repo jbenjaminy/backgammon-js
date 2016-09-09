@@ -1,31 +1,24 @@
 ## To-Do:
-	2) 'selecting' space after moves are used
-	3) Account for situation where one move is possible but won't make it possible for you to use other move and there is another situation where you are able to use both moves.
 
-	4) Add backend/algorithms:
-		-undo move
-	-grey out used dice
-	-highlight available moves
+	2) highlight available moves
+	3) undo moves (push positions object onto positions history array and revert to past object (have to credit back roll as well, don't let it revert too far))
+	4) deploy
+	
+## Fixes:
+1) 'selecting' space after moves are used
+2) when no valid moves, wont let you unselect
+3) Account for situation where one move is possible but won't make it possible for you to use other move and there is another situation where you are able to use both moves.
+
+
+## Additional features:
+1) integrate usernames
 	-separate restart game/page load or removing new game dispatch from initialization page for user integration so refresh keeps game status
 	-two people connected to same game at same time; server notifies you to update your board states.
 		*anything global is visible to all users
 		*cur_pos global would need to become per user/per game storage
-## Fixes:
-1) get bottom-board uls to align bottom
+2) doubling cube
 
-## Additional features:
-1) integrate usernames
-2) undo moves (push positions object onto positions history array and revert to past object (have to credit back roll as well, don't let it revert too far))
-3) doubling cube
-
-# INSTALL FLASK MODULE
-	# python3 -m pip install flask
-# RUN SERVER
-	# `python3 server.py`
-# VISIT FRONTEND ENDPOINT
-	http://localhost:5000/static/index.html
-
-## Presentation guidelines:
+/*----------------------------- PRESENTATION GUIDELINES ---------------------------------*/
 	Prepare a presentation to teach the rest of the class what you learned in 10 minutes. Underneath those specific deliverables, you'll be aiming to learn something efficiently, and observe yourself doing so, building your understanding of the learning process. 
 		How much time should you spend on tutorials when something is new? 
 		Is it worth the time to complete a video course? 
@@ -56,3 +49,11 @@ MAKE SURE you cover the following topics in your presentation:
 	Why did you choose the technology you did? 
 	How did you decide to learn it and why? Which parts of the learning experience were most productive? 
 	What did you ultimately build (make sure to actually demo it at this point)? When talking about the challenges in building your project, make sure to call out at least one thing you tried that didn't end up working.
+
+/* GETTING PYTHON SETUP */
+# INSTALL FLASK MODULE
+	# python3 -m pip install flask
+# RUN SERVER
+	# `python3 server.py`
+# VISIT FRONTEND ENDPOINT
+	http://localhost:5000/static/index.html

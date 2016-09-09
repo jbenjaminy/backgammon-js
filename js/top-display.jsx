@@ -19,7 +19,7 @@ var TopDisplay = React.createClass({
 		}
 	},
 	finishTurn: function() {
-		if (this.props.availableMoves.length === 0) {
+		if ((this.props.availableMoves.length === 0 && !this.props.rolling) || (this.props.validMoves.length === 0 && !this.props.rolling && this.props.highlight)) {
 			this.props.dispatch(actions.endTurn());
 		}
 		// TODO: else state.message === 'MUST USE ALL ROLLS BEFORE ENDING TURN'
@@ -30,11 +30,18 @@ var TopDisplay = React.createClass({
 	},
 	render: function() {
 		console.log('state -->', this.props.state);
+		var diceUsed = this.props.diceUsed;
+		console.log(diceUsed, 'diceUsed');
 		var diceArr = this.props.dice.map(function(dice, index) {
-			var die = dice.toString();
-			return (
-				<li key={index}><Dice image={dice}/></li>
-			);
+			if ((diceUsed.length === 1 && index === diceUsed[0]) || (diceUsed.length > 1 && index < diceUsed.length)) {
+				return (
+					<li key={index}><Dice image={dice + 10}/></li>
+				)
+			} else {
+				return (
+					<li key={index}><Dice image={dice}/></li>
+				);
+			}
 		});
 		var buttons = 'buttons hidden';
 		var status = 'status pad'
@@ -77,7 +84,10 @@ var mapStateToProps = function(state, props) {
 		message: state.message,
 		dice: state.dice,
 		rolling: state.rolling,
-		availableMoves: state.availableMoves
+		availableMoves: state.availableMoves,
+		validMoves: state.validMoves,
+		diceUsed: state.diceUsed,
+		highlight: state.highlight
 	};
 };
 

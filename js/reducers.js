@@ -17,7 +17,8 @@ var reducers = function(state, action) {
             highlight: null,
             rolling: true,
             validMoves: null,
-            availableMoves: null
+            availableMoves: null,
+            diceUsed: []
         });
     } else if (action.type === actions.NEW_GAME_SUCCESS) {
         return Object.assign({}, state, {
@@ -80,6 +81,7 @@ var reducers = function(state, action) {
     } else if (action.type === actions.END_TURN) {
         var message = '\'S ROLL';
         var turn = 'white';
+        var diceUsed = [];
         if (state.turn === 'white') {
             turn = 'black';
         }
@@ -87,6 +89,7 @@ var reducers = function(state, action) {
             message: message,
             turn: turn,
             rolling: true,
+            diceUsed : diceUsed
         });
     } else if (action.type === actions.SELECT) {
         var highlight = action.id;
@@ -94,11 +97,11 @@ var reducers = function(state, action) {
             highlight = null;
         }
         return Object.assign({}, state, {
-            highlight: highlight,
+            highlight: highlight
         });
     } else if (action.type === actions.FIND_VALID_MOVES_SUCCESS) {
         return Object.assign({}, state, {
-            validMoves: action.validMoves,
+            validMoves: action.validMoves
         });
     } else if (action.type === actions.FIND_VALID_MOVES_ERROR) {
         console.error(action.error);
@@ -108,8 +111,18 @@ var reducers = function(state, action) {
         console.log('moves -->', moves);
         console.log('roll -->', action.roll);
         var removeme = action.roll; 
-        var moves = state.availableMoves.filter(function(val) {
+        var used = [];
+        var moves = state.availableMoves.filter(function(val, index) {
             if (val === removeme) {
+                if (state.diceUsed.length === 0) {
+                    used.push(index);
+                } else if (state.diceUsed.length === 1) {
+                    used = [0, 1];
+                } else if (state.diceUsed.length === 2) {
+                    used = [0, 1, 2];
+                } else {
+                    used = [0, 1, 2, 3];
+                }
                 removeme = null; 
                 return false;
             } return true;
@@ -119,6 +132,7 @@ var reducers = function(state, action) {
             availableMoves: moves,
             positions: action.positions,
             highlight: null,
+            diceUsed: used
         });
     } else if (action.type === actions.FIND_VALID_MOVES_ERROR) {
         console.error(action.error);
