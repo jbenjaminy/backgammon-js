@@ -1,8 +1,15 @@
 ## To-Do:
-	1) Account for situation where one move is possible but won't make it possible for you to use other move and there is another situation where you are able to use both moves.
-	2) Add backend/algorithms:
-		-undo move
+	2) 'selecting' space after moves are used
+	3) Account for situation where one move is possible but won't make it possible for you to use other move and there is another situation where you are able to use both moves.
 
+	4) Add backend/algorithms:
+		-undo move
+	-grey out used dice
+	-highlight available moves
+	-separate restart game/page load or removing new game dispatch from initialization page for user integration so refresh keeps game status
+	-two people connected to same game at same time; server notifies you to update your board states.
+		*anything global is visible to all users
+		*cur_pos global would need to become per user/per game storage
 ## Fixes:
 1) get bottom-board uls to align bottom
 

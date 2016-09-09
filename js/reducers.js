@@ -107,13 +107,13 @@ var reducers = function(state, action) {
         var moves = state.availableMoves;
         console.log('moves -->', moves);
         console.log('roll -->', action.roll);
-        for (var i = 0; i < moves.length; i ++) {
-            if (moves[i] === parseInt(action.roll)) {
-                moves.splice(i, 1);
-                return moves;
-                break
-            }
-        }
+        var removeme = action.roll; 
+        var moves = state.availableMoves.filter(function(val) {
+            if (val === removeme) {
+                removeme = null; 
+                return false;
+            } return true;
+        });
         console.log('updated moves -->', moves)
         return Object.assign({}, state, {
             availableMoves: moves,

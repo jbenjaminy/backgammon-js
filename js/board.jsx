@@ -11,18 +11,19 @@ var Piece = require('./piece');
 var Board = React.createClass({
 	selectSpace: function(id) {
 		var props = this.props;
-		if ((!props.rolling && (props.positions[id][props.turn] > 0) && !props.positions[21][props.turn]) || id === 21 && props.positions[id][props.turn]) {
-		    return function() {
+		return function() {
+			if (props.highlight && props.validMoves) {
+				props.validMoves.forEach(function(move) {
+					if (move.position === id) {
+						id = null;
+						return props.dispatch(actions.updatePositions(move.position, props.highlight, move.roll));
+					}
+				});
+			} else if ((!props.rolling && (props.positions[id][props.turn] > 0) && !props.positions[21][props.turn]) || id === 21 && props.positions[id][props.turn]) {
 		    	var moves = props.availableMoves.join('_');
-        		props.dispatch(actions.findValidMoves(props.turn, id, moves));
-        		props.dispatch(actions.select(id));
-        	}
-		} else if (props.highlight && props.validMoves) {
-			props.validMoves.forEach(function(move) {
-				if (move.position === id) {
-					return props.dispatch(actions.updatePositions(id, props.highlight, move.roll));
-				}
-			});
+				props.dispatch(actions.findValidMoves(props.turn, id, moves));
+				props.dispatch(actions.select(id));
+			}
 		}
 	},
 	render: function() {
