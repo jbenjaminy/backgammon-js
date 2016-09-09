@@ -15,13 +15,13 @@ var TopDisplay = React.createClass({
 				} else {
 					props.dispatch(actions.makeRoll(2));
 				}
-			}, 1500);
+			}, 1000);
 		}
 	},
 	finishTurn: function() {
-		if (availableMoves.length === 0) {
+		if (this.props.availableMoves.length === 0) {
 			this.props.dispatch(actions.endTurn());
-		} 
+		}
 		// TODO: else state.message === 'MUST USE ALL ROLLS BEFORE ENDING TURN'
 	},
 	restartGame: function() {

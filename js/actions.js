@@ -182,6 +182,7 @@ var findValidMovesError = function(error) {
 var updatePositions = function(toPos, fromPos, roll) {
     return function(dispatch) {
         var url = 'http://localhost:5000/update_pos/' + toPos + '/' + fromPos + '/' + roll;
+        console.log('url --->', url);
         var request = {
                 headers: {
                     'Accept': 'application/json',
@@ -200,7 +201,9 @@ var updatePositions = function(toPos, fromPos, roll) {
         .then(function(response) {
             return response.json();
         })
-        .then(function(positions, roll) {
+        .then(function(data) {
+            var positions = data[0];
+            var roll = data[1];
             return dispatch(
                 updatePositionsSuccess(positions, roll)
             );

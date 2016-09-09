@@ -13,13 +13,14 @@ var Board = React.createClass({
 		var props = this.props;
 		if ((!props.rolling && (props.positions[id][props.turn] > 0) && !props.positions[21][props.turn]) || id === 21 && props.positions[id][props.turn]) {
 		    return function() {
-        		props.dispatch(actions.findValidMoves(props.turn, id, props.availableMoves));
+		    	var moves = props.availableMoves.join('_');
+        		props.dispatch(actions.findValidMoves(props.turn, id, moves));
         		props.dispatch(actions.select(id));
         	}
-		} else if (props.highlight) {
+		} else if (props.highlight && props.validMoves) {
 			props.validMoves.forEach(function(move) {
 				if (move.position === id) {
-					props.dispatch(actions.updatePositions(id, props.highlight, move.roll));
+					return props.dispatch(actions.updatePositions(id, props.highlight, move.roll));
 				}
 			});
 		}

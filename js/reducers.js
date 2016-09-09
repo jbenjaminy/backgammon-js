@@ -105,12 +105,16 @@ var reducers = function(state, action) {
         return state;
     } else if (action.type === actions.UPDATE_POSITIONS_SUCCESS) {
         var moves = state.availableMoves;
+        console.log('moves -->', moves);
+        console.log('roll -->', action.roll);
         for (var i = 0; i < moves.length; i ++) {
-            if (moves[i] === action.roll) {
-                moves = moves.slice(0, i).concat(i+1, moves.legth);
+            if (moves[i] === parseInt(action.roll)) {
+                moves.splice(i, 1);
+                return moves;
                 break
             }
         }
+        console.log('updated moves -->', moves)
         return Object.assign({}, state, {
             availableMoves: moves,
             positions: action.positions,

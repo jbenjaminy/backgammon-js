@@ -28,46 +28,48 @@ def generate_roll(num_dice):
 
 @app.route("/valid_moves/<player>/<from_pos>/<avail_moves>")
 def find_valid_moves(player, from_pos, avail_moves):
+	from_pos = int(from_pos)
 	valid_moves = []
 	start = from_pos
-	for move in avail_moves:
+	moves = avail_moves.split('_')
+	for move in moves:
 		# account for moving to home space
 		if ((cur_pos[from_pos][player] > 0) and (cur_pos[21][player] == 0)) or (from_pos == 21 and cur_pos[21][player]):
 			if player == 'white':
-				end = start - move
+				end = start - int(move)
 				if (start > 21 and end <= 21) or (start > 8 and end <= 8):
 					end = end - 1
 				elif start == 21:
-					end = 28 - move
-				if ((end > 1) and (cur_pos[end].black < 2)):
-					valid_moves.append({'position': end, 'roll': move})
+					end = 28 - int(move)
+				if ((end > 1) and (cur_pos[end]['black'] == 1 or cur_pos[end]['black'] == 0)):
+					valid_moves.append({'position': end, 'roll': int(move)})
 			elif player == 'black':
-				end = start + move
+				end = start + int(move)
 				if ((start < 21) and (end >= 21)) or ((start < 8) and (end >= 8)):
 					end = end + 1
 				elif start == 21:
-					end = 1 + move
-				if ((end < 28) and (cur_pos[end].white < 2)):
-					valid_moves.append({'position': end, 'roll': move})
+					end = 1 + int(move)
+				if ((end < 28) and (cur_pos[end]['white'] == 1 or cur_pos[end]['white'] == 0)):
+					valid_moves.append({'position': end, 'roll': int(move)})
 	return json.dumps(valid_moves)
 
 @app.route("/update_pos/<to_pos>/<from_pos>/<roll>")
 def update_pos(to_pos, from_pos, roll):
-	to = cur_pos[to_pos]
-	frm = cur_pos[from_pos]
-	if frm.white:
-		cur_pos[from_pos].white = fr.white - 1
-		cur_pos[to_pos].white = to.white + 1
-		if to.black == 1:
-			cur_pos[to_pos].black = to.black - 1
-			cur_pos[21].black = cur_pos[21].black + 1
-	else:
-		cur_pos[from_pos].black = fr.black - 1
-		cur_pos[to_pos].black = to.black + 1
-		if to.white == 1:
-			cur_pos[to_pos].white = to.white - 1
-			cur_pos[21].white = cur_pos[21].white + 1
-	return json.dumps(cur_pos, roll)
+	to = cur_pos[int(to_pos)]
+	frm = cur_pos[int(from_pos)]
+	if frm['white']:
+		cur_pos[int(from_pos)]['white'] = frm['white'] - 1
+		cur_pos[int(to_pos)]['white'] = to['white'] + 1
+		if to['black'] == 1:
+			cur_pos[int(to_pos)]['black'] = to['black'] - 1
+			cur_pos[21]['black'] = cur_pos[21]['black'] + 1
+	elif frm['black']:
+		cur_pos[int(from_pos)]['black'] = frm['black'] - 1
+		cur_pos[int(to_pos)]['black'] = to['black'] + 1
+		if to['white'] == 1:
+			cur_pos[int(to_pos)]['white'] = to['white'] - 1
+			cur_pos[21]['white'] = cur_pos[21]['white'] + 1
+	return json.dumps([cur_pos, int(roll)])
 
 if __name__ == "__main__":
     app.run()
