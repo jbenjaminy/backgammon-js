@@ -22,6 +22,13 @@ var select = function(id) {
     };
 };
 
+var UNHIGHLIGHT = 'UNHIGHLIGHT';
+var unhighlight = function() {
+    return {
+        type: UNHIGHLIGHT,
+    };
+};
+
 var END_TURN = 'END_TURN';
 var endTurn = function() {
     return {
@@ -150,9 +157,11 @@ var findValidMoves = function(player, fromPos, availMoves) {
         .then(function(response) {
             return response.json();
         })
-        .then(function(validMoves) {
+        .then(function(data) {
+            var validMoves = data[0];
+            var id = data[1];
             return dispatch(
-                findValidMovesSuccess(validMoves)
+                findValidMovesSuccess(validMoves, id)
             );
         })
         .catch(function(error) {
@@ -164,10 +173,11 @@ var findValidMoves = function(player, fromPos, availMoves) {
 };
 
 var FIND_VALID_MOVES_SUCCESS = 'FIND_VALID_MOVES_SUCCESS';
-var findValidMovesSuccess = function(validMoves) {
+var findValidMovesSuccess = function(validMoves, id) {
     return {
         type: FIND_VALID_MOVES_SUCCESS,
-        validMoves: validMoves
+        validMoves: validMoves,
+        id: id
     };
 };
 
@@ -182,7 +192,6 @@ var findValidMovesError = function(error) {
 var updatePositions = function(toPos, fromPos, roll) {
     return function(dispatch) {
         var url = 'http://localhost:5000/update_pos/' + toPos + '/' + fromPos + '/' + roll;
-        console.log('url --->', url);
         var request = {
                 headers: {
                     'Accept': 'application/json',
@@ -242,6 +251,9 @@ exports.rollDice = rollDice;
 
 exports.SELECT = SELECT;
 exports.select = select;
+
+exports.UNHIGHLIGHT = UNHIGHLIGHT;
+exports.unhighlight = unhighlight;
 
 exports.END_TURN = END_TURN;
 exports.endTurn = endTurn;

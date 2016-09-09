@@ -1,22 +1,14 @@
 ## To-Do:
-
-	2) highlight available moves
-	3) undo moves (push positions object onto positions history array and revert to past object (have to credit back roll as well, don't let it revert too far))
-	4) deploy
-	
-## Fixes:
-1) 'selecting' space after moves are used
-2) when no valid moves, wont let you unselect
-3) Account for situation where one move is possible but won't make it possible for you to use other move and there is another situation where you are able to use both moves.
-
-
-## Additional features:
-1) integrate usernames
+	1) logic for moving home
+	2) undo moves (push positions object onto positions history array and revert to past object (have to credit back roll as well, don't let it revert too far))
+	3) DEPLOY & PRESENTATION
+	4) Account for situation where one move is possible but won't make it possible for you to use other move and there is another situation where you are able to use both moves.
+	5) integrate usernames
 	-separate restart game/page load or removing new game dispatch from initialization page for user integration so refresh keeps game status
 	-two people connected to same game at same time; server notifies you to update your board states.
 		*anything global is visible to all users
 		*cur_pos global would need to become per user/per game storage
-2) doubling cube
+	6) doubling cube
 
 /*----------------------------- PRESENTATION GUIDELINES ---------------------------------*/
 	Prepare a presentation to teach the rest of the class what you learned in 10 minutes. Underneath those specific deliverables, you'll be aiming to learn something efficiently, and observe yourself doing so, building your understanding of the learning process. 

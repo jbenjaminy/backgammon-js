@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 
 var actions = require('./actions');
@@ -19,19 +20,14 @@ var TopDisplay = React.createClass({
 		}
 	},
 	finishTurn: function() {
-		if ((this.props.availableMoves.length === 0 && !this.props.rolling) || (this.props.validMoves.length === 0 && !this.props.rolling && this.props.highlight)) {
 			this.props.dispatch(actions.endTurn());
-		}
-		// TODO: else state.message === 'MUST USE ALL ROLLS BEFORE ENDING TURN'
 	},
 	restartGame: function() {
 		this.props.dispatch(actions.pageLoad());
 		this.props.dispatch(actions.newGame());
 	},
 	render: function() {
-		console.log('state -->', this.props.state);
 		var diceUsed = this.props.diceUsed;
-		console.log(diceUsed, 'diceUsed');
 		var diceArr = this.props.dice.map(function(dice, index) {
 			if ((diceUsed.length === 1 && index === diceUsed[0]) || (diceUsed.length > 1 && index < diceUsed.length)) {
 				return (
@@ -44,18 +40,24 @@ var TopDisplay = React.createClass({
 			}
 		});
 		var buttons = 'buttons hidden';
-		var status = 'status pad'
-		var white = 'white'
-		var black = 'black turn'
+		var status = 'status pad';
+		var white = 'white';
+		var black = 'black turn';
+		// var endClasses = 'end ';
 		if (this.props.inGame) {
-			status = 'status'
+			status = 'status';
 			buttons = 'buttons';
 		}
 		if (this.props.turn === 'white') {
-			white = 'white turn'
-			black = 'black'
+			white = 'white turn';
+			black = 'black';
 		}
-
+		var endArr = [<button key='1' className='end'>End Turn</button>];
+		if (!this.props.rolling && this.props.inGame) {
+			if (this.props.availableMoves.length === 0 || (this.props.highlight && this.props.validMoves.length === 0)) {
+				endArr = [<button key='1' className='end green' onClick={this.finishTurn}>End Turn</button>];
+			}
+		}
 		return (
 			<div className="top-display">
 				<div className="player-one col">
@@ -63,7 +65,7 @@ var TopDisplay = React.createClass({
 				</div>
 				<div className="mid col">
 					<h3 className={status}>{this.props.curPlayer.name}{this.props.message}</h3>
-					<ul className={buttons}><li><button className='end' onClick={this.finishTurn}>End Turn</button></li><li><button className='undo'>Undo Move</button></li><li><button className='restart' onClick={this.restartGame}>Restart Game</button></li></ul>
+					<ul className={buttons}><li>{endArr}</li><li><button className='undo'>Undo Move</button></li><li><button className='restart' onClick={this.restartGame}>Restart Game</button></li></ul>
 					<ul className='dice' onClick={this.rollDice}>{diceArr}</ul>
 				</div>
 				<div className="player-two col">

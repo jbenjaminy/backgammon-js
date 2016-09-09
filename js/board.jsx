@@ -12,21 +12,32 @@ var Board = React.createClass({
 	selectSpace: function(id) {
 		var props = this.props;
 		return function() {
-			if (props.highlight && props.validMoves) {
-				props.validMoves.forEach(function(move) {
-					if (move.position === id) {
-						id = null;
-						return props.dispatch(actions.updatePositions(move.position, props.highlight, move.roll));
+			if (!props.rolling && props.availableMoves.length > 0) {
+				if (props.highlight === id) {
+					return props.dispatch(actions.unhighlight());
+				} else if (props.highlight && props.validMoves.length > 0) {
+					for (var i=0; i<props.validMoves.length; i++) {
+						if (props.validMoves[i].position === id) {
+							id = null;
+							return props.dispatch(actions.updatePositions(props.validMoves[i].position, props.highlight, props.validMoves[i].roll))
+							break
+						} else if (i === (props.validMoves.length - 1)) {
+							return props.dispatch(actions.unhighlight());
+						}
 					}
-				});
-			} else if ((!props.rolling && (props.positions[id][props.turn] > 0) && !props.positions[21][props.turn]) || id === 21 && props.positions[id][props.turn]) {
-		    	var moves = props.availableMoves.join('_');
-				props.dispatch(actions.findValidMoves(props.turn, id, moves));
-				props.dispatch(actions.select(id));
+				} else if ((props.positions[id][props.turn] > 0 && !props.positions[21][props.turn]) || (id === 21 && props.positions[id][props.turn])) {
+			    	var moves = props.availableMoves.join('_');
+					return props.dispatch(actions.findValidMoves(props.turn, id, moves));
+				} else if (props.highlight && props.validMoves.length === 0) {
+					return props.dispatch(actions.unhighlight());
+				}
+			} else if (props.highlight) {
+				return props.dispatch(actions.unhighlight());
 			}
 		}
 	},
 	render: function() {
+		console.log(this.props.state);
 		var topBoard = [];
 		var bottomBoard = [];
 		if (this.props.positions) {
@@ -39,6 +50,10 @@ var Board = React.createClass({
 					homeClasses += 'highlight';
 					barClasses += 'highlight';
 					spaceClasses += 'highlight';
+				}
+				if (i === this.props.valid1 || i === this.props.valid2) {
+					homeClasses += 'valid';
+					spaceClasses += 'valid';
 				}
 				if (this.props.positions[i].white) {
 					for (var j = 1; j <= this.props.positions[i].white; j++) {
@@ -80,7 +95,10 @@ var mapStateToProps = function(state, props) {
 		rolling: state.rolling,
 		turn: state.turn,
 		validMoves: state.validMoves,
-		availableMoves: state.availableMoves
+		availableMoves: state.availableMoves,
+		valid1: state.valid1,
+		valid2: state.valid2,
+		state: state
 
 	};
 };

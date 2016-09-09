@@ -51,8 +51,7 @@ def find_valid_moves(player, from_pos, avail_moves):
 					end = 1 + int(move)
 				if ((end < 28) and (cur_pos[end]['white'] == 1 or cur_pos[end]['white'] == 0)):
 					valid_moves.append({'position': end, 'roll': int(move)})
-	print(end, 'end')
-	return json.dumps(valid_moves)
+	return json.dumps([valid_moves, from_pos])
 
 @app.route("/update_pos/<to_pos>/<from_pos>/<roll>")
 def update_pos(to_pos, from_pos, roll):

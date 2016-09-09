@@ -6,6 +6,7 @@
 @background: #D1D1D1;
 @button: darken(@background, 20%);
 @text: #1F120B;
+@valid: #74806D;
 
 html {
 	height: 820px;
@@ -84,6 +85,11 @@ html {
 								margin-left: 10px;
 								margin-right: 10px;
 							}
+
+							.end.green {
+								background-color: @valid;
+								border: solid 1px @valid;
+							}
 						}
 						.dice {
 						}
@@ -129,6 +135,9 @@ html {
 						.highlight {
 							background-color: @highlight;
 						}
+						.valid {
+							background-color: @valid;
+						}
 
 						.bar {
 							height: 217px;
@@ -164,9 +173,12 @@ html {
 							background-image: url(top-space.png);
 							margin-bottom: 26px;
 						}
-
 						.space.highlight {
 							background-image: url(top-space-highlight.png);
+							margin-bottom: 26px;
+						}
+						.space.valid {
+							background-image: url(top-space-valid.png);
 							margin-bottom: 26px;
 						}
 					}
@@ -192,6 +204,9 @@ html {
 						}
 						.space.highlight {
 							background-image: url(bottom-space-highlight.png);
+						}
+						.space.valid {
+							background-image: url(bottom-space-valid.png);
 						}
 					}
 				}
