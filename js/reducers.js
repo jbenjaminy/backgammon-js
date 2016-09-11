@@ -126,7 +126,7 @@ var reducers = function(state, action) {
     } else if (action.type === actions.FIND_VALID_MOVES_SUCCESS) {
         var valid1 = null;
         var valid2 = null;
-        if (action.validMoves.length === 1 || action.validMoves.length === 4) {
+        if (action.validMoves.length === 1 || action.validMoves.length === 3 || action.validMoves.length === 4) {
             valid1 = action.validMoves[0].position;
         } else if (action.validMoves.length === 2) {
             valid1 = action.validMoves[0].position;
