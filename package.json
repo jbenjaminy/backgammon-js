@@ -2,7 +2,7 @@
   "name": "backgammon",
   "version": "1.0.0",
   "description": "backgammon game made using React and Python",
-  "main": "js/index.jsx",
+  "main": "server.py",
   "scripts": {
     "test": "mocha --compilers js:babel-register test/**/*.js*",
     "mkdir": "mkdir -p static",
