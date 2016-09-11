@@ -12,7 +12,7 @@ var Board = React.createClass({
 	selectSpace: function(id) {
 		var props = this.props;
 		return function() {
-			if (!props.rolling && props.availableMoves.length > 0) {
+			if (!props.rolling && props.availableMoves.length > 0 && props.inGame) {
 				if (props.highlight === id) {
 					return props.dispatch(actions.unhighlight());
 				} else if (props.highlight && props.validMoves.length > 0) {
@@ -98,7 +98,8 @@ var mapStateToProps = function(state, props) {
 		availableMoves: state.availableMoves,
 		valid1: state.valid1,
 		valid2: state.valid2,
-		state: state
+		state: state,
+		inGame: state.inGame
 
 	};
 };

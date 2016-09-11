@@ -36,6 +36,14 @@ var endTurn = function() {
     };
 };
 
+var END_GAME = 'END_GAME';
+var endGame = function(winner) {
+    return {
+        type: END_GAME,
+        winner: winner
+    };
+};
+
 var newGame = function() {
     return function(dispatch) {
         var url = 'http://localhost:5000/new_game';
@@ -257,6 +265,9 @@ exports.unhighlight = unhighlight;
 
 exports.END_TURN = END_TURN;
 exports.endTurn = endTurn;
+
+exports.END_GAME = END_GAME;
+exports.endGame = endGame;
 
 exports.newGame = newGame;
 exports.NEW_GAME_SUCCESS = NEW_GAME_SUCCESS;

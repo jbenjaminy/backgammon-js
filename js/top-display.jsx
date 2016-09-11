@@ -20,7 +20,9 @@ var TopDisplay = React.createClass({
 		}
 	},
 	finishTurn: function() {
+		if (this.props.inGame) {
 			this.props.dispatch(actions.endTurn());
+		}
 	},
 	restartGame: function() {
 		this.props.dispatch(actions.pageLoad());
@@ -43,8 +45,7 @@ var TopDisplay = React.createClass({
 		var status = 'status pad';
 		var white = 'white';
 		var black = 'black turn';
-		// var endClasses = 'end ';
-		if (this.props.inGame) {
+		if (this.props.inGame || this.props.winner) {
 			status = 'status';
 			buttons = 'buttons';
 		}
@@ -58,6 +59,10 @@ var TopDisplay = React.createClass({
 				endArr = [<button key='1' className='end green' onClick={this.finishTurn}>End Turn</button>];
 			}
 		}
+		var restartArr = [<button key='3' className='restart' onClick={this.restartGame}>Restart Game</button>];
+		if (this.props.winner) {
+			restartArr = [<button key='3' className='restart green' onClick={this.restartGame}>Restart Game</button>];
+		}
 		return (
 			<div className="top-display">
 				<div className="player-one col">
@@ -65,7 +70,7 @@ var TopDisplay = React.createClass({
 				</div>
 				<div className="mid col">
 					<h3 className={status}>{this.props.curPlayer.name}{this.props.message}</h3>
-					<ul className={buttons}><li>{endArr}</li><li><button className='undo'>Undo Move</button></li><li><button className='restart' onClick={this.restartGame}>Restart Game</button></li></ul>
+					<ul className={buttons}><li>{endArr}</li><li><button className='undo'>Undo Move</button></li><li>{restartArr}</li></ul>
 					<ul className='dice' onClick={this.rollDice}>{diceArr}</ul>
 				</div>
 				<div className="player-two col">
@@ -89,7 +94,8 @@ var mapStateToProps = function(state, props) {
 		availableMoves: state.availableMoves,
 		validMoves: state.validMoves,
 		diceUsed: state.diceUsed,
-		highlight: state.highlight
+		highlight: state.highlight,
+		winner: state.winner
 	};
 };
 

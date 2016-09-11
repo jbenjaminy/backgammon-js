@@ -20,7 +20,8 @@ var reducers = function(state, action) {
             availableMoves: [],
             diceUsed: [],
             valid1: null,
-            valid2: null
+            valid2: null,
+            winner: null
         });
     } else if (action.type === actions.NEW_GAME_SUCCESS) {
         return Object.assign({}, state, {
@@ -116,7 +117,13 @@ var reducers = function(state, action) {
             valid1: null,
             valid2: null
         });
-    }else if (action.type === actions.FIND_VALID_MOVES_SUCCESS) {
+    } else if (action.type === actions.END_GAME) {
+        return Object.assign({}, state, {
+            winner: action.winner,
+            message: ' WINS!',
+            inGame: false
+        });   
+    } else if (action.type === actions.FIND_VALID_MOVES_SUCCESS) {
         var valid1 = null;
         var valid2 = null;
         if (action.validMoves.length === 1 || action.validMoves.length === 4) {
@@ -138,6 +145,10 @@ var reducers = function(state, action) {
         var moves = state.availableMoves;
         var removeme = action.roll; 
         var used = [];
+        var message = state.message;
+        var inGame = state.inGame;
+        var winner = state.winner;
+        var positions = action.positions;
         var moves = state.availableMoves.filter(function(val, index) {
             if (val === removeme) {
                 if (state.diceUsed.length === 0) {
@@ -153,15 +164,23 @@ var reducers = function(state, action) {
                 return false;
             } return true;
         });
+        if (positions[1].white === 15 || positions[28].black === 15) {
+            message = ' WINS!';
+            winner = state.turn;
+            inGame = false;
+        }
         return Object.assign({}, state, {
             availableMoves: moves,
-            positions: action.positions,
+            positions: positions,
             highlight: null,
             valid1: null,
             valid2: null,
-            diceUsed: used
+            diceUsed: used,
+            inGame: inGame,
+            message: message,
+            winner: winner
         });
-    } else if (action.type === actions.FIND_VALID_MOVES_ERROR) {
+    } else if (action.type === actions.UPDATE_POSITIONS_MOVES_ERROR) {
         console.error(action.error);
         return state;
     } else {
