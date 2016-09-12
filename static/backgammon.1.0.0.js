@@ -23263,7 +23263,7 @@
 	
 	var newGame = function newGame() {
 	    return function (dispatch) {
-	        var url = 'http://localhost:5000/new_game';
+	        var url = '/new_game';
 	        var request = {
 	            headers: {
 	                'Accept': 'application/json',
@@ -23305,7 +23305,7 @@
 	
 	var makeRoll = function makeRoll(numDice) {
 	    return function (dispatch) {
-	        var url = 'http://localhost:5000/roll/' + numDice;
+	        var url = '/roll/' + numDice;
 	        var request = {
 	            headers: {
 	                'Accept': 'application/json',
@@ -23347,7 +23347,7 @@
 	
 	var findValidMoves = function findValidMoves(player, fromPos, availMoves) {
 	    return function (dispatch) {
-	        var url = 'http://localhost:5000/valid_moves/' + player + '/' + fromPos + '/' + availMoves;
+	        var url = '/valid_moves/' + player + '/' + fromPos + '/' + availMoves;
 	        var request = {
 	            headers: {
 	                'Accept': 'application/json',
@@ -23392,7 +23392,7 @@
 	
 	var updatePositions = function updatePositions(toPos, fromPos, roll) {
 	    return function (dispatch) {
-	        var url = 'http://localhost:5000/update_pos/' + toPos + '/' + fromPos + '/' + roll;
+	        var url = '/update_pos/' + toPos + '/' + fromPos + '/' + roll;
 	        var request = {
 	            headers: {
 	                'Accept': 'application/json',
