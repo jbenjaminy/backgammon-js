@@ -66,15 +66,15 @@ var TopDisplay = React.createClass({
 		return (
 			<div className="top-display">
 				<div className="player-one col">
-					<h2 className={white}>{this.props.players.white.name}&nbsp;&nbsp;<img src="./white-piece.png" className='icon'/></h2>
+					<h2 className={white}>{this.props.players.white}&nbsp;&nbsp;<img src="./white-piece.png" className='icon'/></h2>
 				</div>
 				<div className="mid col">
-					<h3 className={status}>{this.props.curPlayer.name}{this.props.message}</h3>
+					<h3 className={status}>{this.props.curPlayer}{this.props.message}</h3>
 					<ul className={buttons}><li>{endArr}</li><li><button className='undo'>Undo Move</button></li><li>{restartArr}</li></ul>
 					<ul className='dice' onClick={this.rollDice}>{diceArr}</ul>
 				</div>
 				<div className="player-two col">
-					<h2 className={black}>{this.props.players.black.name}&nbsp;&nbsp;<img src="./black-piece.png" className='icon'/></h2>
+					<h2 className={black}>{this.props.players.black}&nbsp;&nbsp;<img src="./black-piece.png" className='icon'/></h2>
 				</div>
 			</div>
 		);

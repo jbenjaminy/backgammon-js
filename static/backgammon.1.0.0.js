@@ -23964,8 +23964,8 @@
 	            dice: [1],
 	            turn: 'white',
 	            players: {
-	                white: { name: 'PLAYER ONE', roll: null, moves: null },
-	                black: { name: 'PLAYER TWO', roll: null, moves: null }
+	                white: 'PLAYER ONE',
+	                black: 'PLAYER TWO'
 	            },
 	            message: ': ROLL FOR FIRST TURN',
 	            inGame: false,
@@ -23976,7 +23976,8 @@
 	            diceUsed: [],
 	            valid1: null,
 	            valid2: null,
-	            winner: null
+	            winner: null,
+	            lastRoll: null
 	        });
 	    } else if (action.type === actions.NEW_GAME_SUCCESS) {
 	        return Object.assign({}, state, {
@@ -23997,32 +23998,31 @@
 	        var dice = action.roll;
 	        var turn = state.turn;
 	        var players = state.players;
-	        players[turn].roll = dice;
+	        var lastRoll = state.lastRoll;
 	        var message = state.message;
 	        var inGame = state.inGame;
 	        var rolling = state.rolling;
 	        if (!state.inGame) {
 	            if (turn === 'white') {
 	                turn = 'black';
-	            } else if (state.players.white.roll[0] === dice[0]) {
+	                lastRoll = action.roll;
+	            } else if (lastRoll[0] === dice[0]) {
 	                turn = 'white';
-	                players.black.roll = null;
-	                players.white.roll = null;
+	                lastRoll = action.roll;
 	            } else {
-	                dice = [state.players.white.roll[0], dice[0]];
+	                dice = [lastRoll[0], dice[0]];
 	                inGame = true;
+	                message = '\'S MOVE';
+	                rolling = false;
+	                lastRoll = action.roll;
 	                if (dice[0] > dice[1]) {
 	                    turn = 'white';
-	                    message = '\'S MOVE';
-	                    rolling = false;
-	                } else {
-	                    message = '\'S MOVE';
-	                    rolling = false;
 	                }
 	            }
 	        } else {
 	            message = '\'S MOVE';
 	            rolling = false;
+	            lastRoll = action.roll;
 	        }
 	        return Object.assign({}, state, {
 	            dice: dice,
@@ -24031,7 +24031,8 @@
 	            message: message,
 	            inGame: inGame,
 	            rolling: rolling,
-	            availableMoves: dice
+	            availableMoves: dice,
+	            lastRoll: lastRoll
 	        });
 	    } else if (action.type === actions.MAKE_ROLL_ERROR) {
 	        console.error(action.error);
@@ -24300,7 +24301,7 @@
 					React.createElement(
 						'h2',
 						{ className: white },
-						this.props.players.white.name,
+						this.props.players.white,
 						'  ',
 						React.createElement('img', { src: './white-piece.png', className: 'icon' })
 					)
@@ -24311,7 +24312,7 @@
 					React.createElement(
 						'h3',
 						{ className: status },
-						this.props.curPlayer.name,
+						this.props.curPlayer,
 						this.props.message
 					),
 					React.createElement(
@@ -24349,7 +24350,7 @@
 					React.createElement(
 						'h2',
 						{ className: black },
-						this.props.players.black.name,
+						this.props.players.black,
 						'  ',
 						React.createElement('img', { src: './black-piece.png', className: 'icon' })
 					)
