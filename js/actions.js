@@ -46,7 +46,7 @@ var endGame = function(winner) {
 
 var newGame = function() {
     return function(dispatch) {
-        var url = 'http://localhost:5000/new_game';
+        var url = '/new_game';
         var request = {
                 headers: {
                     'Accept': 'application/json',
@@ -96,7 +96,7 @@ var newGameError = function(error) {
 
 var makeRoll = function(numDice) {
     return function(dispatch) {
-        var url = 'http://localhost:5000/roll/' + numDice;
+        var url = '/roll/' + numDice;
         var request = {
                 headers: {
                     'Accept': 'application/json',
@@ -146,7 +146,7 @@ var makeRollError = function(error) {
 
 var findValidMoves = function(player, fromPos, availMoves) {
     return function(dispatch) {
-        var url = 'http://localhost:5000/valid_moves/' + player + '/' + fromPos + '/' + availMoves;
+        var url = '/valid_moves/' + player + '/' + fromPos + '/' + availMoves;
         var request = {
                 headers: {
                     'Accept': 'application/json',
@@ -199,7 +199,7 @@ var findValidMovesError = function(error) {
 
 var updatePositions = function(toPos, fromPos, roll) {
     return function(dispatch) {
-        var url = 'http://localhost:5000/update_pos/' + toPos + '/' + fromPos + '/' + roll;
+        var url = '/update_pos/' + toPos + '/' + fromPos + '/' + roll;
         var request = {
                 headers: {
                     'Accept': 'application/json',
