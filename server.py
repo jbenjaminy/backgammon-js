@@ -92,8 +92,8 @@ def update_pos(to_pos, from_pos, roll):
 		if to['white'] == 1:
 			cur_pos[int(to_pos)]['white'] = to['white'] - 1
 			cur_pos[21]['white'] = cur_pos[21]['white'] + 1
-	print('from position -->', frm)
-	print('to position -->', to)
+	print('from position -->', from_pos, frm)
+	print('to position -->', to_pos, to)
 	print('current positions -->', cur_pos)
 	return json.dumps([cur_pos, int(roll)])
 
