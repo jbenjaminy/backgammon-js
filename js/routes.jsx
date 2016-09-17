@@ -8,11 +8,11 @@ import GameContainer from './components/game-container';
 
 export const routes = (
   <Router history={hashHistory}>
-    <Route path="/" component={LandingPage} />
-    <Route path="/new" component={NewGame} />
-    <Route path="/join" component={JoinGame} />
-    <Route path="/resume" component={ResumeGame} />
-    <Route path="/game/:id">
+    <Route path='/' component={LandingPage} />
+    <Route path='/new' component={NewGame} />
+    <Route path='/join' component={JoinGame} />
+    <Route path='/resume' component={ResumeGame} />
+    <Route path='/game/:id'>
         <IndexRoute component={GameContainer}/>
     </Route>  
   </Router>

@@ -3,17 +3,17 @@ import { Link } from 'react-router';
 
 export function LandingPage() {
   return (
-    <section className="landing-container">
-      <div className="landing-page">
+    <section className='landing-container'>
+      <div className='landing-page'>
         <h1>Backgammon</h1>
         <div>
-          <Link to="/new">
+          <Link to='/new'>
             <button>New Game</button>
           </Link>
-          <Link to="/join">
+          <Link to='/join'>
             <button>Join Game</button>
           </Link>
-          <Link to="/resume">
+          <Link to='/resume'>
             <button>Resume Game</button>
           </Link>
         </div>

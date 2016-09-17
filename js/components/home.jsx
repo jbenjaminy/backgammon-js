@@ -1,13 +1,15 @@
-var React = require('react');
-var Piece = require('./piece');
+import React, { PropTypes } from 'react';
+// import Piece = from './piece';
 
-var Home = React.createClass({
-	 render: function() {
-	  	  	var piecesArr = this.props.pieces.map(function(piece, index) {
-				return <li key={index}>{piece}</li>;
-			});
-	    return <ul>{this.props.pieces}</ul>;
-  	}
-});
+const propTypes = {
+  value: PropTypes.number.isRequired
+};
 
-module.exports = Home;
+export function Home(props) {
+	let piecesArr = props.pieces.map((piece, index) => {
+		return <li key={index}>{piece}</li>;
+	});
+	return <ul>{piecesArr}</ul>;
+}
+
+Home.propTypes = propTypes;

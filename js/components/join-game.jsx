@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 const propTypes = {
   dispatch: PropTypes.func,
+  gameId: PropTypes.object
 };
 
 class JoinGame extends React.Component {
@@ -29,18 +30,18 @@ class JoinGame extends React.Component {
 
   render() {
     return (
-      <section className="landing-container">
-        <div className="landing-page">
+      <section className='landing-container'>
+        <div className='landing-page'>
           <form onSubmit={this.joinGame}>
             <div>
               <h2>Enter your name:</h2>
-              <input type="text" ref={(name) => { this.name = name; }} required />
+              <input type='text' ref={(name) => { this.name = name; }} required />
             </div>
             <div>
               <h2>Enter Game ID:</h2>
-              <input type="text" ref={(id) => { this.id = id; }} required />
+              <input type='text' ref={(id) => { this.id = id; }} required />
             </div>
-            <button type="submit">Join Game</button>
+            <button type='submit'>Join Game</button>
           </form>
         </div>
       </section>
@@ -48,7 +49,7 @@ class JoinGame extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
   return {
     gameId: state.gameId
   };

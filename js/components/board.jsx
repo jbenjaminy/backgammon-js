@@ -1,51 +1,102 @@
-var React = require('react');
-var connect = require('react-redux').connect;
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Space = from './space';
+import Bar = from './bar';
+import Home = from './home';
+import Piece = from './piece';
 
-var actions = require('./actions');
-var Space = require('./space');
-var Bar = require('./bar');
-var Home = require('./home');
-var Piece = require('./piece');
+const propTypes = {
+  dispatch: PropTypes.func,
+  state: PropTypes.object
+};
 
-
-var Board = React.createClass({
-	selectSpace: function(id) {
-		var props = this.props;
-		return function() {
-			if (!props.rolling && props.availableMoves.length > 0 && props.inGame) {
-				if (props.highlight === id) {
-					return props.dispatch(actions.unhighlight());
-				} else if (props.highlight && props.validMoves.length > 0) {
-					for (var i=0; i<props.validMoves.length; i++) {
-						if (props.validMoves[i].position === id) {
+class Board extends React.Component {
+	constructor() {
+		super();
+		this.componentDidMount = this.componentDidMount.bind(this);
+		this.selectSpace = this.selectSpace.bind(this);
+	}
+	componentDidMount() {
+  		this.props.dispatch({
+      		type: 'server/findGame',
+      		data: {
+        		_id: this.props.gameId 
+        	}
+    	});
+  	}
+	selectSpace(id, callback) {
+		return callback() {
+			if (!this.props.rolling && this.props.availableMoves.length > 0 && this.props.inGame) {
+				if (this.props.highlight === id) {
+					return this.props.dispatch({
+						type: 'server/unhighlight',
+						data: {
+							_id: this.props.gameId
+						}
+					});
+				} else if (this.props.highlight && this.props.validMoves.length > 0) {
+					let validMoves = this.props.validMoves;
+					for (let move of validMoves) {
+						if (move.position === id) {
 							id = null;
-							return props.dispatch(actions.updatePositions(props.validMoves[i].position, props.highlight, props.validMoves[i].roll))
+							return this.props.dispatch({
+								type: 'server/updatePositions',
+								data: {
+									_id: this.props.gameId,
+									position: move.position,
+									highlight: this.props.highlight,
+									roll: move.roll
+								}
+							});
 							break
-						} else if (i === (props.validMoves.length - 1)) {
-							return props.dispatch(actions.unhighlight());
+						} else if (validMoves.indexOf(move) === (this.props.validMoves.length - 1)) {
+							return this.props.dispatch({
+								type: 'server/unhighlight',
+								data: {
+									_id: this.props.gameId
+								}
+							});
 						}
 					}
-				} else if ((props.positions[id][props.turn] > 0 && !props.positions[21][props.turn]) || (id === 21 && props.positions[id][props.turn])) {
-			    	var moves = props.availableMoves.join('_');
-					return props.dispatch(actions.findValidMoves(props.turn, id, moves));
-				} else if (props.highlight && props.validMoves.length === 0) {
-					return props.dispatch(actions.unhighlight());
+				} else if ((this.props.positions[id][this.props.turn] > 0 && !this.props.positions[21][this.props.turn]) || (id === 21 && this.props.positions[id][this.props.turn])) {
+			    	let moves = this.props.availableMoves.join('_');
+					return this.props.dispatch({
+						type: 'server/findValidMoves',
+						data: {
+							_id: this.props.gameId
+							turn: this.props.turn,
+							position: id,
+							availableMoves: moves
+						}
+					});
+				} else if (this.props.highlight && this.props.validMoves.length === 0) {
+					return this.props.dispatch({
+						type: 'server/unhighlight',
+						data: {
+							_id: this.props.gameId
+						}
+					});
 				}
-			} else if (props.highlight) {
-				return props.dispatch(actions.unhighlight());
+			} else if (this.props.highlight) {
+				return this.props.dispatch({
+					type: 'server/unhighlight',
+					data: {
+						_id: this.props.gameId
+					}
+				});
 			}
 		}
 	},
-	render: function() {
+	render() {
 		console.log(this.props.state);
-		var topBoard = [];
-		var bottomBoard = [];
+		let topBoard = [];
+		let bottomBoard = [];
 		if (this.props.positions) {
-			for (var i = 1; i < 29; i++) {
-				var homeClasses = 'home ';
-				var barClasses = 'bar ';
-				var spaceClasses = 'space ';
-				var pieces = [];
+			for (let i = 1; i < 29; i++) {
+				let homeClasses = 'home ';
+				let barClasses = 'bar ';
+				let spaceClasses = 'space ';
+				let pieces = [];
 				if (i === this.props.highlight) {
 					homeClasses += 'highlight';
 					barClasses += 'highlight';
@@ -56,21 +107,21 @@ var Board = React.createClass({
 					spaceClasses += 'valid';
 				}
 				if (this.props.positions[i].white) {
-					for (var j = 1; j <= this.props.positions[i].white; j++) {
+					for (let j = 1; j <= this.props.positions[i].white; j++) {
 						pieces.push(<Piece color='white'/>);
 					}
 				}
 				if (this.props.positions[i].black) {
-					for (var j = 1; j <= this.props.positions[i].black; j++) {
+					for (let j = 1; j <= this.props.positions[i].black; j++) {
 						pieces.push(<Piece color='black'/>);
 					}
 				}
 				if (i === 1 || i === 28) {
-					var container = <li className={homeClasses} key={i} onClick={this.selectSpace(i)}><Home pieces={pieces}/></li>;
+					let container = <li className={homeClasses} key={i} onClick={this.selectSpace(i)}><Home pieces={pieces}/></li>;
 				} else if (i === 8 || i === 21) {
-					var container = <li className={barClasses} key={i} onClick={this.selectSpace(i)}><Bar pieces={pieces}/></li>;
+					let container = <li className={barClasses} key={i} onClick={this.selectSpace(i)}><Bar pieces={pieces}/></li>;
 				} else {
-					var container = <li className={spaceClasses} key={i} onClick={this.selectSpace(i)}><Space pieces={pieces}/></li>;
+					let container = <li className={spaceClasses} key={i} onClick={this.selectSpace(i)}><Space pieces={pieces}/></li>;
 				}
 				if (i < 15) {
 					topBoard.unshift(container);
@@ -80,28 +131,19 @@ var Board = React.createClass({
 			}	
 		}
 		return (
-			<div className="board">
-				<ul className="board-top">{topBoard}</ul>
-				<ul className="board-bottom">{bottomBoard}</ul>
+			<div className='board'>
+				<ul className='board-top'>{topBoard}</ul>
+				<ul className='board-bottom'>{bottomBoard}</ul>
 			</div>
 		);
 	}
 });
 
-var mapStateToProps = function(state, props) {
+const mapStateToProps = (state) => {
 	return {
-		positions: state.positions,
-		highlight: state.highlight,
-		rolling: state.rolling,
-		turn: state.turn,
-		validMoves: state.validMoves,
-		availableMoves: state.availableMoves,
-		valid1: state.valid1,
-		valid2: state.valid2,
-		state: state,
-		inGame: state.inGame
-
+		state: state
 	};
 };
 
-module.exports = connect(mapStateToProps)(Board);
+Board.propTypes = propTypes;
+export const Board = connect(mapStateToProps)(Board);

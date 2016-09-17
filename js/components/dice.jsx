@@ -1,13 +1,15 @@
-var React = require('react');
+import React, { PropTypes } from 'react';
 
-var Dice = React.createClass({
-	render: function() {
-		if ((this.props.image === './dice-roll-one.gif') || (this.props.image === './dice-roll-two.gif')) {
-			return <img src={this.props.image}/>
-		}
-		var image = './dice-' + this.props.image + '.png';
-	    return <img src={image}/>
+const propTypes = {
+  value: PropTypes.number.isRequired
+};
+
+export function Dice(props) {
+	if ((props.image === './dice-roll-one.gif') || (props.image === './dice-roll-two.gif')) {
+		return <img src={props.image}/>
 	}
-});
+	let image = './dice-' + props.image + '.png';
+	    return <img src={image}/>
+}
 
-module.exports = Dice;
+Dice.propTypes = propTypes;

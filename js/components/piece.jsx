@@ -1,18 +1,19 @@
-var React = require('react');
+import React, { PropTypes } from 'react';
 
-var Piece = React.createClass({
+const propTypes = {
+  value: PropTypes.number.isRequired
+};
 
-  render: function() {
-  	var pieceSrc = './white-piece.png';
-  	var pieceClasses = 'piece white';
-  	if (this.props.color === 'black') {
-			pieceSrc = './black-piece.png';
-			pieceClasses = 'piece black';
-		};
+export function Piece(props) {
+    let pieceSrc = './white-piece.png';
+    let pieceClasses = 'piece white';
+  	if (props.color === 'black') {
+		pieceSrc = './black-piece.png';
+		pieceClasses = 'piece black';
+	}
     return(
     	<img className={pieceClasses} src={pieceSrc} />
     );
-  }
-});
+}
 
-module.exports = Piece;
+Piece.propTypes = propTypes;

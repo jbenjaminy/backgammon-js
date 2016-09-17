@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 const propTypes = {
   dispatch: PropTypes.func,
+  gameId: PropTypes.object
 };
 
 class ResumeGame extends React.Component {
@@ -41,7 +42,7 @@ class ResumeGame extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
   return {
     gameId: state.gameId
   };
