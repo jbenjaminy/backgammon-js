@@ -6,7 +6,7 @@ import JoinGame from './components/join-game';
 import ResumeGame from './components/resume-game';
 import GameContainer from './components/game-container';
 
-const routes = (
+export const routes = (
   <Router history={hashHistory}>
     <Route path="/" component={LandingPage} />
     <Route path="/new" component={NewGame} />
@@ -18,4 +18,4 @@ const routes = (
   </Router>
 );
 
-module.exports = routes;
+

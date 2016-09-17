@@ -1,36 +1,77 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var connect = require('react-redux').connect;
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Dice = from './dice';
 
-var actions = require('./actions');
-var Dice = require('./dice');
+const propTypes = {
+  dispatch: PropTypes.func,
+};
 
-var TopDisplay = React.createClass({
-	rollDice: function() {
+class TopDisplay extends React.Component {
+	constructor() {
+		super();
+		this.componentDidMount = this.componentDidMount.bind(this);
+		this.rollDice = this.rollDice.bind(this);
+		this.endTurn = this.endTurn.bind(this);
+		this.restartGame = this.restartGame.bind(this);
+	}
+  	componentDidMount() {
+  		this.props.dispatch({
+      		type: 'server/findGame',
+      		data: {
+        		_id: this.props.gameId 
+        	}
+    	});
+  	}
+	rollDice() {
 		if (this.props.rolling) {
-			this.props.dispatch(actions.rollDice());
-			var props = this.props;
-			setTimeout(function() {
-				if (!props.inGame) {
-					props.dispatch(actions.makeRoll(1));
+			this.props.dispatch({
+				type: 'server/rollDice',
+				data: {
+					_id: this.props.gameId
+				}
+			});
+			setTimeout(() => {
+				if (!this.props.inGame) {
+					this.props.dispatch({
+						type: 'server/makeRoll',
+						data: {
+							_id: this.props.gameId,
+							numDice: 1
+						}
+					});
 				} else {
-					props.dispatch(actions.makeRoll(2));
+					this.props.dispatch({
+						type: 'server/makeRoll',
+						data: {
+							_id: this.props.gameId,
+							numDice: 2
+						}
+					});
 				}
 			}, 1000);
 		}
-	},
-	finishTurn: function() {
+	}
+	endTurn() {
 		if (this.props.inGame) {
-			this.props.dispatch(actions.endTurn());
+			this.props.dispatch({
+				type: 'server/endTurn',
+				data: {
+					_id: this.props.gameId
+				}
+			});
 		}
-	},
-	restartGame: function() {
-		this.props.dispatch(actions.pageLoad());
-		this.props.dispatch(actions.newGame());
-	},
-	render: function() {
-		var diceUsed = this.props.diceUsed;
-		var diceArr = this.props.dice.map(function(dice, index) {
+	}
+	restartGame() {
+		this.props.dispatch({
+			type: 'server/restartGame',
+			data: {
+				_id: this.props.gameId
+			}
+		});
+	}
+	render() {
+		let diceUsed = this.props.diceUsed;
+		let diceArr = this.props.dice.map(function(dice, index) {
 			if ((diceUsed.length === 1 && index === diceUsed[0]) || (diceUsed.length > 1 && index < diceUsed.length)) {
 				return (
 					<li key={index}><Dice image={dice + 10}/></li>
@@ -41,10 +82,10 @@ var TopDisplay = React.createClass({
 				);
 			}
 		});
-		var buttons = 'buttons hidden';
-		var status = 'status pad';
-		var white = 'white';
-		var black = 'black turn';
+		let buttons = 'buttons hidden';
+		let status = 'status pad';
+		let white = 'white';
+		let black = 'black turn';
 		if (this.props.inGame || this.props.winner) {
 			status = 'status';
 			buttons = 'buttons';
@@ -53,13 +94,13 @@ var TopDisplay = React.createClass({
 			white = 'white turn';
 			black = 'black';
 		}
-		var endArr = [<button key='1' className='end'>End Turn</button>];
+		let endArr = [<button key='1' className='end'>End Turn</button>];
 		if (!this.props.rolling && this.props.inGame) {
 			if (this.props.availableMoves.length === 0 || (this.props.highlight && this.props.validMoves.length === 0)) {
-				endArr = [<button key='1' className='end green' onClick={this.finishTurn}>End Turn</button>];
+				endArr = [<button key='1' className='end green' onClick={this.endTurn}>End Turn</button>];
 			}
 		}
-		var restartArr = [<button key='3' className='restart' onClick={this.restartGame}>Restart Game</button>];
+		let restartArr = [<button key='3' className='restart' onClick={this.restartGame}>Restart Game</button>];
 		if (this.props.winner) {
 			restartArr = [<button key='3' className='restart green' onClick={this.restartGame}>Restart Game</button>];
 		}
@@ -79,9 +120,9 @@ var TopDisplay = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
-var mapStateToProps = function(state, props) {
+var mapStateToProps = (state, props) => {
 	return {
 		state: state,
 		curPlayer: state.players[state.turn],
@@ -95,8 +136,10 @@ var mapStateToProps = function(state, props) {
 		validMoves: state.validMoves,
 		diceUsed: state.diceUsed,
 		highlight: state.highlight,
-		winner: state.winner
+		winner: state.winner,
+		gameId: state.gameId
 	};
 };
 
-module.exports = connect(mapStateToProps)(TopDisplay);
+TopDisplay.propTypes = propTypes;
+export const TopDisplay = connect(mapStateToProps)(TopDisplay);

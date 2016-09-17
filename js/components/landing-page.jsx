@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-function LandingPage() {
+export function LandingPage() {
   return (
     <section className="landing-container">
       <div className="landing-page">
@@ -21,5 +21,3 @@ function LandingPage() {
     </section>
   );
 }
-
-module.exports = LandingPage;

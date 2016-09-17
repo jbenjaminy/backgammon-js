@@ -55,5 +55,4 @@ const mapStateToProps = (state, props) => {
 };
 
 JoinGame.propTypes = propTypes;
-
-module.exports = connect(mapStateToProps)(JoinGame);
+export const JoinGame = connect(mapStateToProps)(JoinGame);

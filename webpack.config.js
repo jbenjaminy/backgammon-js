@@ -1,10 +1,6 @@
-var path = require('path');
-
-var webpack = require('webpack');
-
-var packageData = require('./package.json');
-
-var filename = [packageData.name, packageData.version, 'js'];
+const path = require('path');
+const packageData = require('./package.json');
+const filename = [packageData.name, packageData.version, 'js'];
 
 module.exports = {
   entry: path.resolve(__dirname, 'js/index.jsx'),
