@@ -16,7 +16,7 @@ class NewGame extends React.Component {
     event.preventDefault();
     const promise = new Promise((res) => {
       res(this.props.dispatch({
-        type: 'server/newGame',
+        type: 'server/createGame',
         data: {
           playerOne: this.name.value
         }
