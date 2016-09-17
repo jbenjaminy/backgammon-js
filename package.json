@@ -1,55 +1,55 @@
 {
-  "name": "backgammon",
-  "version": "1.0.0",
-  "description": "A backgammon game made using React.js, Node.js & Socket.io",
-  "main": "server.js",
-  "scripts": {
-    "test": "mocha --compilers js:babel-register test/**/*.js*",
-    "mkdir": "mkdir -p build",
-    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js && npm run build:img",
-    "watch": "npm run watch:html & npm run watch:css & npm run watch:js & npm run watch:img",
-    "clean": "rm -rf build",
-    "build:html": "npm run clean:html && cp index.html build/",
-    "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
-    "clean:html": "rm -f build/index.html",
-    "build:css": "npm run clean:css && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
-    "watch:css": "npm run build:css && chokidar 'css/**/*.less' -c 'npm run build:css'",
-    "clean:css": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
-    "build:js": "npm run clean:js && webpack",
-    "watch:js": "npm run build:js && webpack --watch",
-    "clean:js": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
-    "build:img": "npm run clean:img && cp -r img/ build/",
-    "clean:img": "rm -rf build/img/",
-    "watch:img": "npm run build:img && webpack --watch"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "http-server": "^0.9.0",
-    "less": "^2.7.1",
-    "mongoose": "^4.6.0",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "react-redux": "^4.4.5",
-    "react-router": "^2.8.1",
-    "redux": "^3.5.2",
-    "redux-socket.io": "^1.2.0",
-    "socket.io": "^1.4.8"
-  },
-  "devDependencies": {
-    "babel-core": "^6.11.4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
-    "chokidar-cli": "^1.2.0",
-    "webpack": "^1.13.1"
-  }
+    "name": "backgammon",
+    "version": "1.0.0",
+    "description": "A backgammon game made using React.js, Node.js & Socket.io",
+    "main": "server.js",
+    "scripts": {
+        "test": "mocha --compilers js:babel-register test/**/*.js*",
+        "mkdir": "mkdir -p build",
+        "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js && npm run build:img",
+        "watch": "npm run watch:html & npm run watch:css & npm run watch:js & npm run watch:img",
+        "clean": "rm -rf build",
+        "build:html": "npm run clean:html && cp index.html build/",
+        "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
+        "clean:html": "rm -f build/index.html",
+        "build:css": "npm run clean:css && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
+        "watch:css": "npm run build:css && chokidar 'css/**/*.less' -c 'npm run build:css'",
+        "clean:css": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
+        "build:js": "npm run clean:js && webpack",
+        "watch:js": "npm run build:js && webpack --watch",
+        "clean:js": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
+        "build:img": "npm run clean:img && cp -r img/ build/",
+        "clean:img": "rm -rf build/img/",
+        "watch:img": "npm run build:img && webpack --watch"
+    },
+    "babel": {
+        "presets": [
+            "es2015",
+            "react"
+        ]
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.15.2",
+        "express": "^4.14.0",
+        "http-server": "^0.9.0",
+        "less": "^2.7.1",
+        "mongoose": "^4.6.0",
+        "react": "^15.3.0",
+        "react-dom": "^15.3.0",
+        "react-redux": "^4.4.5",
+        "react-router": "^2.8.1",
+        "redux": "^3.5.2",
+        "redux-socket.io": "^1.2.0",
+        "socket.io": "^1.4.8"
+    },
+    "devDependencies": {
+        "babel-core": "^6.11.4",
+        "babel-loader": "^6.2.4",
+        "babel-preset-es2015": "^6.9.0",
+        "babel-preset-react": "^6.11.1",
+        "chokidar-cli": "^1.2.0",
+        "webpack": "^1.13.1"
+    }
 }

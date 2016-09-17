@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-  value: PropTypes.number.isRequired
+    value: PropTypes.number.isRequired
 };
 
 export function Piece(props) {

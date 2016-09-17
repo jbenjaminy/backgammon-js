@@ -6,8 +6,8 @@ import Home = from './home';
 import Piece = from './piece';
 
 const propTypes = {
-  dispatch: PropTypes.func,
-  state: PropTypes.object
+	dispatch: PropTypes.func,
+	state: PropTypes.object
 };
 
 class Board extends React.Component {
@@ -26,7 +26,7 @@ class Board extends React.Component {
   	}
 	selectSpace(id, callback) {
 		return callback() {
-			if (!this.props.rolling && this.props.availableMoves.length > 0 && this.props.inGame) {
+			if (!this.props.isRolling && this.props.availableMoves.length > 0 && this.props.inGame) {
 				if (this.props.highlight === id) {
 					return this.props.dispatch({
 						type: 'server/unhighlight',

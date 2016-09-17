@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 // import Piece = from './piece';
 
 const propTypes = {
-  value: PropTypes.number.isRequired
+	value: PropTypes.number.isRequired
 };
 
 export function Bar(props) {

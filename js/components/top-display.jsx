@@ -24,7 +24,7 @@ class TopDisplay extends React.Component {
     	});
   	}
 	rollDice() {
-		if (this.props.rolling) {
+		if (this.props.state.isRolling) {
 			this.props.dispatch({
 				type: 'server/rollDice',
 				data: {
@@ -32,7 +32,7 @@ class TopDisplay extends React.Component {
 				}
 			});
 			setTimeout(() => {
-				if (!this.props.inGame) {
+				if (!this.props.state.inGame) {
 					this.props.dispatch({
 						type: 'server/makeRoll',
 						data: {
@@ -96,7 +96,7 @@ class TopDisplay extends React.Component {
 			black = 'black';
 		}
 		let endArr = [<button key='1' className='end'>End Turn</button>];
-		if (!this.props.state.rolling && this.props.state.inGame) {
+		if (!this.props.state.isRolling && this.props.state.inGame) {
 			if (this.props.state.availableMoves.length === 0 || (this.props.state.highlight && this.props.state.validMoves.length === 0)) {
 				endArr = [<button key='1' className='end green' onClick={this.endTurn}>End Turn</button>];
 			}
