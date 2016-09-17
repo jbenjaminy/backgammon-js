@@ -1,9 +1,12 @@
 import { createStore, applyMiddleware, compose} from 'redux';
-var reducers = require('./reducers');
-var actions = require('./actions');
-var thunk = require('redux-thunk').default;
+import reducer from './reducers';
+import createSocketIoMiddleware from 'redux-socket.io';
+import io from 'socket.io-client';
 
-var store = createStore(reducers, compose( applyMiddleware(thunk),
-window.devToolsExtension ? window.devToolsExtension() : f => f));
+let socket = io('');
+console.log('socket', socket);
+let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
+console.log('middleware', socketIoMiddleware)
+const store = applyMiddleware(socketIoMiddleware)(createStore)(reducer);
 
-module.exports = store;
+export default store;

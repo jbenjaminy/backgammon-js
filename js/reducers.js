@@ -23,6 +23,7 @@ var reducers = function(state, action) {
             valid2: null,
             winner: null,
             lastRoll: null,
+            gameId: null
         });
     } else if (action.type === actions.NEW_GAME_SUCCESS) {
         return Object.assign({}, state, {

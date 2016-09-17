@@ -1,17 +1,14 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Provider = require('react-redux').Provider;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-var actions = require('./actions');
-var store = require('./store');
-var GameContainer = require('./game-container');
+import store from './redux/store';
+import routes from './routes';
 
-document.addEventListener('DOMContentLoaded', function() {
-	store.dispatch(actions.pageLoad());
-	store.dispatch(actions.newGame());
-
+document.addEventListener('DOMContentLoaded', () => {
   	ReactDOM.render(
     	<Provider store={store}>
-      		<GameContainer />
-    	</Provider>, document.getElementById('app'));
+      		{routes}
+    	</Provider>, document.getElementById('app')
+    );
 });

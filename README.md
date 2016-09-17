@@ -10,11 +10,3 @@
 		*anything global is visible to all users
 		*cur_pos global would need to become per user/per game storage
 	9) doubling cube
-
-/* GETTING PYTHON SETUP */
-# INSTALL FLASK MODULE
-	# python3 -m pip install flask
-# RUN SERVER
-	# `python3 server.py`
-# VISIT FRONTEND ENDPOINT
-	http://localhost:5000/static/index.html
