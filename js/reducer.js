@@ -4,7 +4,7 @@ export function reducer(state = {}, action) {
             return Object.assign({}, state, {
                 gameId: action.data.gameId,
                 players: action.data.players,      
-                positions: action.data.positions,
+                positions: action.data.curPos,
                 dice: action.data.dice,
                 validMoves: action.data.validMoves,
                 availableMoves: action.data.availableMoves,       
