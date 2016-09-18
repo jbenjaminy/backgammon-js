@@ -1,6 +1,6 @@
 const Game = require('../models');
 
-/* MAKE A NEW ROLL AND UPDATE GAME */
+/* CHECKS FOR VALID MOVES AND UPDATE GAME */
 let findValidMoves = (data) => {
     let fromPos = data.fromPos;
     let state = data.state;
@@ -34,7 +34,7 @@ let findValidMoves = (data) => {
     });
 }
 
-/* CREATE A RANDOM ROLL AND ADJUST GAME PROPERTIES */
+/* CHECKS TO SEE IF SELECTED POSITION HAS ANY VALID MOVES */
 let checkMoves = (fromPos, game) => {
 	let start = parseInt(fromPos);
 	let player = game.turn;
@@ -109,13 +109,13 @@ let checkMoves = (fromPos, game) => {
     	}
     	game.highlight = start;
     	game.validMoves = validMoves;
-    	game.valid1 = null;
-        game.valid2 = null;
+    	game.validOne = null;
+        game.validTwo = null;
         if (validMoves.length === 1 || validMoves.length === 3 || validMoves.length === 4) {
-            game.valid1 = validMoves[0].position;
+            game.validOne = validMoves[0].position;
         } else if (validMoves.length === 2) {
-            game.valid1 = validMoves[0].position;
-            game.valid2 = validMoves[1].position;
+            game.validOne = validMoves[0].position;
+            game.validTwo = validMoves[1].position;
         }
         resolve(game);
     });
