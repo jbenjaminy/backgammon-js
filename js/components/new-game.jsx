@@ -53,4 +53,4 @@ const mapStateToProps = (state) => {
 };
 
 NewGame.propTypes = propTypes;
-export const NewGame = connect(mapStateToProps)(NewGame);
+module.exports = connect(mapStateToProps)(NewGame);

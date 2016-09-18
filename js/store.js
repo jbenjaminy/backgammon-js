@@ -5,4 +5,6 @@ import io from 'socket.io-client';
 
 let socket = io('');
 let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
-export default const store = applyMiddleware(socketIoMiddleware)(createStore)(reducer);
+const store = applyMiddleware(socketIoMiddleware)(createStore)(reducer);
+
+export default store;

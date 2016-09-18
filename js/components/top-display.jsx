@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Dice = from './dice';
+import Dice from './dice';
 
 const propTypes = {
   dispatch: PropTypes.func,
@@ -32,7 +32,7 @@ class TopDisplay extends React.Component {
 					this.props.dispatch({
 						type: 'server/makeRoll',
 						data: {
-							state: this.props.state
+							state: this.props.state,
 							numDice: 1
 						}
 					});
@@ -122,4 +122,4 @@ const mapStateToProps = (state) => {
 };
 
 TopDisplay.propTypes = propTypes;
-export const TopDisplay = connect(mapStateToProps)(TopDisplay);
+module.exports = connect(mapStateToProps)(TopDisplay);

@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Space = from './space';
-import Bar = from './bar';
-import Home = from './home';
-import Piece = from './piece';
+import Space from './space';
+import Bar from './bar';
+import Home from './home';
+import Piece from './piece';
 
 const propTypes = {
 	dispatch: PropTypes.func,
@@ -23,7 +23,7 @@ class Board extends React.Component {
     	});
   	}
 	selectSpace(id, callback) {
-		return callback() {
+		return callback = () => {
 			if (!this.props.state.isRolling && this.props.state.availableMoves.length > 0 && this.props.state.inGame) {
 				if (this.props.state.highlight === id) {
 					return this.props.dispatch({
@@ -55,8 +55,8 @@ class Board extends React.Component {
 					return this.props.dispatch({
 						type: 'server/findValidMoves',
 						data: {
-							state: this.props.state
-							fromPos: id,
+							state: this.props.state,
+							fromPos: id
 						}
 					});
 				} else if (this.props.state.highlight && this.props.state.validMoves.length === 0) {
@@ -72,7 +72,7 @@ class Board extends React.Component {
 				});
 			}
 		}
-	},
+	}
 	render() {
 		console.log(this.props.state);
 		let topBoard = [];
@@ -123,7 +123,7 @@ class Board extends React.Component {
 			</div>
 		);
 	}
-});
+}
 
 const mapStateToProps = (state) => {
 	return {
@@ -132,4 +132,4 @@ const mapStateToProps = (state) => {
 };
 
 Board.propTypes = propTypes;
-export const Board = connect(mapStateToProps)(Board);
+module.exports = connect(mapStateToProps)(Board);

@@ -49,4 +49,4 @@ const mapStateToProps = (state) => {
 };
 
 ResumeGame.propTypes = propTypes;
-export const ResumeGame = connect(mapStateToProps)(ResumeGame);
+module.exports = connect(mapStateToProps)(ResumeGame);
