@@ -1,82 +1,124 @@
-						data: {
-							state: this.props.state
-							fromPos: id,
-						}
+const Game = require('../models');
 
-else if (action.type === actions.SELECT) {
-        var highlight = action.id;
-        var valid1 = state.valid1;
-        var valid2 = state.valid2;
-        if (state.highlight === highlight) {
-            highlight = null;
-            valid1 = null;
-            valid2 = null;
-        }
-        return Object.assign({}, state, {
-            highlight: highlight,
-            valid1: valid1,
-            valid2: valid2
+/* MAKE A NEW ROLL AND UPDATE GAME */
+let findValidMoves = (data) => {
+    let fromPos = data.fromPos;
+    let state = data.state;
+    let id = state.gameId;
+    return new Promise((resolve, reject) => {
+        const promise = checkMoves(fromPos, state);
+        promise.then((game) => {
+            Game.findOneAndUpdate({ _id: id }, {
+                players: game.players,      
+                curPos: game.curPos,
+                dice: game.dice,
+                validMoves: game.validMoves,
+                availableMoves: game.availableMoves,       
+                diceUsed: game.diceUsed,       
+                inGame: game.inGame,       
+                isRolling: game.isRolling,       
+                turn: game.turn,       
+                message: game.message,       
+                lastRoll: game.lastRoll,       
+                highlight: game.highlight,       
+                validOne: game.validOne,       
+                validTwo: game.validTwo,       
+                winner: game.winner    
+            }, { new: true }, (err, game) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(game);
+            });
         });
-    }
+    });
+}
 
-def find_valid_moves(player, from_pos, avail_moves):
-	from_pos = int(from_pos)
-	start = from_pos
-	if start in (28, 1):
-		return json.dumps([[], from_pos])
-	valid_moves = []
-	moves = avail_moves.split('_')
-	for move in moves:
-		# checks that moving from current player's occupied space or the bar
-		if (player == 'white' and cur_pos[from_pos][player] > 0 and (sum(cur_pos[i][player] for i in range(1, 8)) == 15)):
-			end = start - int(move)
-			if end < 1: 
-				end = 1
-			if (cur_pos[end]['black'] == 1 or cur_pos[end]['black'] == 0) and (start - 1 >= int(move) or sum(cur_pos[i][player] for i in range(start + 1, start + 5)) == 0):
-				valid_moves.append({'position': end, 'roll': int(move)})
-		elif (player == 'black' and cur_pos[from_pos][player] > 0 and (sum(cur_pos[i][player] for i in range(22, 29)) == 15)):
-			end = start + int(move)
-			if end > 28: 
-				end = 28
-			if (cur_pos[end]['white'] == 1 or cur_pos[end]['white'] == 0) and (28 - start >= int(move) or sum(cur_pos[i][player] for i in range(start - 5, start)) == 0):
-				valid_moves.append({'position': end, 'roll': int(move)})
-		elif ((cur_pos[from_pos][player] > 0) and (cur_pos[21][player] == 0)) or (from_pos == 21 and cur_pos[21][player]):
-			if player == 'white':
-				end = start - int(move)
-				# if move crosses bar, bar is not included in projected 'end' position
-				if (start > 21 and end <= 21) or (start > 8 and end <= 8):
-					end = end - 1
-				# when piece is trapped/rolling off of bar
-				elif start == 21:
-					end = 28 - int(move)
-				# checks that 'end' position is not the home space and opponent has 1 or no pieces on space
-				if ((end > 1) and (cur_pos[end]['black'] == 1 or cur_pos[end]['black'] == 0)):
-					valid_moves.append({'position': end, 'roll': int(move)})
-			elif player == 'black':
-				end = start + int(move)
-				# if move crosses bar, bar is not included in projected 'end' position
-				if ((start < 21) and (end >= 21)) or ((start < 8) and (end >= 8)):
-					end = end + 1
-				# when piece is trapped/rolling off of bar
-				elif start == 21:
-					end = 1 + int(move)
-				# checks that 'end' position is not the home space and opponent has 1 or no pieces on space
-				if ((end < 28) and (cur_pos[end]['white'] == 1 or cur_pos[end]['white'] == 0)):
-					valid_moves.append({'position': end, 'roll': int(move)})
-	return json.dumps([valid_moves, from_pos])
-
-else if (action.type === actions.FIND_VALID_MOVES_SUCCESS) {
-        var valid1 = null;
-        var valid2 = null;
-        if (action.validMoves.length === 1 || action.validMoves.length === 3 || action.validMoves.length === 4) {
-            valid1 = action.validMoves[0].position;
-        } else if (action.validMoves.length === 2) {
-            valid1 = action.validMoves[0].position;
-            valid2 = action.validMoves[1].position;
+/* CREATE A RANDOM ROLL AND ADJUST GAME PROPERTIES */
+let checkMoves = (fromPos, game) => {
+	let start = parseInt(fromPos);
+	let player = game.turn;
+	let moves = game.availableMoves;
+	let pos = game.curPos;
+	let validMoves = [];
+    return new Promise((resolve) => {
+    	// checks if trying to move from one of the home spaces, and returns no valid moves
+    	if (start === || start === 28) {
+    		game.validMoves = validMoves;
+    		resolve(game);
+    	}
+    	// for the from position, checks each move from the available moves to see if it is valid
+    	for (let move of moves) {
+    		move = parseInt(move);
+    		if player =
+    		// checks that move is from current player's occupied space and if all white pieces are in white's home quadrant and they are ready to move home
+    		if ((player === 'white') && (pos[start].white > 0) && ((pos.1.white + pos.2.white + pos.3.white + pos.4.white + pos.5.white + pos.6.white + pos.7.white) === 15)) {
+    			// sets up variable for position of resultant move and adjusts if it is past the home space
+    			let end = start - move;
+    			if (end < 1) {
+					end = 1;
+    			}
+    			// checks that 'end' space is not occupied by more than one black piece, and that a move to the home space is either an exact roll or that there are no pieces further from the home space than the piece being moved.
+    			if (((pos[end].black === 1) || (pos[end].black === 0)) && ((start - 1 >= move) || ((pos[start + 1].white + pos[start + 2].white + pos[start + 3].white + pos[start + 4].white + pos[start + 5].white) === 0))) {
+    				// if everything checks out, adds move as valid move
+    				validMoves.push({'position': end, 'roll': move});
+    			}
+    		// repeats same process as lines 53 through 64 for black
+    		} else if ((player === 'black') && (pos[start].black > 0) && ((pos.22.black + pos.23.black + pos.24.black + pos.25.black + pos.26.black + pos.27.black + pos.28.black) === 15)) {
+    			let end = start - move;
+    			if (end > 28) {
+					end = 28;
+    			}
+    			if (((pos[end].white === 1) || (pos[end].white === 0)) && ((28 - start >= move) || ((pos[start - 1].black + pos[start - 2].black + pos[start - 3].black + pos[start - 4].black + pos[start - 5].black) === 0))) {
+    				validMoves.push({'position': end, 'roll': move});
+    			}
+    		// if player is not ready to move home, checks that they are either moving from a space they occupy and have no pieces on the bar, or are moving from the bar if they do have pieces on the bar.
+    		} else if (((pos[start][player] > 0) && (pos[21][player] === 0)) || ((start === 21) && (pos[21][player] >= 1))) {
+    			// if player is white, moves piece clockwise
+    			if (player === 'white') {
+    				end = start - move;
+    				// if move crosses the bar, it is not included as a space in the projected 'end' position
+    				if (((start > 21) && (end <= 21)) || ((start > 8) && (end <= 8))) {
+    					end = end - 1;
+    				// for cases where player is rolling off the bar
+    				} else if (start === 21) {
+    					end = 28 - move;
+    				}
+       				// checks that 'end' position is not the home space and opponent has one or no pieces on the space
+    				if ((end > 1) && ((pos[end].black === 1) || (pos[end].black === 0))) {
+    					// if everything checks out, adds move as valid move
+    					validMoves.push({'position': end, 'roll': move})
+    				}
+    			} else if (player === 'black') {
+    				// if player is black, moves piece counter-clockwise
+    				end = start + move;
+    				// if move crosses the bar, it is not included as a space in the projected 'end' position
+    				if (((start < 21) && (end >= 21)) || ((start < 8) && (end >= 8))) {
+    					end = end + 1;
+    				// for cases where player is rolling off the bar
+    				} else if (start === 21) {
+    					end = 1 + move;
+    				}
+       				// checks that 'end' position is not the home space and opponent has one or no pieces on the space
+    				if ((end < 28) && ((pos[end].white === 1) || (pos[end].white === 0))) {
+    					// if everything checks out, adds move as valid move
+    					validMoves.push({'position': end, 'roll': move})
+    				}
+    			}
+    		}
+    	}
+    	game.highlight = start;
+    	game.validMoves = validMoves;
+    	game.valid1 = null;
+        game.valid2 = null;
+        if (validMoves.length === 1 || validMoves.length === 3 || validMoves.length === 4) {
+            game.valid1 = validMoves[0].position;
+        } else if (validMoves.length === 2) {
+            game.valid1 = validMoves[0].position;
+            game.valid2 = validMoves[1].position;
         }
-        return Object.assign({}, state, {
-            validMoves: action.validMoves,
-            highlight: action.id,
-            valid1: valid1,
-            valid2: valid2
-        });
+        resolve(game);
+    });
+}
+
+module.exports = findValidMoves;
