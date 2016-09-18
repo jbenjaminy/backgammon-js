@@ -1,6 +1,6 @@
 const Game = require('../models');
 
-/* RESTART GAME BY ACCESS CODE */
+/* RESTART GAME BY OBJECT ID */
 let restartGame = (data) => {
     let id = data.gameId;
     return new Promise((resolve, reject) => {

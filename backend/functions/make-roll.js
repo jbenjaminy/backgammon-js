@@ -1,60 +1,88 @@
-data: {
-                            state: this.props.state
-                            numDice: 1
-                        }
+const Game = require('../models');
 
-var randArr = [];
-  for (var i = 0; i < request.numDice; i++) {
-    // random number generation
-    	var randNum = Math.random() * (7 - 1) + 1;
-    	// if, else statements with Array.length method
-      	if (randArr.list === 1 && randNum === randArr[0]) {
-      		randArr.push(randNum);
-      		randArr.push(randNum);
-      		randArr.push(randNum);
-      	} else {
-      		randArr.push(randNum);
-      	}
-    // return response.json
-    return response.json(randArr);
-  }
-   } else if (action.type === actions.MAKE_ROLL_SUCCESS) {
-        var dice = action.roll;
-        var turn = state.turn;
-        var players = state.players;
-        var lastRoll = state.lastRoll;
-        var message = state.message;
-        var inGame = state.inGame;
-        var rolling = state.rolling;
-        if (!state.inGame) {
-            if (turn === 'white') {
-                turn = 'black';
-                lastRoll = action.roll;
-            } else if (lastRoll[0] === dice[0]) {
-                turn = 'white';
-                lastRoll = action.roll;
+/* MAKE A NEW ROLL AND UPDATE GAME */
+let makeRoll = (data) => {
+    let numDice = data.numDice;
+    let state = data.state;
+    let id = state.gameId;
+    return new Promise((resolve, reject) => {
+        const promise = newRoll(numDice, state);
+        promise.then((game) => {
+            Game.findOneAndUpdate({ _id: id }, {
+                players: game.players,      
+                curPos: game.curPos,
+                dice: game.dice,
+                validMoves: game.validMoves,
+                availableMoves: game.availableMoves,       
+                diceUsed: game.diceUsed,       
+                inGame: game.inGame,       
+                isRolling: game.isRolling,       
+                turn: game.turn,       
+                message: game.message,       
+                lastRoll: game.lastRoll,       
+                highlight: game.highlight,       
+                validOne: game.validOne,       
+                validTwo: game.validTwo,       
+                winner: game.winner    
+            }, { new: true }, (err, game) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(game);
+            });
+        });
+    });
+}
+
+module.exports = makeRoll;
+
+/* CREATE A RANDOM ROLL AND ADJUST GAME PROPERTIES */
+let newRoll = (numDice, game) => {
+    return new Promise((resolve) => {
+        let randArr = [];
+        for (let i = 0; i < numDice; i++) {
+            // random number generation
+            let randNum = Math.random() * (7 - 1) + 1;
+            // checks if doubles were rolled on second roll and adds dice to array accordingly.
+            if (randArr.length === 1 && randNum === randArr[0]) {
+                randArr.push(randNum);
+                randArr.push(randNum);
+                randArr.push(randNum);
             } else {
-                dice = [lastRoll[0], dice[0]];
-                inGame = true;
-                message = '\'S MOVE';
-                rolling = false;
-                lastRoll = action.roll;
+                randArr.push(randNum);
+            }
+        }
+        let dice = randArr
+        // checks if rolling for first turn
+        if (!game.inGame) {
+            // if turn was white's, switches to black's turn and adds white's roll as lastRoll
+            if (game.turn === 'white') {
+                game.turn = 'black';
+                game.lastRoll = randArr;
+            // if roll was black's checks if rolls were a tie and switches back to white's turn to re-roll
+            } else if (game.lastRoll[0] === dice[0]) {
+                game.turn = 'white';
+                game.lastRoll = randArr;
+            // if roll was blacks and rolls did not tie, starts game (assuming black had higher roll)
+            } else {
+                dice = [game.lastRoll[0], dice[0]];
+                game.inGame = true;
+                game.message = '\'S MOVE';
+                game.isRolling = false;
+                game.lastRoll = randArr;
+                // if white's roll was higher, starts game, giving white the first turn
                 if (dice[0] > dice[1]) {
-                    turn = 'white';
+                    game.turn = 'white';
                 } 
             }
+        // if roll was during the normal game, switches to player's move
         } else {
-            message = '\'S MOVE';
-            rolling = false;
-            lastRoll = action.roll;
+            game.message = '\'S MOVE';
+            game.isRolling = false;
+            game.lastRoll = randArr;
         }
-        return Object.assign({}, state, {
-            dice: dice,
-            turn: turn,
-            players: players,
-            message: message,
-            inGame: inGame,
-            rolling: rolling,
-            availableMoves: dice,
-            lastRoll: lastRoll,
-        });
+        game.availableMoves = dice;
+        game.dice = dice;
+        resolve(game);
+    });
+}
