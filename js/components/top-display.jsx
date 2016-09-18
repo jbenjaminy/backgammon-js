@@ -18,25 +18,21 @@ class TopDisplay extends React.Component {
   	componentDidMount() {
   		this.props.dispatch({
       		type: 'server/findGame',
-      		data: {
-        		_id: this.props.state.gameId 
-        	}
+      		data: this.props.state
     	});
   	}
 	rollDice() {
 		if (this.props.state.isRolling) {
 			this.props.dispatch({
 				type: 'server/rollDice',
-				data: {
-					_id: this.props.state.gameId
-				}
+				data: this.props.state
 			});
 			setTimeout(() => {
 				if (!this.props.state.inGame) {
 					this.props.dispatch({
 						type: 'server/makeRoll',
 						data: {
-							_id: this.props.state.gameId,
+							state: this.props.state
 							numDice: 1
 						}
 					});
@@ -44,7 +40,7 @@ class TopDisplay extends React.Component {
 					this.props.dispatch({
 						type: 'server/makeRoll',
 						data: {
-							_id: this.props.state.gameId,
+							state: this.props.state,
 							numDice: 2
 						}
 					});
@@ -56,18 +52,14 @@ class TopDisplay extends React.Component {
 		if (this.props.state.inGame) {
 			this.props.dispatch({
 				type: 'server/endTurn',
-				data: {
-					_id: this.props.state.gameId
-				}
+				data: this.props.state
 			});
 		}
 	}
 	restartGame() {
 		this.props.dispatch({
 			type: 'server/restartGame',
-			data: {
-				_id: this.props.state.gameId
-			}
+			data: this.props.state
 		});
 	}
 	render() {
@@ -111,7 +103,7 @@ class TopDisplay extends React.Component {
 					<h2 className={white}>{this.props.state.players.white}&nbsp;&nbsp;<img src='./white-piece.png' className='icon'/></h2>
 				</div>
 				<div className='mid col'>
-					<h3 className={status}>{this.props.state.curPlayer}{this.props.state.message}</h3>
+					<h3 className={status}>{this.props.state.players[this.props.state.turn]}{this.props.state.message}</h3>
 					<ul className={buttons}><li>{endArr}</li><li><button className='undo'>Undo Move</button></li><li>{restartArr}</li></ul>
 					<ul className='dice' onClick={this.rollDice}>{diceArr}</ul>
 				</div>

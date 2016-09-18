@@ -1,3 +1,8 @@
+						data: {
+							state: this.props.state
+							fromPos: id,
+						}
+
 else if (action.type === actions.SELECT) {
         var highlight = action.id;
         var valid1 = state.valid1;

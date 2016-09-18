@@ -18,9 +18,7 @@ class ResumeGame extends React.Component {
             res(
                 this.props.dispatch({
                     type: 'server/findGame',
-                    data: {
-                        _id: this.id.value
-                    }
+                    data: this.id.value
                 })
             );
         });

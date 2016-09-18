@@ -19,7 +19,7 @@ class JoinGame extends React.Component {
                 this.props.dispatch({
                     type: 'server/joinGame',
                     data: {
-                        _id: this.id.value,
+                        id: this.id.value,
                         playerTwo: this.name.value
                     }
                 })

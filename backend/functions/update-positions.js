@@ -1,3 +1,9 @@
+data: {
+                                    state: this.props.state,
+                                    toPos: move.position,
+                                    roll: move.roll
+                                }
+
 @app.route("/update_pos/<to_pos>/<from_pos>/<roll>")
 def update_pos(to_pos, from_pos, roll):
 	to = cur_pos[int(to_pos)]

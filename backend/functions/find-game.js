@@ -2,9 +2,8 @@ const Game = require('../models');
 
 /* FIND GAME BY OBJECT ID */
 let findGame = (data) => {
-	let id = data._id;
 	return new Promise((resolve, reject) => {
-		Game.find({ id }, (err, game) => {
+		Game.find({ _id: data }, (err, game) => {
 			if (err) {
 				reject(err);
 			}

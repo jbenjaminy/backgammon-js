@@ -2,9 +2,9 @@ export function reducer(state = {}, action) {
     switch (action.type) {
         case 'update': {
             return Object.assign({}, state, {
-                gameId: action.data.gameId,
+                gameId: action.data._id,
                 players: action.data.players,      
-                positions: action.data.curPos,
+                curPos: action.data.curPos,
                 dice: action.data.dice,
                 validMoves: action.data.validMoves,
                 availableMoves: action.data.availableMoves,       

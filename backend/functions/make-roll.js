@@ -1,3 +1,8 @@
+data: {
+                            state: this.props.state
+                            numDice: 1
+                        }
+
 var randArr = [];
   for (var i = 0; i < request.numDice; i++) {
     // random number generation
