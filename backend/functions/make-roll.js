@@ -34,8 +34,6 @@ let makeRoll = (data) => {
     });
 }
 
-module.exports = makeRoll;
-
 /* CREATE A RANDOM ROLL AND ADJUST GAME PROPERTIES */
 let newRoll = (numDice, game) => {
     return new Promise((resolve) => {
@@ -86,3 +84,5 @@ let newRoll = (numDice, game) => {
         resolve(game);
     });
 }
+
+module.exports = makeRoll;
