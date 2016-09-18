@@ -4,7 +4,7 @@ const propTypes = {
     value: PropTypes.number.isRequired
 };
 
-export function Piece(props) {
+function Piece(props) {
     let pieceSrc = './white-piece.png';
     let pieceClasses = 'piece white';
   	if (props.color === 'black') {
@@ -17,3 +17,5 @@ export function Piece(props) {
 }
 
 Piece.propTypes = propTypes;
+
+module.exports = Piece;

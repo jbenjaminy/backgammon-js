@@ -5,7 +5,7 @@ const propTypes = {
  	value: PropTypes.number.isRequired
 };
 
-export function Space(props) {
+function Space(props) {
 	let piecesArr = props.pieces.map((piece, index) => {
 		return <li key={index}>{piece}</li>;
 	});
@@ -13,3 +13,5 @@ export function Space(props) {
 }
 
 Space.propTypes = propTypes;
+
+module.exports = Space;

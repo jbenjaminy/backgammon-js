@@ -24,6 +24,7 @@ let newGame = (data) => {
             if (err) {
                 reject(err);
             }
+            console.log(game);
             resolve(game);
         });
     });

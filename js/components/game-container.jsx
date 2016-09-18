@@ -2,7 +2,7 @@ import React from 'react';
 import TopDisplay from './top-display';
 import Board from './board';
 
-export function GameContainer() {
+function GameContainer() {
 	return (
 		<div className='game-container'>
 		    <TopDisplay />
@@ -10,3 +10,5 @@ export function GameContainer() {
 		</div>
 	);
 }
+
+module.exports = GameContainer;

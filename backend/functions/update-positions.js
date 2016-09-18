@@ -38,7 +38,7 @@ let updatePositions = (data) => {
 /* ADJUSTS POSITIONS TO REFLECT PLAYER'S MOVE */
 let adjustPos = (toPos, removeMe, game) => {
     let pos = game.curPos;
-    let toPos = parseInt(toPos);
+    toPos = parseInt(toPos);
     let fromPos = game.highlight;
     let to = pos[toPos];
     let frm = pos[fromPos];

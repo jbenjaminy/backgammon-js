@@ -23086,10 +23086,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.reducer = reducer;
 	function reducer() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	    var action = arguments[1];
@@ -23122,6 +23118,8 @@
 	            }
 	    }
 	}
+	
+	module.exports = reducer;
 
 /***/ },
 /* 198 */
@@ -30634,11 +30632,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.routes = undefined;
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -30667,7 +30660,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var routes = exports.routes = _react2.default.createElement(
+	var routes = _react2.default.createElement(
 	  _reactRouter.Router,
 	  { history: _reactRouter.hashHistory },
 	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _landingPage2.default }),
@@ -30680,6 +30673,8 @@
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _gameContainer2.default })
 	  )
 	);
+	
+	module.exports = routes;
 
 /***/ },
 /* 249 */
@@ -36225,11 +36220,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.LandingPage = LandingPage;
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -36284,6 +36274,8 @@
 	        )
 	    );
 	}
+	
+	module.exports = LandingPage;
 
 /***/ },
 /* 311 */
@@ -36616,11 +36608,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.GameContainer = GameContainer;
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -36643,6 +36630,8 @@
 			_react2.default.createElement(_board2.default, null)
 		);
 	}
+	
+	module.exports = GameContainer;
 
 /***/ },
 /* 315 */
@@ -36891,11 +36880,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Dice = Dice;
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -36915,6 +36899,8 @@
 	}
 	
 	Dice.propTypes = propTypes;
+	
+	module.exports = Dice;
 
 /***/ },
 /* 317 */
@@ -37148,11 +37134,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Space = Space;
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -37181,17 +37162,14 @@
 	}
 	
 	Space.propTypes = propTypes;
+	
+	module.exports = Space;
 
 /***/ },
 /* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Bar = Bar;
 	
 	var _react = __webpack_require__(1);
 	
@@ -37221,17 +37199,14 @@
 	}
 	
 	Bar.propTypes = propTypes;
+	
+	module.exports = Bar;
 
 /***/ },
 /* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Home = Home;
 	
 	var _react = __webpack_require__(1);
 	
@@ -37261,17 +37236,14 @@
 	}
 	
 	Home.propTypes = propTypes;
+	
+	module.exports = Home;
 
 /***/ },
 /* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Piece = Piece;
 	
 	var _react = __webpack_require__(1);
 	
@@ -37294,6 +37266,8 @@
 	}
 	
 	Piece.propTypes = propTypes;
+	
+	module.exports = Piece;
 
 /***/ }
 /******/ ]);

@@ -4,7 +4,7 @@ const propTypes = {
 	value: PropTypes.number.isRequired
 };
 
-export function Dice(props) {
+function Dice(props) {
 	if ((props.image === './dice-roll-one.gif') || (props.image === './dice-roll-two.gif')) {
 		return <img src={props.image}/>
 	}
@@ -13,3 +13,5 @@ export function Dice(props) {
 }
 
 Dice.propTypes = propTypes;
+
+module.exports = Dice;

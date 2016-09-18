@@ -1,4 +1,4 @@
-export function reducer(state = {}, action) {
+function reducer(state = {}, action) {
     switch (action.type) {
         case 'update': {
             return Object.assign({}, state, {
@@ -25,3 +25,5 @@ export function reducer(state = {}, action) {
         }
     }
 }
+
+module.exports = reducer;

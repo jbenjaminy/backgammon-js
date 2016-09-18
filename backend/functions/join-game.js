@@ -15,7 +15,7 @@ let joinGame = (data) => {
                 dice: game[0].dice,
                 validMoves: game[0].validMoves,
                 availableMoves: game[0].availableMoves,       
-                diceUsed: game[0].diceUsed       
+                diceUsed: game[0].diceUsed,      
                 inGame: game[0].inGame,       
                 isRolling: game[0].isRolling,       
                 turn: game[0].turn,       

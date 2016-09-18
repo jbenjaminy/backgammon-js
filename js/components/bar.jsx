@@ -5,7 +5,7 @@ const propTypes = {
 	value: PropTypes.number.isRequired
 };
 
-export function Bar(props) {
+function Bar(props) {
 	let piecesArr = props.pieces.map((piece, index) => {
 		return <li key={index}>{piece}</li>;
 	});
@@ -13,3 +13,5 @@ export function Bar(props) {
 }
 
 Bar.propTypes = propTypes;
+
+module.exports = Bar;

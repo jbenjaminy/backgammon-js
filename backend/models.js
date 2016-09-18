@@ -36,7 +36,7 @@ const GameSchema = new mongoose.Schema({
     turn: {
     	type: String,
     	required: true
-    }
+    },
     message: {
     	type: String,
     	required: true
