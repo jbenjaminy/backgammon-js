@@ -37156,12 +37156,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import Piece from './piece';
-	
-	var propTypes = {
-		pieces: _react.PropTypes.array.isRequired
-	};
-	
 	function Bar(props) {
 		var piecesArr = props.pieces.map(function (piece, index) {
 			return _react2.default.createElement(
@@ -37176,8 +37170,6 @@
 			piecesArr
 		);
 	}
-	
-	Bar.propTypes = propTypes;
 	
 	module.exports = Bar;
 

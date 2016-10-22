@@ -1,9 +1,4 @@
-import React, { PropTypes } from 'react';
-// import Piece from './piece';
-
-const propTypes = {
-	pieces: PropTypes.array.isRequired
-};
+import React from 'react';
 
 function Bar(props) {
 	let piecesArr = props.pieces.map((piece, index) => {
@@ -11,7 +6,5 @@ function Bar(props) {
 	});
 	return <ul>{piecesArr}</ul>;
 }
-
-Bar.propTypes = propTypes;
 
 module.exports = Bar;
