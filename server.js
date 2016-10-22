@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
@@ -19,16 +20,19 @@ const endTurn = require('./backend/functions/end-turn');
 
 const sockets = [];
 
-let emit = (game) => {
-    sockets.forEach(function(socket) {
-        socket.emit('action', {type:'update', data: game});
-    });
-}
-
 app.use(express.static('./build'));
 
-// SOCKET CONNECTIONS
-io.on('connection', function(socket) {
+let emit = (game) => {
+    for (let socket of sockets) {
+        socket.emit('action', {
+            type:'update', 
+            data: game
+        });
+    }
+};
+
+// ACTIONS
+io.on('connection', (socket) => {
     console.log("Socket connected: " + socket.id);
     sockets.push(socket);
     socket.on('action', (action) => {
