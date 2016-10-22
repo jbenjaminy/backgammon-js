@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    value: PropTypes.number.isRequired
+    color: PropTypes.string.isRequired
 };
 
 function Piece(props) {

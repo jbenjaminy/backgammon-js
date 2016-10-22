@@ -12,9 +12,7 @@ const routes = (
     <Route path='/new' component={NewGame} />
     <Route path='/join' component={JoinGame} />
     <Route path='/resume' component={ResumeGame} />
-    <Route path='/game/:id'>
-        <IndexRoute component={GameContainer}/>
-    </Route>  
+    <Route path='/game' component={GameContainer} />
   </Router>
 );
 

@@ -30667,11 +30667,7 @@
 	  _react2.default.createElement(_reactRouter.Route, { path: '/new', component: _newGame2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/join', component: _joinGame2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/resume', component: _resumeGame2.default }),
-	  _react2.default.createElement(
-	    _reactRouter.Route,
-	    { path: '/game/:id' },
-	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _gameContainer2.default })
-	  )
+	  _react2.default.createElement(_reactRouter.Route, { path: '/game', component: _gameContainer2.default })
 	);
 	
 	module.exports = routes;
@@ -36301,7 +36297,7 @@
 	
 	var propTypes = {
 	    dispatch: _react.PropTypes.func,
-	    gameId: _react.PropTypes.object
+	    state: _react.PropTypes.object
 	};
 	
 	var NewGame = function (_React$Component) {
@@ -36331,7 +36327,7 @@
 	                }));
 	            });
 	            promise.then(function () {
-	                window.location.href = '/#/game/' + this.props.gameId;
+	                window.location.href = '/#/game';
 	            });
 	        }
 	    }, {
@@ -36376,7 +36372,7 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	    return {
-	        gameId: state.gameId
+	        state: state
 	    };
 	};
 	
@@ -36397,6 +36393,8 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
+	var _reactRouter = __webpack_require__(249);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36404,11 +36402,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var propTypes = {
-	    dispatch: _react.PropTypes.func,
-	    gameId: _react.PropTypes.object
-	};
 	
 	var JoinGame = function (_React$Component) {
 	    _inherits(JoinGame, _React$Component);
@@ -36425,26 +36418,26 @@
 	    _createClass(JoinGame, [{
 	        key: 'joinGame',
 	        value: function joinGame(event) {
-	            var _this2 = this;
-	
 	            event.preventDefault();
-	            var promise = new Promise(function (res) {
-	                res(_this2.props.dispatch({
-	                    type: 'server/joinGame',
-	                    data: {
-	                        id: _this2.id.value,
-	                        playerTwo: _this2.name.value
-	                    }
-	                }));
+	            this.props.dispatch({
+	                type: 'server/joinGame',
+	                data: {
+	                    id: this.id.value,
+	                    playerTwo: this.name.value
+	                }
 	            });
-	            promise.then(function () {
-	                window.location.href = '/#/game/' + this.props.gameId;
-	            });
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps.gameId !== "") {
+	                _reactRouter.hashHistory.push('/game/' + nextProps.gameId);
+	            }
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this3 = this;
+	            var _this2 = this;
 	
 	            return _react2.default.createElement(
 	                'section',
@@ -36464,7 +36457,7 @@
 	                                'Enter your name:'
 	                            ),
 	                            _react2.default.createElement('input', { type: 'text', ref: function ref(name) {
-	                                    _this3.name = name;
+	                                    _this2.name = name;
 	                                }, required: true })
 	                        ),
 	                        _react2.default.createElement(
@@ -36476,7 +36469,7 @@
 	                                'Enter Game ID:'
 	                            ),
 	                            _react2.default.createElement('input', { type: 'text', ref: function ref(id) {
-	                                    _this3.id = id;
+	                                    _this2.id = id;
 	                                }, required: true })
 	                        ),
 	                        _react2.default.createElement(
@@ -36499,7 +36492,6 @@
 	    };
 	};
 	
-	JoinGame.propTypes = propTypes;
 	module.exports = (0, _reactRedux.connect)(mapStateToProps)(JoinGame);
 
 /***/ },
@@ -36672,7 +36664,6 @@
 	
 			var _this = _possibleConstructorReturn(this, (TopDisplay.__proto__ || Object.getPrototypeOf(TopDisplay)).call(this));
 	
-			_this.componentDidMount = _this.componentDidMount.bind(_this);
 			_this.rollDice = _this.rollDice.bind(_this);
 			_this.endTurn = _this.endTurn.bind(_this);
 			_this.restartGame = _this.restartGame.bind(_this);
@@ -36680,14 +36671,6 @@
 		}
 	
 		_createClass(TopDisplay, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.props.dispatch({
-					type: 'server/findGame',
-					data: this.props.state
-				});
-			}
-		}, {
 			key: 'rollDice',
 			value: function rollDice() {
 				var _this2 = this;
@@ -36739,6 +36722,9 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				if (!this.props.state.dice) {
+					return null;
+				}
 				var diceUsed = this.props.state.diceUsed;
 				var diceArr = this.props.state.dice.map(function (dice, index) {
 					if (diceUsed.length === 1 && index === diceUsed[0] || diceUsed.length > 1 && index < diceUsed.length) {
@@ -36748,6 +36734,7 @@
 							_react2.default.createElement(_dice2.default, { image: dice + 10 })
 						);
 					} else {
+						dice = dice.toString();
 						return _react2.default.createElement(
 							'li',
 							{ key: index },
@@ -36887,7 +36874,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var propTypes = {
-		value: _react.PropTypes.number.isRequired
+		image: _react.PropTypes.string.isRequired
 	};
 	
 	function Dice(props) {
@@ -36953,33 +36940,23 @@
 	
 			var _this = _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).call(this));
 	
-			_this.componentDidMount = _this.componentDidMount.bind(_this);
 			_this.selectSpace = _this.selectSpace.bind(_this);
 			return _this;
 		}
 	
 		_createClass(Board, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.props.dispatch({
-					type: 'server/findGame',
-					data: this.props.state.gameId
-				});
-			}
-		}, {
 			key: 'selectSpace',
 			value: function selectSpace(id, callback) {
-				var _this2 = this;
-	
-				return callback = function callback() {
-					if (!_this2.props.state.isRolling && _this2.props.state.availableMoves.length > 0 && _this2.props.state.inGame) {
-						if (_this2.props.state.highlight === id) {
-							return _this2.props.dispatch({
+				var props = this.props;
+				return function callback() {
+					if (!props.state.isRolling && props.state.availableMoves.length > 0 && props.state.inGame) {
+						if (props.state.highlight === id) {
+							return props.dispatch({
 								type: 'server/unhighlight',
-								data: _this2.props.state
+								data: props.state
 							});
-						} else if (_this2.props.state.highlight && _this2.props.state.validMoves.length > 0) {
-							var validMoves = _this2.props.state.validMoves;
+						} else if (props.state.highlight && props.state.validMoves.length > 0) {
+							var validMoves = props.state.validMoves;
 							var _iteratorNormalCompletion = true;
 							var _didIteratorError = false;
 							var _iteratorError = undefined;
@@ -36990,19 +36967,19 @@
 	
 									if (move.position === id) {
 										id = null;
-										return _this2.props.dispatch({
+										return props.dispatch({
 											type: 'server/updatePositions',
 											data: {
-												state: _this2.props.state,
+												state: props.state,
 												toPos: move.position,
 												roll: move.roll
 											}
 										});
 										break;
-									} else if (validMoves.indexOf(move) === _this2.props.state.validMoves.length - 1) {
-										return _this2.props.dispatch({
+									} else if (validMoves.indexOf(move) === props.state.validMoves.length - 1) {
+										return props.dispatch({
 											type: 'server/unhighlight',
-											data: _this2.props.state
+											data: props.state
 										});
 									}
 								}
@@ -37020,24 +36997,25 @@
 									}
 								}
 							}
-						} else if (_this2.props.state.curPos[id][_this2.props.state.turn] > 0 && !_this2.props.state.curPos[21][_this2.props.state.turn] || id === 21 && _this2.props.state.curPos[id][_this2.props.state.turn]) {
-							return _this2.props.dispatch({
+						} else if (props.state.curPos[id][props.state.turn] > 0 && !props.state.curPos[21][props.state.turn] || id === 21 && props.state.curPos[id][props.state.turn]) {
+							console.log('here');
+							return props.dispatch({
 								type: 'server/findValidMoves',
 								data: {
-									state: _this2.props.state,
+									state: props.state,
 									fromPos: id
 								}
 							});
-						} else if (_this2.props.state.highlight && _this2.props.state.validMoves.length === 0) {
-							return _this2.props.dispatch({
+						} else if (props.state.highlight && props.state.validMoves.length === 0) {
+							return props.dispatch({
 								type: 'server/unhighlight',
-								data: _this2.props.state
+								data: props.state
 							});
 						}
-					} else if (_this2.props.state.highlight) {
-						return _this2.props.dispatch({
+					} else if (props.state.highlight) {
+						return props.dispatch({
 							type: 'server/unhighlight',
-							data: _this2.props.state
+							data: props.state
 						});
 					}
 				};
@@ -37073,20 +37051,21 @@
 								pieces.push(_react2.default.createElement(_piece2.default, { color: 'black' }));
 							}
 						}
+						var container = '';
 						if (i === 1 || i === 28) {
-							var _container = _react2.default.createElement(
+							container = _react2.default.createElement(
 								'li',
 								{ className: homeClasses, key: i, onClick: this.selectSpace(i) },
 								_react2.default.createElement(_home2.default, { pieces: pieces })
 							);
 						} else if (i === 8 || i === 21) {
-							var _container2 = _react2.default.createElement(
+							container = _react2.default.createElement(
 								'li',
 								{ className: barClasses, key: i, onClick: this.selectSpace(i) },
 								_react2.default.createElement(_bar2.default, { pieces: pieces })
 							);
 						} else {
-							var _container3 = _react2.default.createElement(
+							container = _react2.default.createElement(
 								'li',
 								{ className: spaceClasses, key: i, onClick: this.selectSpace(i) },
 								_react2.default.createElement(_space2.default, { pieces: pieces })
@@ -37143,7 +37122,7 @@
 	// import Piece from './piece';
 	
 	var propTypes = {
-		value: _react.PropTypes.number.isRequired
+		pieces: _react.PropTypes.array.isRequired
 	};
 	
 	function Space(props) {
@@ -37180,7 +37159,7 @@
 	// import Piece from './piece';
 	
 	var propTypes = {
-		value: _react.PropTypes.number.isRequired
+		pieces: _react.PropTypes.array.isRequired
 	};
 	
 	function Bar(props) {
@@ -37212,12 +37191,14 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _piece = __webpack_require__(321);
+	
+	var _piece2 = _interopRequireDefault(_piece);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import Piece from './piece';
-	
 	var propTypes = {
-		value: _react.PropTypes.number.isRequired
+		pieces: _react.PropTypes.array.isRequired
 	};
 	
 	function Home(props) {
@@ -37252,7 +37233,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var propTypes = {
-	    value: _react.PropTypes.number.isRequired
+	    color: _react.PropTypes.string.isRequired
 	};
 	
 	function Piece(props) {

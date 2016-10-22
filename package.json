@@ -29,7 +29,7 @@
             "react"
         ]
     },
-    "author": "",
+    "author": "Ben Young",
     "license": "ISC",
     "dependencies": {
         "body-parser": "^1.15.2",

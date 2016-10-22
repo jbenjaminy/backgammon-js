@@ -10,56 +10,43 @@ const GameSchema = new mongoose.Schema({
         required: true
     },
     dice: {
-    	type: Array,
-    	required: true
+    	type: Array
     },
     validMoves: { 
-    	type: Array,
-    	required: true
+    	type: Array
     },
     availableMoves: {
-    	type: Array,
-    	required: true
+    	type: Array
     },
     diceUsed: {
-    	type: Array,
-    	required: true
+    	type: Array
     },
     inGame: {
-    	type: Boolean,
-    	required: true
+    	type: Boolean
     },
     isRolling: {
-    	type: Boolean,
-    	required: true
+    	type: Boolean
     },
     turn: {
-    	type: String,
-    	required: true
+    	type: String
     },
     message: {
-    	type: String,
-    	required: true
+    	type: String
     },
     lastRoll: {
-    	type: String,
-    	required: false
+    	type: String
     },
     highlight: {
-    	type: String,
-    	required: false
+    	type: String
     },
     validOne: {
-    	type: String,
-    	required: false
+    	type: String
     },
     validTwo: {
-    	type: String,
-    	required: false
+    	type: String
     },
     winner: {
-    	type: String,
-    	required: false
+    	type: String
     }
 });
 

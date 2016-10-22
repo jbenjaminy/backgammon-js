@@ -40,7 +40,7 @@ let newRoll = (numDice, game) => {
         let randArr = [];
         for (let i = 0; i < numDice; i++) {
             // random number generation
-            let randNum = Math.random() * (7 - 1) + 1;
+            let randNum =  Math.floor((Math.random() * 6) + 1);
             // checks if doubles were rolled on second roll and adds dice to array accordingly.
             if (randArr.length === 1 && randNum === randArr[0]) {
                 randArr.push(randNum);

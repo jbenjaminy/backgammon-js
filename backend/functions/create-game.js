@@ -22,9 +22,9 @@ let newGame = (data) => {
             winner: null    
         }, (err, game) => {
             if (err) {
+                console.error(err);
                 reject(err);
             }
-            console.log(game);
             resolve(game);
         });
     });

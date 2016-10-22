@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const propTypes = {
     dispatch: PropTypes.func,
-    gameId: PropTypes.object
+    state: PropTypes.object
 };
 
 class NewGame extends React.Component {
@@ -25,7 +25,7 @@ class NewGame extends React.Component {
             );
         });
         promise.then(function() {
-            window.location.href = '/#/game/' + this.props.gameId;
+            window.location.href = '/#/game';
         });
     }
 
@@ -48,7 +48,7 @@ class NewGame extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        gameId: state.gameId
+        state: state
     };
 };
 

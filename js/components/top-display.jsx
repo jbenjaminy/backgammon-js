@@ -10,17 +10,10 @@ const propTypes = {
 class TopDisplay extends React.Component {
 	constructor() {
 		super();
-		this.componentDidMount = this.componentDidMount.bind(this);
 		this.rollDice = this.rollDice.bind(this);
 		this.endTurn = this.endTurn.bind(this);
 		this.restartGame = this.restartGame.bind(this);
 	}
-  	componentDidMount() {
-  		this.props.dispatch({
-      		type: 'server/findGame',
-      		data: this.props.state
-    	});
-  	}
 	rollDice() {
 		if (this.props.state.isRolling) {
 			this.props.dispatch({
@@ -63,6 +56,9 @@ class TopDisplay extends React.Component {
 		});
 	}
 	render() {
+		if (!this.props.state.dice) {
+			return null;
+		}
 		let diceUsed = this.props.state.diceUsed;
 		let diceArr = this.props.state.dice.map((dice, index) => {
 			if ((diceUsed.length === 1 && index === diceUsed[0]) || (diceUsed.length > 1 && index < diceUsed.length)) {
@@ -70,6 +66,7 @@ class TopDisplay extends React.Component {
 					<li key={index}><Dice image={dice + 10}/></li>
 				)
 			} else {
+				dice = dice.toString();
 				return (
 					<li key={index}><Dice image={dice}/></li>
 				);
