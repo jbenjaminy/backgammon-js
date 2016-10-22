@@ -93,9 +93,9 @@ class Board extends React.Component {
 				if (i === 1 || i === 28) {
 					container = <li className={homeClasses} key={i} onClick={this.selectSpace.bind(this, i)}><Home pieces={pieces}/></li>;
 				} else if (i === 8 || i === 21) {
-					container = <li className={barClasses} key={i} onClick={this.selectSpace.bind(this, i}><Bar pieces={pieces}/></li>;
+					container = <li className={barClasses} key={i} onClick={this.selectSpace.bind(this, i)}><Bar pieces={pieces}/></li>;
 				} else {
-					container = <li className={spaceClasses} key={i} onClick={this.selectSpace.bind(this, i}><Space pieces={pieces}/></li>;
+					container = <li className={spaceClasses} key={i} onClick={this.selectSpace.bind(this, i)}><Space pieces={pieces}/></li>;
 				}
 				if (i < 15) {
 					topBoard.unshift(container);
