@@ -1,4 +1,23 @@
-function reducer(state = {}, action) {
+let initialState = {
+    gameId: '',
+    players: {},      
+    curPos: {},
+    dice: [],
+    validMoves: [],
+    availableMoves: [],       
+    diceUsed: false,       
+    inGame: false,       
+    isRolling: '',       
+    turn: '',       
+    message: '',       
+    lastRoll: '',       
+    highlight: '',       
+    validOne: '',       
+    validTwo: '',       
+    winner: ''
+};
+
+function reducer(state = initialState, action) {
     switch (action.type) {
         case 'update': {
             return Object.assign({}, state, {
@@ -24,6 +43,6 @@ function reducer(state = {}, action) {
             return state;
         }
     }
-}
+};
 
-module.exports = reducer;
+export default reducer;
