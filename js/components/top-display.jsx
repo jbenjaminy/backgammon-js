@@ -7,6 +7,7 @@ class TopDisplay extends React.Component {
 		super();
 		this.rollDice = this.rollDice.bind(this);
 		this.endTurn = this.endTurn.bind(this);
+		this.undoMoves = this.undoMoves.bind(this);
 		this.restartGame = this.restartGame.bind(this);
 	}
 
@@ -42,6 +43,15 @@ class TopDisplay extends React.Component {
 		if (this.props.state.inGame) {
 			this.props.dispatch({
 				type: 'server/endTurn',
+				data: this.props.state
+			});
+		}
+	}
+
+	undoMoves() {
+		if (this.props.state.returnPos) {
+			this.props.dispatch({
+				type: 'server/undoMoves',
 				data: this.props.state
 			});
 		}
@@ -97,7 +107,7 @@ class TopDisplay extends React.Component {
 				</div>
 				<div className='mid col'>
 					<h3 className={status}>{this.props.state.players[this.props.state.turn]}{this.props.state.message}</h3>
-					<ul className={buttons}><li>{endArr}</li><li><button className='undo'>Undo Move</button></li><li>{restartArr}</li></ul>
+					<ul className={buttons}><li>{endArr}</li><li><button key='2' className='undo' onClick={this.undoMoves}>Undo Moves</button></li><li>{restartArr}</li></ul>
 					<ul className='dice' onClick={this.rollDice}>{diceArr}</ul>
 				</div>
 				<div className='player-two col'>

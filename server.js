@@ -16,6 +16,7 @@ const makeRoll = require('./backend/functions/make-roll');
 const findValidMoves = require('./backend/functions/find-valid-moves');
 const updatePositions = require('./backend/functions/update-positions');
 const unhighlight = require('./backend/functions/unhighlight');
+const undoMoves = require('./backend/functions/undo-moves');
 const endTurn = require('./backend/functions/end-turn');
 
 const sockets = [];
@@ -63,6 +64,9 @@ io.on('connection', (socket) => {
         }
         if (action.type === 'server/unhighlight') {
             unhighlight(action.data).then(emit);
+        }
+        if (action.type === 'server/undoMoves') {
+            undoMoves(action.data).then(emit);
         }
         if (action.type === 'server/endTurn') {
             endTurn(action.data).then(emit);
