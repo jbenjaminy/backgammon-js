@@ -72,7 +72,7 @@ let adjustPos = (toPos, removeMe, game) => {
                 } else if (game.diceUsed.length === 1) {
                     used = [0, 1];
                 // for 3 of 4 dice being used (doubles only)
-                } else if (state.diceUsed.length === 2) {
+                } else if (game.diceUsed.length === 2) {
                     used = [0, 1, 2];
                 // for 4 of 4 dice being used (doubles only)
                 } else {
