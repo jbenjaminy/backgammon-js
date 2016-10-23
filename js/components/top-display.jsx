@@ -1,11 +1,6 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import {connect} from 'react-redux';
 import Dice from './dice';
-
-const propTypes = {
-  dispatch: PropTypes.func,
-  state: PropTypes.object
-};
 
 class TopDisplay extends React.Component {
 	constructor() {
@@ -14,6 +9,7 @@ class TopDisplay extends React.Component {
 		this.endTurn = this.endTurn.bind(this);
 		this.restartGame = this.restartGame.bind(this);
 	}
+
 	rollDice() {
 		if (this.props.state.isRolling) {
 			this.props.dispatch({
@@ -41,6 +37,7 @@ class TopDisplay extends React.Component {
 			}, 1000);
 		}
 	}
+
 	endTurn() {
 		if (this.props.state.inGame) {
 			this.props.dispatch({
@@ -49,18 +46,29 @@ class TopDisplay extends React.Component {
 			});
 		}
 	}
+
 	restartGame() {
 		this.props.dispatch({
 			type: 'server/restartGame',
 			data: this.props.state
 		});
 	}
+
 	render() {
-		if (!this.props.state.dice) {
-			return null;
+		let white = 'white';
+		let black = 'black turn';
+		if (this.props.state.turn === 'white') {
+			white = 'white turn';
+			black = 'black';
 		}
-		let diceUsed = this.props.state.diceUsed;
+		let buttons = 'buttons hidden';
+		let status = 'status pad';
+		if (this.props.state.inGame || this.props.state.winner) {
+			status = 'status';
+			buttons = 'buttons';
+		}
 		let diceArr = this.props.state.dice.map((dice, index) => {
+			let diceUsed = this.props.state.diceUsed;
 			if ((diceUsed.length === 1 && index === diceUsed[0]) || (diceUsed.length > 1 && index < diceUsed.length)) {
 				return (
 					<li key={index}><Dice image={dice + 10}/></li>
@@ -72,18 +80,6 @@ class TopDisplay extends React.Component {
 				);
 			}
 		});
-		let buttons = 'buttons hidden';
-		let status = 'status pad';
-		let white = 'white';
-		let black = 'black turn';
-		if (this.props.state.inGame || this.props.state.winner) {
-			status = 'status';
-			buttons = 'buttons';
-		}
-		if (this.props.state.turn === 'white') {
-			white = 'white turn';
-			black = 'black';
-		}
 		let endArr = [<button key='1' className='end'>End Turn</button>];
 		if (!this.props.state.isRolling && this.props.state.inGame) {
 			if (this.props.state.availableMoves.length === 0 || (this.props.state.highlight && this.props.state.validMoves.length === 0)) {
@@ -118,5 +114,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-TopDisplay.propTypes = propTypes;
 module.exports = connect(mapStateToProps)(TopDisplay);
