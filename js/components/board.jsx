@@ -107,6 +107,7 @@ class Board extends React.Component {
 			<div className='board'>
 				<ul className='board-top'>{topBoard}</ul>
 				<ul className='board-bottom'>{bottomBoard}</ul>
+				<h2>GAME ID:&nbsp;&nbsp;</h2><h2 className='id'>{this.props.state.gameId}</h2>
 			</div>
 		);
 	}

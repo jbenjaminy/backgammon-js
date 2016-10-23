@@ -72,9 +72,9 @@ class TopDisplay extends React.Component {
 			black = 'black';
 		}
 		let buttons = 'buttons hidden';
-		let status = 'status pad';
+		let diceClasses = 'dice pad';
 		if (this.props.state.inGame || this.props.state.winner) {
-			status = 'status';
+			diceClasses = 'dice';
 			buttons = 'buttons';
 		}
 		let diceArr = this.props.state.dice.map((dice, index) => {
@@ -96,19 +96,19 @@ class TopDisplay extends React.Component {
 				endArr = [<button key='1' className='end green' onClick={this.endTurn}>End Turn</button>];
 			}
 		}
-		let restartArr = [<button key='3' className='restart' onClick={this.restartGame}>Restart Game</button>];
+		let restartArr = [<button key='3' className='restart' onClick={this.restartGame}>Restart</button>];
 		if (this.props.state.winner) {
-			restartArr = [<button key='3' className='restart green' onClick={this.restartGame}>Restart Game</button>];
+			restartArr = [<button key='3' className='restart green' onClick={this.restartGame}>Restart</button>];
 		}
 		return (
 			<div className='top-display'>
+				<h2 className='status'>{this.props.state.players[this.props.state.turn]}{this.props.state.message}</h2>
 				<div className='player-one col'>
 					<h2 className={white}>{this.props.state.players.white}&nbsp;&nbsp;<img src='./white-piece.png' className='icon'/></h2>
 				</div>
 				<div className='mid col'>
-					<h3 className={status}>{this.props.state.players[this.props.state.turn]}{this.props.state.message}</h3>
-					<ul className={buttons}><li>{endArr}</li><li><button key='2' className='undo' onClick={this.undoMoves}>Undo Moves</button></li><li>{restartArr}</li></ul>
-					<ul className='dice' onClick={this.rollDice}>{diceArr}</ul>
+					<ul className={buttons}><li><button key='2' className='undo' onClick={this.undoMoves}>Undo</button></li><li>{endArr}</li><li>{restartArr}</li></ul>
+					<ul className={diceClasses} onClick={this.rollDice}>{diceArr}</ul>
 				</div>
 				<div className='player-two col'>
 					<h2 className={black}>{this.props.state.players.black}&nbsp;&nbsp;<img src='./black-piece.png' className='icon'/></h2>

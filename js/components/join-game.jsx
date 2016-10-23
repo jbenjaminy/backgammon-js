@@ -30,15 +30,9 @@ class JoinGame extends React.Component {
             <section className='landing-container'>
                 <div className='landing-page'>
                     <form onSubmit={this.joinGame}>
-                        <div>
-                            <h2>Enter your name:</h2>
-                            <input type='text' ref={(name) => { this.name = name; }} required />
-                        </div>
-                        <div>
-                            <h2>Enter Game ID:</h2>
-                            <input type='text' ref={(id) => { this.id = id; }} required />
-                        </div>
-                        <button type='submit'>Join Game</button>
+                        <input type='text' placeholder='ENTER YOUR NAME' ref={(name) => { this.name = name; }} required />
+                        <input type='text' placeholder='ENTER GAME ID' ref={(id) => { this.id = id; }} required />
+                        <button type='submit'>Join</button>
                     </form>
                 </div>
             </section>

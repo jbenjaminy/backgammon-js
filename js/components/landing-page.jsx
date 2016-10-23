@@ -6,13 +6,13 @@ function LandingPage() {
         <section className='landing-container'>
             <div className='landing-page'>
                 <Link to='/new'>
-                    <button>New Game</button>
+                    <button className='intro'>New Game</button>
                 </Link>
                 <Link to='/join'>
-                    <button className='join'>Join Game</button>
+                    <button className='intro'>Join Game</button>
                 </Link>
                 <Link to='/resume'>
-                    <button>Resume Game</button>
+                    <button className='intro'>Resume Game</button>
                 </Link>
             </div>
         </section>

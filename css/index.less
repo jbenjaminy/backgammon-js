@@ -4,11 +4,11 @@
 @ltboard: #baa18f;
 @highlight: #A35F6F;
 @background: #ffffff;
-@ltButton: #D1D1D1;
-@button: darken(@ltButton, 20%);
+@ltGrey: #D1D1D1;
+@button: darken(#D1D1D1, 20%);
 @text: darken(#6C6C6C, 10%);
 @valid: #74806D;
-@ltValid: #6bca4e;
+@ltValid: lighten(#6bca4e, 20%);
 @title: #0a1857;
 
 html {
@@ -20,7 +20,7 @@ html {
 		margin-top: 0;
 		height: 100%;
 		font-family: 'Questrial';
-		color: @title;
+		color: @text;
 
 		#app {
 			height: 100%;
@@ -31,8 +31,8 @@ html {
 				letter-spacing: 20px;
 				font-size: 70px;
 				text-align: center;
-				margin-top: 30px;
-				margin-bottom: 30px;
+				margin-top: 15px;
+				margin-bottom: 15px;
 				.o-piece {
 					padding-bottom: 3px;
 					margin-left: -10px;
@@ -43,7 +43,12 @@ html {
 				.landing-page {
 					width: auto;
 					text-align: center;
+					margin-top: 40px;
+					a {
+						text-decoration: none;
+					}
 					button {
+						margin-top: 15px;
 						color: @text;
 						width: 70px;
 						font-family: 'Questrial';
@@ -53,14 +58,35 @@ html {
 						border-radius: 5px;
 						background-color: @button;
 					}
-					.join {
-						margin-left: 10px;
-						margin-right: 10px;
+					.intro {
+						width: 140px;
+						display: block;
+						margin: 0 auto;
+						margin-bottom: 15px;
+					}
+					input {
+						margin: 0 auto;
+						width: 200px;
+						font-size: 14px;
+						text-align: center;
+						margin-top: 15px;
+						display: block;
+					}
+					input:required {
+						box-shadow: none;
+						border: 1px solid @ltGrey;
+						border-radius: 5px;
 					}
 				}
 			}
 			.game-container {
 				.top-display {
+					margin-bottom: 30px;
+					.status {
+						margin-bottom: 6px;
+						text-align: center;
+						// font-size: 1.4em;
+					}
 					.hidden {
 						display: none;
 					}
@@ -79,8 +105,9 @@ html {
 						margin-bottom: 0;
 					}
 					.turn {
-						font-size: 1.6em;
+						font-size: 1.55em;
 						font-style: italic;
+						color: @title;
 					}
 					.icon {
 							margin-bottom: -10px;
@@ -98,28 +125,25 @@ html {
 								list-style-type: none;
 							}
 						}
-
-						.status {
-							margin-bottom: 6px;
-						}
-
 						.pad {
-							margin-bottom: 50.7334px;
+							margin-top: 50.7334px;
 						}
 
 						.buttons {
-							margin-top: 6px;
+							margin-top: 8.93px;
 							button {
 								color: @text;
 								width: 82px;
+								font-size: 16px;
 								font-family: 'Questrial';
 								border: solid 1px @button;
 								padding: 2px;
 								border-radius: 5px;
 								background-color: @button;
+								font-size: 16px;
 							}
 
-							.undo {
+							.end {
 								margin-left: 10px;
 								margin-right: 10px;
 							}
@@ -252,6 +276,13 @@ html {
 						.space.valid {
 							background-image: url(bottom-space-valid.png);
 						}
+					}
+					h2 {
+						display: inline-block;
+					}
+					.id {
+						color: @title;
+						font-style: italic;
 					}
 				}
 			}

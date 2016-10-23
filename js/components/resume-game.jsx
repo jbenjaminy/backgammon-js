@@ -28,10 +28,10 @@ class ResumeGame extends React.Component {
         return (
             <section className="landing-container">
                 <div className="landing-page">
-                    <h2>Enter Game ID:</h2>
                     <form onSubmit={this.resumeGame}>
-                        <input type="text" ref={(id) => { this.id = id; }} required />
-                        <button type="submit">Resume Game</button>
+                        <input type='text' placeholder='ENTER YOUR NAME' ref={(name) => { this.name = name; }} required />
+                        <input type='text' placeholder='ENTER GAME ID' ref={(id) => { this.id = id; }} required />
+                        <button type="submit">Resume</button>
                     </form>
                 </div>
             </section>
