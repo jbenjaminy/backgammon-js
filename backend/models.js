@@ -21,6 +21,9 @@ const GameSchema = new mongoose.Schema({
     diceUsed: {
     	type: Array
     },
+    lastRoll: {
+        type: Array
+    },
     inGame: {
     	type: Boolean
     },
@@ -33,8 +36,8 @@ const GameSchema = new mongoose.Schema({
     message: {
     	type: String
     },
-    lastRoll: {
-    	type: Number
+    winner: {
+        type: String
     },
     highlight: {
     	type: Number
@@ -43,9 +46,6 @@ const GameSchema = new mongoose.Schema({
     	type: Number
     },
     validTwo: {
-    	type: Number
-    },
-    winner: {
     	type: Number
     }
 });

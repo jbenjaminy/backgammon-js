@@ -4,17 +4,17 @@ let initialState = {
     curPos: {},
     dice: [],
     validMoves: [],
-    availableMoves: [],       
+    availableMoves: [], 
+    lastRoll: [],       
     diceUsed: false,       
     inGame: false,       
     isRolling: '',       
     turn: '',       
-    message: '',       
-    lastRoll: null,       
+    message: '',
+    winner: '',             
     highlight: null,       
     validOne: null,       
-    validTwo: null,       
-    winner: null
+    validTwo: null       
 };
 
 function reducer(state = initialState, action) {
