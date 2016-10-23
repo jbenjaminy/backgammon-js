@@ -11,6 +11,7 @@ let rollDice = (data) => {
         Game.findOneAndUpdate({ _id: id }, {
             players: data.players,      
             curPos: data.curPos,
+            returnPos: data.returnPos,
             dice: dice,
             validMoves: data.validMoves,
             availableMoves: data.availableMoves,       

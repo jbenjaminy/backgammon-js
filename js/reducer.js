@@ -2,6 +2,7 @@ let initialState = {
     gameId: '',
     players: {},      
     curPos: {},
+    returnPos: null,
     dice: [],
     validMoves: [],
     availableMoves: [],

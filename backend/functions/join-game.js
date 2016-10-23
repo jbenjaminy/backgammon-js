@@ -12,6 +12,7 @@ let joinGame = (data) => {
             Game.findOneAndUpdate({ _id: id }, {
                 players: players,      
                 curPos: game[0].curPos,
+                returnPos: game[0].returnPos,
                 dice: game[0].dice,
                 validMoves: game[0].validMoves,
                 availableMoves: game[0].availableMoves,       

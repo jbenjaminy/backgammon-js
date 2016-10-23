@@ -11,6 +11,7 @@ let makeRoll = (data) => {
             Game.findOneAndUpdate({ _id: id }, {
                 players: game.players,      
                 curPos: game.curPos,
+                returnPos: game.curPos,
                 dice: game.dice,
                 validMoves: game.validMoves,
                 availableMoves: game.availableMoves,       

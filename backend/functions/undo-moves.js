@@ -1,29 +1,26 @@
 const Game = require('../models');
 
-/* END TURN AND UPDATE GAME */
-let endTurn = (data) => {
+/* UNDO MOVES BY OBJECT ID, REVERTING STATE AND POSITIONS TO THE START OF THE TURN */
+let undoMoves = (data) => {
     let id = data.gameId;
-    let message = '\'S ROLL';
-    let turn = data.turn;
-    turn = turn === 'white' ? 'black' : 'white';
     return new Promise((resolve, reject) => {
         Game.findOneAndUpdate({ _id: id }, {
-            players: data.players,      
-            curPos: data.curPos,
-            returnPos: null,
-            dice: data.dice,
+            players: data.players,
+            curPos: data.returnPos,  
+            returnPos: data.returnPos,
+            dice: data.lastRoll,
             validMoves: [],
-            availableMoves: [],       
+            availableMoves: data.lastRoll,       
             diceUsed: [],       
             inGame: data.inGame,       
-            isRolling: true,       
-            turn: turn,       
-            message: message,       
+            isRolling: data.isRolling,       
+            turn: data.turn,       
+            message: data.message,       
             lastRoll: data.lastRoll,       
             highlight: null,       
             validOne: null,       
             validTwo: null,       
-            winner: data.winner    
+            winner: null    
         }, { new: true }, (err, game) => {
             if (err) {
                 reject(err);
@@ -33,4 +30,4 @@ let endTurn = (data) => {
     });
 }
 
-module.exports = endTurn;
+module.exports = undoMoves;

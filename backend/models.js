@@ -9,6 +9,9 @@ const GameSchema = new mongoose.Schema({
         type: Object,
         required: true
     },
+    returnPos: {
+        type: Object
+    },
     dice: {
     	type: Array
     },
