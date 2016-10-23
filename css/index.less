@@ -1,12 +1,15 @@
-@import url(https://fonts.googleapis.com/css?family=Baloo+Paaji);
+@import url(https://fonts.googleapis.com/css?family=Questrial);
 @board: #8C6D57;
 @dkboard: darken(@board, 20%);
 @ltboard: #baa18f;
 @highlight: #A35F6F;
-@background: #D1D1D1;
-@button: darken(@background, 20%);
-@text: #1F120B;
+@background: #ffffff;
+@ltButton: #D1D1D1;
+@button: darken(@ltButton, 20%);
+@text: darken(#6C6C6C, 10%);
 @valid: #74806D;
+@ltValid: #6bca4e;
+@title: #0a1857;
 
 html {
 	height: 820px;
@@ -16,13 +19,46 @@ html {
 		margin-left: 0;
 		margin-top: 0;
 		height: 100%;
-		font-family: 'Baloo Paaji';
-		color: @text;
+		font-family: 'Questrial';
+		color: @title;
 
 		#app {
 			height: 100%;
 			background-color: @background;
 
+			.title {
+				color: @title;
+				letter-spacing: 20px;
+				font-size: 70px;
+				text-align: center;
+				margin-top: 30px;
+				margin-bottom: 30px;
+				.o-piece {
+					padding-bottom: 3px;
+					margin-left: -10px;
+					padding-right: 10px;
+				}
+			}
+			.landing-container {
+				.landing-page {
+					width: auto;
+					text-align: center;
+					button {
+						color: @text;
+						width: 70px;
+						font-family: 'Questrial';
+						font-size: 16px;
+						border: solid 1px @button;
+						padding: 2px;
+						border-radius: 5px;
+						background-color: @button;
+					}
+					.join {
+						margin-left: 10px;
+						margin-right: 10px;
+					}
+				}
+			}
 			.game-container {
 				.top-display {
 					.hidden {
@@ -40,6 +76,7 @@ html {
 					}
 					.white, .black {
 						font-size: 1.5em;
+						margin-bottom: 0;
 					}
 					.turn {
 						font-size: 1.6em;
@@ -74,7 +111,8 @@ html {
 							margin-top: 6px;
 							button {
 								color: @text;
-								font-family: 'Baloo Paaji';
+								width: 82px;
+								font-family: 'Questrial';
 								border: solid 1px @button;
 								padding: 2px;
 								border-radius: 5px;
@@ -87,16 +125,17 @@ html {
 							}
 
 							.end.green {
-								background-color: @valid;
-								border: solid 1px @valid;
+								background-color: @ltValid;
+								border: solid 1px @ltValid;
 							}
 							
 							.restart.green {
-								background-color: @valid;
-								border: solid 1px @valid;
+								background-color: @ltValid;
+								border: solid 1px @ltValid;
 							}
 						}
 						.dice {
+							margin-bottom: 0;
 						}
 					}
 				}
@@ -137,10 +176,10 @@ html {
 							}
 						}
 						
-						.highlight {
+						.home.highlight, .bar.highlight {
 							background-color: @highlight;
 						}
-						.valid {
+						.home.valid, .bar.valid {
 							background-color: @valid;
 						}
 

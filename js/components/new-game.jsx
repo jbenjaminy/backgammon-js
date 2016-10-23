@@ -13,7 +13,7 @@ class NewGame extends React.Component {
         this.props.dispatch({
             type: 'server/createGame',
             data: {
-                playerOne: this.name.value
+                playerOne: this.name.value.toUpperCase()
             }
         });
     }

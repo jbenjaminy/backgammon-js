@@ -14,7 +14,7 @@ class JoinGame extends React.Component {
             type: 'server/joinGame',
             data: {
                 id: this.id.value,
-                playerTwo: this.name.value
+                playerTwo: this.name.value.toUpperCase()
             }
         });
     }

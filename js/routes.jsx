@@ -9,7 +9,8 @@ import GameContainer from './components/game-container';
 let App = (props) => {
   return (
     <div className='app'>
-        {props.children}
+    	<h1 className="title">BACKGAMM<img src='./black-piece-lg.png' className='o-piece'/>N</h1>
+    	<div>{props.children}</div>
     </div>
   )
 }
