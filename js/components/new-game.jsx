@@ -28,13 +28,11 @@ class NewGame extends React.Component {
         return (
             <section className='landing-container'>
                 <div className='landing-page'>
-                    <div>
-                        <h2>Enter your name:</h2>
-                        <form onSubmit={this.newGame}>
-                            <input type='text' ref={(name) => { this.name = name; }} required />
-                            <button type='submit'>Start Game</button>
-                        </form>
-                    </div>
+                    <h2>Enter your name:</h2>
+                    <form onSubmit={this.newGame}>
+                        <input type='text' ref={(name) => { this.name = name; }} required />
+                        <button type='submit'>Start Game</button>
+                    </form>
                 </div>
             </section>
         );

@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router'
 
-
 class JoinGame extends React.Component {
     constructor() {
         super();
