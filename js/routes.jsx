@@ -6,6 +6,14 @@ import JoinGame from './components/join-game';
 import ResumeGame from './components/resume-game';
 import GameContainer from './components/game-container';
 
+let App = (props) => {
+  return (
+    <div className='app'>
+        {props.children}
+    </div>
+  )
+}
+
 const routes = (
 	<Router history={hashHistory}>
 		<Route path="/" component={App}>
