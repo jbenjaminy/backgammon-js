@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
     console.log("Socket connected: " + socket.id);
     sockets.push(socket);
     socket.on('action', (action) => {
-        console.log('action---->', action)
+        // console.log('action---->', action)
         if (action.type === 'server/createGame') {
             createGame(action.data).then(emit);
         }

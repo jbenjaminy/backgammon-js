@@ -25,6 +25,7 @@ function reducer(state = initialState, action) {
                 gameId: action.data._id,
                 players: action.data.players,      
                 curPos: action.data.curPos,
+                returnPos: action.data.returnPos,
                 dice: action.data.dice,
                 validMoves: action.data.validMoves,
                 availableMoves: action.data.availableMoves,       

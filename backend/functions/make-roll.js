@@ -11,7 +11,7 @@ let makeRoll = (data) => {
             Game.findOneAndUpdate({ _id: id }, {
                 players: game.players,      
                 curPos: game.curPos,
-                returnPos: game.curPos,
+                returnPos: game.returnPos,
                 dice: game.dice,
                 validMoves: game.validMoves,
                 availableMoves: game.availableMoves,       
@@ -69,6 +69,7 @@ let newRoll = (numDice, game) => {
                 game.message = '\'S MOVE';
                 game.isRolling = false;
                 game.lastRoll = randArr;
+                game.returnPos = game.curPos;
                 // if white's roll was higher, starts game, giving white the first turn
                 if (dice[0] > dice[1]) {
                     game.turn = 'white';
@@ -79,6 +80,7 @@ let newRoll = (numDice, game) => {
             game.message = '\'S MOVE';
             game.isRolling = false;
             game.lastRoll = randArr;
+            game.returnPos = game.curPos;
         }
         game.availableMoves = dice;
         game.dice = dice;
