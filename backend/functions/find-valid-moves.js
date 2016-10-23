@@ -55,7 +55,7 @@ let checkMoves = (fromPos, game) => {
     		move = parseInt(move);
             console.log('move', move);
     		// checks that move is from current player's occupied space and if all white pieces are in white's home quadrant and they are ready to move home
-    		if ((player === 'white') && (pos[start].white > 0) && ((pos[1][white] + pos[2][white] + pos[3][white] + pos[4][white] + pos[5][white] + pos[6][white] + pos[7][white]) === 15)) {
+    		if ((player === 'white') && (pos[start].white > 0) && ((pos[1].white + pos[2].white + pos[3].white + pos[4].white + pos[5].white + pos[6].white + pos[7].white) === 15)) {
                 console.log('line 58');
     			// sets up variable for position of resultant move and adjusts if it is past the home space
     			let end = start - move;
@@ -68,7 +68,7 @@ let checkMoves = (fromPos, game) => {
     				validMoves.push({'position': end, 'roll': move});
     			}
     		// repeats same process as lines 53 through 64 for black
-    		} else if ((player === 'black') && (pos[start].black > 0) && ((pos[22][black] + pos[23][black] + pos[24][black] + pos[25][black] + pos[26][black] + pos[27][black] + pos[28][black]) === 15)) {
+    		} else if ((player === 'black') && (pos[start].black > 0) && ((pos[22].black + pos[23].black + pos[24].black + pos[25].black + pos[26].black + pos[27].black + pos[28].black) === 15)) {
                 console.log('line 71');
     			let end = start - move;
     			if (end > 28) {
@@ -78,8 +78,7 @@ let checkMoves = (fromPos, game) => {
     				validMoves.push({'position': end, 'roll': move});
     			}
     		// if player is not ready to move home, checks that they are either moving from a space they occupy and have no pieces on the bar, or are moving from the bar if they do have pieces on the bar.
-            
-    		} else if (((pos[start][player] > 0) && (pos[21][player] === 0)) || ((start === 21) && (pos[21][player] >= 1))) {
+    		} else if (((pos[start][player] > 0) && (pos[21][player] < 1)) || ((start === 21) && (pos[21][player] >= 1))) {
     			console.log('line 81');
                 // if player is white, moves piece clockwise
     			if (player === 'white') {

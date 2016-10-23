@@ -10,11 +10,11 @@ let initialState = {
     isRolling: '',       
     turn: '',       
     message: '',       
-    lastRoll: '',       
-    highlight: '',       
-    validOne: '',       
-    validTwo: '',       
-    winner: ''
+    lastRoll: null,       
+    highlight: null,       
+    validOne: null,       
+    validTwo: null,       
+    winner: null
 };
 
 function reducer(state = initialState, action) {

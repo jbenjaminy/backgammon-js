@@ -39,7 +39,6 @@ class Board extends React.Component {
 					}
 				}
 			} else if ((this.props.state.curPos[id][this.props.state.turn] > 0 && !this.props.state.curPos[21][this.props.state.turn]) || (id === 21 && this.props.state.curPos[id][this.props.state.turn])) {
-				console.log('here');
 				return this.props.dispatch({
 					type: 'server/findValidMoves',
 					data: {

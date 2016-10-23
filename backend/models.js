@@ -34,19 +34,19 @@ const GameSchema = new mongoose.Schema({
     	type: String
     },
     lastRoll: {
-    	type: String
+    	type: Number
     },
     highlight: {
-    	type: String
+    	type: Number
     },
     validOne: {
-    	type: String
+    	type: Number
     },
     validTwo: {
-    	type: String
+    	type: Number
     },
     winner: {
-    	type: String
+    	type: Number
     }
 });
 

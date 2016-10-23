@@ -21,7 +21,9 @@ const routes = (
 			<Route path='/new' component={NewGame} />
 			<Route path='/join' component={JoinGame} />
 			<Route path='/resume' component={ResumeGame} />
-			<Route path='/game' component={GameContainer} />
+			<Route path='/game/:gameId'>
+				<IndexRoute component={GameContainer} />
+			</Route>
 		</Route>
 	</Router>
 );
