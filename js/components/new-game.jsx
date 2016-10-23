@@ -1,10 +1,6 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-
-const propTypes = {
-    dispatch: PropTypes.func,
-    state: PropTypes.object
-};
+import React from 'react';
+import {connect} from 'react-redux';
+import {hashHistory} from 'react-router'
 
 class NewGame extends React.Component {
     constructor() {
@@ -14,19 +10,18 @@ class NewGame extends React.Component {
 
     newGame(event) {
         event.preventDefault();
-        const promise = new Promise((res) => {
-            res(
-                this.props.dispatch({
-                    type: 'server/createGame',
-                    data: {
-                        playerOne: this.name.value
-                    }
-                })
-            );
+        this.props.dispatch({
+            type: 'server/createGame',
+            data: {
+                playerOne: this.name.value
+            }
         });
-        promise.then(function() {
-            window.location.href = '/#/game';
-        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.gameId !== "") {
+            hashHistory.push(`/game/${nextProps.gameId}`);
+        }
     }
 
     render() {
@@ -48,9 +43,8 @@ class NewGame extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        state: state
+        gameId: state.gameId
     };
 };
 
-NewGame.propTypes = propTypes;
 module.exports = connect(mapStateToProps)(NewGame);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {hashHistory} from 'react-router'
 
 
@@ -24,7 +24,6 @@ class JoinGame extends React.Component {
         if (nextProps.gameId !== "") {
             hashHistory.push(`/game/${nextProps.gameId}`);
         }
-
     }
 
     render() {
