@@ -2,13 +2,12 @@ const Game = require('../models');
 
 /* CHECKS FOR VALID MOVES AND UPDATE GAME */
 let findValidMoves = (data) => {
-    let fromPos = data.fromPos;
+    let start = data.start;
     let state = data.state;
     let id = state.gameId;
     return new Promise((resolve, reject) => {
-        const promise = checkMoves(fromPos, state);
+        const promise = checkMoves(start, state);
         promise.then((game) => {
-            console.log('game --->', game);
             Game.findOneAndUpdate({ _id: id }, {
                 players: game.players,      
                 curPos: game.curPos,
@@ -27,7 +26,6 @@ let findValidMoves = (data) => {
                 winner: game.winner    
             }, { new: true }, (err, game) => {
                 if (err) {
-                    console.error('error', err);
                     reject(err);
                 }
                 resolve(game);
@@ -37,13 +35,11 @@ let findValidMoves = (data) => {
 }
 
 /* CHECKS TO SEE IF SELECTED POSITION HAS ANY VALID MOVES */
-let checkMoves = (fromPos, game) => {
-	let start = parseInt(fromPos);
+let checkMoves = (start, game) => {
 	let player = game.turn;
 	let moves = game.availableMoves;
 	let pos = game.curPos;
 	let validMoves = [];
-    console.log(pos[start][player])
     return new Promise((resolve, reject) => {
     	// checks if trying to move from one of the home spaces, and returns no valid moves
     	if (start === 1 || start === 28) {
@@ -52,11 +48,8 @@ let checkMoves = (fromPos, game) => {
     	}
     	// for the from position, checks each move from the available moves to see if it is valid
     	for (let move of moves) {
-    		move = parseInt(move);
-            console.log('move', move);
     		// checks that move is from current player's occupied space and if all white pieces are in white's home quadrant and they are ready to move home
     		if ((player === 'white') && (pos[start].white > 0) && ((pos[1].white + pos[2].white + pos[3].white + pos[4].white + pos[5].white + pos[6].white + pos[7].white) === 15)) {
-                console.log('line 58');
     			// sets up variable for position of resultant move and adjusts if it is past the home space
     			let end = start - move;
     			if (end < 1) {
@@ -69,7 +62,6 @@ let checkMoves = (fromPos, game) => {
     			}
     		// repeats same process as lines 53 through 64 for black
     		} else if ((player === 'black') && (pos[start].black > 0) && ((pos[22].black + pos[23].black + pos[24].black + pos[25].black + pos[26].black + pos[27].black + pos[28].black) === 15)) {
-                console.log('line 71');
     			let end = start - move;
     			if (end > 28) {
 					end = 28;
@@ -79,10 +71,8 @@ let checkMoves = (fromPos, game) => {
     			}
     		// if player is not ready to move home, checks that they are either moving from a space they occupy and have no pieces on the bar, or are moving from the bar if they do have pieces on the bar.
     		} else if (((pos[start][player] > 0) && (pos[21][player] < 1)) || ((start === 21) && (pos[21][player] >= 1))) {
-    			console.log('line 81');
                 // if player is white, moves piece clockwise
     			if (player === 'white') {
-                    console.log('line 84');
     				end = start - move;
     				// if move crosses the bar, it is not included as a space in the projected 'end' position
     				if (((start > 21) && (end <= 21)) || ((start > 8) && (end <= 8))) {
@@ -97,7 +87,6 @@ let checkMoves = (fromPos, game) => {
     					validMoves.push({'position': end, 'roll': move})
     				}
     			} else if (player === 'black') {
-                    console.log('line 99;')
     				// if player is black, moves piece counter-clockwise
     				end = start + move;
     				// if move crosses the bar, it is not included as a space in the projected 'end' position
@@ -116,7 +105,6 @@ let checkMoves = (fromPos, game) => {
     		}
     	}
     	game.highlight = start;
-        console.log('game', game)
     	game.validMoves = validMoves;
     	game.validOne = null;
         game.validTwo = null;
@@ -126,7 +114,6 @@ let checkMoves = (fromPos, game) => {
             game.validOne = validMoves[0].position;
             game.validTwo = validMoves[1].position;
         }
-        console.log('game', game);
         resolve(game);
     });
 }

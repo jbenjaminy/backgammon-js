@@ -26,7 +26,6 @@ let makeRoll = (data) => {
                 winner: game.winner    
             }, { new: true }, (err, game) => {
                 if (err) {
-                    console.error(err);
                     reject(err);
                 }
                 resolve(game);

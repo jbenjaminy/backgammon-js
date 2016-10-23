@@ -3,7 +3,7 @@ const Game = require('../models');
 /* CHANGES POSITIONS TO REFLECT PLAYER'S MOVE AND UPDATES GAME */
 let updatePositions = (data) => {
     let toPos = data.toPos;
-    let roll = parseInt(data.roll);
+    let roll = data.roll;
     let state = data.state;
     let id = state.gameId;
     return new Promise((resolve, reject) => {
@@ -38,7 +38,6 @@ let updatePositions = (data) => {
 /* ADJUSTS POSITIONS TO REFLECT PLAYER'S MOVE */
 let adjustPos = (toPos, removeMe, game) => {
     let pos = game.curPos;
-    toPos = parseInt(toPos);
     let fromPos = game.highlight;
     let to = pos[toPos];
     let frm = pos[fromPos];
@@ -67,7 +66,7 @@ let adjustPos = (toPos, removeMe, game) => {
         let moves = game.availableMoves.filter((val, index) => {
             if (val === removeMe) {
                 // if this was the first move used, push onto used array to grey out appropriate dice image
-                if (game.diceUsed.length === 0) {
+                if (game.diceUsed.length < 1) {
                     used.push(index);
                 // if this was second move used, either all moves are used or in the case of doubles the first two of four moves are used
                 } else if (game.diceUsed.length === 1) {
@@ -79,7 +78,7 @@ let adjustPos = (toPos, removeMe, game) => {
                 } else {
                     used = [0, 1, 2, 3];
                 }
-                removeme = null; 
+                removeMe = null; 
                 return false;
             } return true;
         });
@@ -91,7 +90,7 @@ let adjustPos = (toPos, removeMe, game) => {
         }
         game.curPos = pos;
         game.availableMoves = moves;
-        game.diceUse = used;
+        game.diceUsed = used;
         game.highlight = null;
         game.validOne = null;
         game.validTwo = null;

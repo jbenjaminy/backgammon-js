@@ -72,7 +72,7 @@ class TopDisplay extends React.Component {
 			if ((diceUsed.length === 1 && index === diceUsed[0]) || (diceUsed.length > 1 && index < diceUsed.length)) {
 				return (
 					<li key={index}><Dice image={dice + 10}/></li>
-				)
+				);
 			} else {
 				dice = dice.toString();
 				return (

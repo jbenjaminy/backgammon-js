@@ -43,7 +43,7 @@ class Board extends React.Component {
 					type: 'server/findValidMoves',
 					data: {
 						state: this.props.state,
-						fromPos: id
+						start: id
 					}
 				});
 			} else if (this.props.state.highlight && this.props.state.validMoves.length === 0) {
