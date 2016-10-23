@@ -62,7 +62,7 @@ let checkMoves = (start, game) => {
     			}
     		// repeats same process as lines 53 through 64 for black
     		} else if ((player === 'black') && (pos[start].black > 0) && ((pos[22].black + pos[23].black + pos[24].black + pos[25].black + pos[26].black + pos[27].black + pos[28].black) === 15)) {
-    			let end = start - move;
+    			let end = start + move;
     			if (end > 28) {
 					end = 28;
     			}
