@@ -10,6 +10,8 @@
 		*anything global is visible to all users
 		*cur_pos global would need to become per user/per game storage
 	9) doubling cube
+	-make so that when you refresh on game page it reloads
+	-fix resume game function
 
 	* create new room (by game id) in 'sockets' on create game and have sockets added to this on join/find game. only emit back to a particular room. 
 	* add socket id to players obj so that socket id can be checked against stored socket id so that one player cant roll/move for the other player. 
