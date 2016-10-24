@@ -49,7 +49,7 @@ class TopDisplay extends React.Component {
 	}
 
 	undoMoves() {
-		if (this.props.state.returnPos) {
+		if (this.props.state.returnPos && this.props.state.inGame) {
 			this.props.dispatch({
 				type: 'server/undoMoves',
 				data: this.props.state
