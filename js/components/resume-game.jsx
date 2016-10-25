@@ -11,8 +11,9 @@ class ResumeGame extends React.Component {
     resumeGame(event) {
         event.preventDefault();
         this.props.dispatch({
-            type: 'server/findGame',
+            type: 'server/resumeGame',
             data: {
+                name: this.name.value,
                 id: this.id.value
             }
         });

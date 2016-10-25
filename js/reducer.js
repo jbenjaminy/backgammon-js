@@ -1,6 +1,7 @@
 let initialState = {
     gameId: '',
-    players: {},      
+    players: {},
+    sockets: {},      
     curPos: {},
     returnPos: null,
     dice: [],
@@ -12,7 +13,8 @@ let initialState = {
     isRolling: false,       
     turn: '',       
     message: '',
-    winner: '',             
+    winner: '',  
+    numPlayers: null,           
     highlight: null,       
     validOne: null,       
     validTwo: null       
@@ -23,7 +25,8 @@ function reducer(state = initialState, action) {
         case 'update': {
             return Object.assign({}, state, {
                 gameId: action.data._id,
-                players: action.data.players,      
+                players: action.data.players,
+                sockets: action.data.sockets,      
                 curPos: action.data.curPos,
                 returnPos: action.data.returnPos,
                 dice: action.data.dice,
@@ -34,7 +37,8 @@ function reducer(state = initialState, action) {
                 isRolling: action.data.isRolling,       
                 turn: action.data.turn,       
                 message: action.data.message,       
-                lastRoll: action.data.lastRoll,       
+                lastRoll: action.data.lastRoll,
+                numPlayers: action.data.numPlayers,       
                 highlight: action.data.highlight,       
                 validOne: action.data.validOne,       
                 validTwo: action.data.validTwo,       

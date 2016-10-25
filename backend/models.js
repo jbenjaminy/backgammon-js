@@ -5,6 +5,10 @@ const GameSchema = new mongoose.Schema({
     	type: Object,
     	required: true
     },
+    sockets: {
+        type: Object,
+        required: true
+    },
     curPos: {
         type: Object,
         required: true
@@ -41,6 +45,9 @@ const GameSchema = new mongoose.Schema({
     },
     winner: {
         type: String
+    },
+    numPlayers: {
+        type: Number
     },
     highlight: {
     	type: Number
