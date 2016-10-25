@@ -3,9 +3,9 @@ const Game = require('../models');
 /* SWITCHES DICE ARRAY BRIEFLY TO GIF SRCS FOR 'ROLLING' ANIMATION */
 let rollDice = (data) => {
     let id = data.gameId;
-    let dice = ['./dice-roll-one.gif'];
+    let dice = ['../img/dice-roll-one.gif'];
     if (data.inGame) {
-        dice = ['./dice-roll-one.gif', './dice-roll-two.gif'];
+        dice = ['../img/dice-roll-one.gif', '../img/dice-roll-two.gif'];
     }
     return new Promise((resolve, reject) => {
         Game.findOneAndUpdate({ _id: id }, {

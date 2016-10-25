@@ -104,14 +104,14 @@ class TopDisplay extends React.Component {
 			<div className='top-display'>
 				<h2 className='status'>{this.props.state.players[this.props.state.turn]}{this.props.state.message}</h2>
 				<div className='player-one col'>
-					<h2 className={white}>{this.props.state.players.white}&nbsp;&nbsp;<img src='./white-piece.png' className='icon'/></h2>
+					<h2 className={white}>{this.props.state.players.white}&nbsp;&nbsp;<img src='../img/white-piece.png' className='icon'/></h2>
 				</div>
 				<div className='mid col'>
 					<ul className={buttons}><li><button key='2' className='undo' onClick={this.undoMoves}>Undo</button></li><li>{endArr}</li><li>{restartArr}</li></ul>
 					<ul className={diceClasses} onClick={this.rollDice}>{diceArr}</ul>
 				</div>
 				<div className='player-two col'>
-					<h2 className={black}>{this.props.state.players.black}&nbsp;&nbsp;<img src='./black-piece.png' className='icon'/></h2>
+					<h2 className={black}>{this.props.state.players.black}&nbsp;&nbsp;<img src='../img/black-piece.png' className='icon'/></h2>
 				</div>
 			</div>
 		);
