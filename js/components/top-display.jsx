@@ -15,7 +15,9 @@ class TopDisplay extends React.Component {
 		if (this.props.state.isRolling) {
 			this.props.dispatch({
 				type: 'server/rollDice',
-				data: this.props.state
+				data: {
+					state: this.props.state
+				}
 			});
 			setTimeout(() => {
 				if (!this.props.state.inGame) {
@@ -43,7 +45,9 @@ class TopDisplay extends React.Component {
 		if (this.props.state.inGame) {
 			this.props.dispatch({
 				type: 'server/endTurn',
-				data: this.props.state
+				data: {
+					state: this.props.state
+				}
 			});
 		}
 	}
@@ -52,7 +56,9 @@ class TopDisplay extends React.Component {
 		if (this.props.state.returnPos && this.props.state.inGame) {
 			this.props.dispatch({
 				type: 'server/undoMoves',
-				data: this.props.state
+				data: {
+					state: this.props.state
+				}
 			});
 		}
 	}
@@ -60,7 +66,9 @@ class TopDisplay extends React.Component {
 	restartGame() {
 		this.props.dispatch({
 			type: 'server/restartGame',
-			data: this.props.state
+			data: {
+				state: this.props.state
+			}
 		});
 	}
 

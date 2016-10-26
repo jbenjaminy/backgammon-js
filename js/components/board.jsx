@@ -15,7 +15,9 @@ class Board extends React.Component {
 			if (this.props.state.highlight === id) {
 				return this.props.dispatch({
 					type: 'server/unhighlight',
-					data: this.props.state
+					data: {
+						state: this.props.state
+					}
 				});
 			} else if (this.props.state.highlight && this.props.state.validMoves.length > 0) {
 				let validMoves = this.props.state.validMoves;
@@ -34,7 +36,9 @@ class Board extends React.Component {
 					} else if (validMoves.indexOf(move) === (this.props.state.validMoves.length - 1)) {
 						return this.props.dispatch({
 							type: 'server/unhighlight',
-							data: this.props.state
+							data: {
+								state: this.props.state
+							}
 						});
 					}
 				}
@@ -49,13 +53,17 @@ class Board extends React.Component {
 			} else if (this.props.state.highlight && this.props.state.validMoves.length === 0) {
 				return this.props.dispatch({
 					type: 'server/unhighlight',
-					data: this.props.state
+					data: {
+						state: this.props.state
+					}
 				});
 			}
 		} else if (this.props.state.highlight) {
 			return this.props.dispatch({
 				type: 'server/unhighlight',
-				data: this.props.state
+				data: {
+					state: this.props.state
+				}
 			});
 		}
 	}
