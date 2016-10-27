@@ -2,7 +2,7 @@ const Game = require('../models');
 
 /* UNHILIGHTS POSITIONS FOR BOTH 'SELECTED' SPACES & 'VALID MOVES' */
 let unhighlight = (data) => {
-    data = data.state,
+    data = data.state;
     let id = data.gameId;
     return new Promise((resolve, reject) => {
         Game.findOneAndUpdate({ _id: id }, {
