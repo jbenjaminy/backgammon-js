@@ -22,21 +22,25 @@ const disconnect = require('./backend/functions/disconnect');
 
 app.use(express.static('./build'));
 
+gameIdsObj = {};
 socketsObj = {};
 
-let emit = (game) => {
-    if (game.sockets.white) {
-        game.sockets.white.emit('action', {
+let emit = (game, socket, addSocket) => {
+    console.log(game, socket, addSocket);
+    if (addSocket) {
+        gameIdsObj[socket.id] = game._id;
+        if (socketsObj[game._id]) {
+            socketsObj[game._id].push(socket);
+        } else {
+            socketsObj[game._id] = [socket];
+        }
+        console.log('gameIdsObj --->', gameIdsObj);
+        console.log('socketsObj --->', socketsObj);
+    }
+    socketsObj[game._id].emit('action', {
             type:'update', 
             data: game
-        });
-    }
-    if (game.sockets.black) {
-        game.sockets.black.emit('action', {
-            type: 'update',
-            data: game
-        });
-    }
+    });
 };
 
 // ACTIONS
@@ -48,25 +52,15 @@ io.on('connection', (socket) => {
     socket.on('action', (action) => {
         // console.log('action---->', action)
         let state = action.data.state;
-        if (state.numPlayers === 1 || state.sockets[state.turn].id === socket.id) {
+        // if (state.numPlayers < 2 || state.sockets[state.turn].id === socket.id) {
             if (action.type === 'server/createGame') {
-                createGame(action.data, socket).then((game) => {
-                    // store key/value socket.id/gameId to enable lookup of the game a socket is in, to remove on disconnect
-                    socketsObj[socket.id] = game._id;
-                    emit(game);
-                });
+                createGame(action.data, socket).then(emit(game, socket, addSocket));
             }
             if (action.type === 'server/joinGame') {
-                joinGame(action.data, socket).then((game) => {
-                    socketsObj[socket.id] = game._id;
-                    emit(game);
-                });
+                joinGame(action.data, socket).then(emit);
             }
             if (action.type === 'server/resumeGame') {
-                resumeGame(action.data, socket).then((game) => {
-                    socketsObj[socket.id] = game._id;
-                    emit(game);
-                });
+                resumeGame(action.data, socket).then(emit);
             }
             if (action.type === 'server/restartGame') {
                 restartGame(action.data).then(emit);
@@ -92,14 +86,16 @@ io.on('connection', (socket) => {
             if (action.type === 'server/endTurn') {
                 endTurn(action.data).then(emit);
             }
-        } else {
-            console.log('Cannot move for another player.');
-        }
+        // } else {
+        //     console.log('Cannot move for another player.');
+        // }
     });
     socket.on('disconnect', () => {
-        let gameId = socketsObj[socket.id];
-        disconnect(gameId, socket.id);
-        console.log(`Socket disconnected: ${socket.id}`);
+        let gameId = gameIdsObj[socket.id];
+        if (gameId) {
+            disconnect(gameId, socket.id);
+            console.log(`Socket disconnected: ${socket.id}`);
+        }
     });
 });
 
