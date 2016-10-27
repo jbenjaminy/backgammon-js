@@ -13,6 +13,7 @@ class JoinGame extends React.Component {
         this.props.dispatch({
             type: 'server/joinGame',
             data: {
+                state: this.props.state,
                 id: this.id.value,
                 playerTwo: this.name.value.toUpperCase()
             }
@@ -42,6 +43,7 @@ class JoinGame extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        state: state,
         gameId: state.gameId
     };
 };

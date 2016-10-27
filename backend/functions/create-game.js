@@ -13,16 +13,17 @@ let newGame = (data, socket) => {
             dice: [1],
             validMoves: [],
             availableMoves: [],       
-            diceUsed: [],       
+            diceUsed: [],
+            lastRoll: [],       
             inGame: false,       
             isRolling: true,       
             turn: 'white',       
-            message: ': ROLL FOR FIRST TURN',       
-            lastRoll: null,       
+            message: ': ROLL FOR FIRST TURN',
+            winner: '',
+            numPlayers: 1, 
             highlight: null,       
             validOne: null,       
-            validTwo: null,       
-            winner: null    
+            validTwo: null       
         }, (err, game) => {
             if (err) {
                 console.error(err);

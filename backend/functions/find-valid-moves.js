@@ -9,22 +9,24 @@ let findValidMoves = (data) => {
         const promise = checkMoves(start, state);
         promise.then((game) => {
             Game.findOneAndUpdate({ _id: id }, {
-                players: game.players,      
+                players: game.players,
+                sockets: game.sockets,    
                 curPos: game.curPos,
                 returnPos: game.returnPos,
                 dice: game.dice,
                 validMoves: game.validMoves,
                 availableMoves: game.availableMoves,       
-                diceUsed: game.diceUsed,       
+                diceUsed: game.diceUsed, 
+                lastRoll: game.lastRoll,      
                 inGame: game.inGame,       
                 isRolling: game.isRolling,       
                 turn: game.turn,       
                 message: game.message,       
-                lastRoll: game.lastRoll,       
+                winner: game.winner,    
+                numPlayers: game.numPlayers,
                 highlight: game.highlight,       
                 validOne: game.validOne,       
-                validTwo: game.validTwo,       
-                winner: game.winner    
+                validTwo: game.validTwo     
             }, { new: true }, (err, game) => {
                 if (err) {
                     reject(err);

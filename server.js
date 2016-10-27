@@ -41,7 +41,7 @@ let emit = (game) => {
 
 // ACTIONS
 io.on('connection', (socket) => {
-    console.log("Socket connected: " + socket.id);
+    console.log(`Socket connected: ${socket.id}`);
     // socket.emit('action', {
     //     type: 'routeHome'
     // });
@@ -94,6 +94,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         let gameId = socketsObj[socket.id];
         disconnect(gameId, socket.id);
+        console.log(`Socket disconnected: ${socket.id}`);
     });
 });
 

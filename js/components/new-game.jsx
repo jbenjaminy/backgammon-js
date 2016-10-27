@@ -13,6 +13,7 @@ class NewGame extends React.Component {
         this.props.dispatch({
             type: 'server/createGame',
             data: {
+                state: this.props.state,
                 playerOne: this.name.value.toUpperCase()
             }
         });
@@ -40,6 +41,7 @@ class NewGame extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        state: state,
         gameId: state.gameId
     };
 };

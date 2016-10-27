@@ -13,6 +13,7 @@ class ResumeGame extends React.Component {
         this.props.dispatch({
             type: 'server/resumeGame',
             data: {
+                state: this.props.state,
                 name: this.name.value,
                 id: this.id.value
             }
@@ -42,7 +43,8 @@ class ResumeGame extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        gameId: state.gameId
+        gameId: state.gameId,
+        state: state
     };
 };
 

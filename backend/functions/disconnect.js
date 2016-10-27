@@ -21,17 +21,17 @@ let disconnect = (gameId, socketId) => {
                     dice: game[0].dice,
                     validMoves: game[0].validMoves,
                     availableMoves: game[0].availableMoves,       
-                    diceUsed: game[0].diceUsed,      
+                    diceUsed: game[0].diceUsed,
+                    lastRoll: game[0].lastRoll,    
                     inGame: game[0].inGame,       
                     isRolling: game[0].isRolling,       
                     turn: game[0].turn,       
-                    message: game[0].message,       
-                    lastRoll: game[0].lastRoll,
+                    message: game[0].message,
+                    winner: game[0].winner,   
                     numPlayers: 1,       
                     highlight: game[0].highlight,       
                     validOne: game[0].validOne,       
-                    validTwo: game[0].validTwo,       
-                    winner: game[0].winner
+                    validTwo: game[0].validTwo      
                 }, { new: true }, (err, game) => {
                     if (err) {
                       reject(err);
