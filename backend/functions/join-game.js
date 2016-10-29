@@ -8,8 +8,13 @@ let joinGame = (data, socket) => {
         const promise = findGame(id);
         promise.then((game) => {
             let players = game[0].players;
-            players.black = playerTwo;
-            let sockets = { 'white': game[0].sockets.white, 'black': socket.id };
+            let sockets = game[0].sockets;
+            if (!sockets.black) {
+                players.black = playerTwo;
+                sockets = { 'white': sockets.white, 'black': socket.id };
+            } else {
+                reject(console.log(`Game ${id} is full`));
+            }
             Game.findOneAndUpdate({ _id: id }, {
                 players: players,
                 sockets: sockets,   

@@ -26,7 +26,7 @@ gameIdsObj = {};
 socketsObj = {};
 
 let emit = (data) => {
-    console.log(data.game, data.socket.id, data.addSocket);
+    // console.log(data.game, data.socket.id, data.addSocket);
     if (data.addSocket) {
         gameIdsObj[data.socket.id] = data.game._id;
         if (socketsObj[data.game._id]) {
@@ -34,8 +34,8 @@ let emit = (data) => {
         } else {
             socketsObj[data.game._id] = [data.socket];
         }
-        console.log('gameIdsObj --->', gameIdsObj);
-        console.log('socketsObj --->', socketsObj);
+        // console.log('gameIdsObj --->', gameIdsObj);
+        // console.log('socketsObj --->', socketsObj);
     }
     socketsObj[data.game._id].forEach((client) => {
         client.emit('action', {
@@ -96,7 +96,6 @@ io.on('connection', (socket) => {
         let gameId = gameIdsObj[socket.id];
         if (gameId) {
             disconnect(gameId, socket.id);
-            console.log(`Socket disconnected: ${socket.id}`);
         }
     });
 });

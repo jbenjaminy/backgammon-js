@@ -4,39 +4,40 @@ const Game = require('../models');
 let disconnect = (gameId, socketId) => {
     return new Promise((resolve, reject) => {
         const promise = findGame(gameId, socketId);
-        promise.then((game, sockets, deleteGame) => {
-            if (deleteGame) {
-                Game.findByIdAndRemove({ gameId }, (err, game) => {
+        promise.then((data) => {
+            let game = data.game[0];
+            if (data.deleteGame) {
+                Game.findByIdAndRemove({ _id: gameId }, (err, gameUpdate) => {
                     if (err) {
                         reject(err);
                     }
-                    resolve(game);
+                    resolve(console.log(`Game deleted: ${gameId}`));
                 });
             } else {
                 Game.findOneAndUpdate({ _id: gameId }, {
-                    players: game[0].players,
-                    sockets: sockets,
-                    curPos: game[0].curPos,
-                    returnPos: game[0].returnPos,
-                    dice: game[0].dice,
-                    validMoves: game[0].validMoves,
-                    availableMoves: game[0].availableMoves,       
-                    diceUsed: game[0].diceUsed,
-                    lastRoll: game[0].lastRoll,    
-                    inGame: game[0].inGame,       
-                    isRolling: game[0].isRolling,       
-                    turn: game[0].turn,       
-                    message: game[0].message,
-                    winner: game[0].winner,   
+                    players: game.players,
+                    sockets: data.sockets,
+                    curPos: game.curPos,
+                    returnPos: game.returnPos,
+                    dice: game.dice,
+                    validMoves: game.validMoves,
+                    availableMoves: game.availableMoves,       
+                    diceUsed: game.diceUsed,
+                    lastRoll: game.lastRoll,    
+                    inGame: game.inGame,       
+                    isRolling: game.isRolling,       
+                    turn: game.turn,       
+                    message: game.message,
+                    winner: game.winner,   
                     numPlayers: 1,       
-                    highlight: game[0].highlight,       
-                    validOne: game[0].validOne,       
-                    validTwo: game[0].validTwo      
-                }, { new: true }, (err, game) => {
+                    highlight: game.highlight,       
+                    validOne: game.validOne,       
+                    validTwo: game.validTwo      
+                }, { new: true }, (err, gameUpdate) => {
                     if (err) {
                       reject(err);
                     }
-                    resolve(game);
+                    resolve(console.log(`Socket disconnected: ${socketId}`));
                 });
             }
         });
@@ -45,34 +46,31 @@ let disconnect = (gameId, socketId) => {
 
 /* FIND GAME BY OBJECT ID AS PROMISE AND REMOVE DISCONNECTED SOCKET */
 let findGame = (gameId, socketId) => {
-    console.log('gameId---->', gameId);
-    console.log('socketId---->', socketId);
     let deleteGame = true;
     return new Promise((resolve, reject) => {
         Game.find({ _id: gameId}, (err, game) => {
-            console.log('game---->', game);
             if (err) {
                 reject(err);
             }
             if (!game.length) {
                 reject(err);
             }
-            let sockets = game.sockets;
+            let sockets = game[0].sockets;
             if (sockets.white) {
                 if (sockets.white === socketId) {
-                    sockets[white] = null;
+                    sockets.white = null;
                 } else {
                     deleteGame = false;
                 }
             } 
             if (sockets.black) {
                 if (sockets.black === socketId) {
-                    sockets[black] = null;
+                    sockets.black = null;
                 } else {
                     deleteGame = false;
                 }
             }
-            resolve(game, sockets, deleteGame);
+            resolve({game: game, sockets: sockets, deleteGame: deleteGame});
         });
     });
 };

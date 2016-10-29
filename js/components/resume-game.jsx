@@ -14,7 +14,7 @@ class ResumeGame extends React.Component {
             type: 'server/resumeGame',
             data: {
                 state: this.props.state,
-                name: this.name.value,
+                name: this.name.value.toUpperCase(),
                 id: this.id.value
             }
         });
