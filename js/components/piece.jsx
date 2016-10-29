@@ -1,10 +1,10 @@
 import React from 'react';
 
 function Piece(props) {
-    let pieceSrc = './white-piece.png';
+    let pieceSrc = '../img/white-piece.png';
     let pieceClasses = 'piece white';
   	if (props.color === 'black') {
-		pieceSrc = './black-piece.png';
+		pieceSrc = '../img/black-piece.png';
 		pieceClasses = 'piece black';
 	}
     return <img className={pieceClasses} src={pieceSrc} />;
