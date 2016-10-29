@@ -31,7 +31,7 @@ let newGame = (data, socket) => {
                 console.error(err);
                 reject(err);
             }
-            resolve(game, socket, true);
+            resolve({game: game, socket: socket, addSocket: true});
         });
     });
 }

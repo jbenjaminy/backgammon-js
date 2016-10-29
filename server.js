@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
         let state = action.data.state;
         // if (state.numPlayers < 2 || state.sockets[state.turn].id === socket.id) {
             if (action.type === 'server/createGame') {
-                createGame(action.data, socket).then(emit(game, socket, addSocket));
+                createGame(action.data, socket).then(emit);
             }
             if (action.type === 'server/joinGame') {
                 joinGame(action.data, socket).then(emit);
