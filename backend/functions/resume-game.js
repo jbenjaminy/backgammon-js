@@ -50,10 +50,10 @@ let findGame = (data, socket) => {
             let players = game[0].players;
             let sockets = game[0].sockets;
             if (name === players.white && !sockets.white) {
-                sockets.white = socket;
+                sockets.white = socket.id;
                 reject = false;
             } else if (name === players.black && !sockets.black) {
-                sockets.black = socket;
+                sockets.black = socket.id;
                 reject = false;
             }
             if (reject) {

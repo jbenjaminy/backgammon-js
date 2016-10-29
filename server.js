@@ -26,7 +26,7 @@ gameIdsObj = {};
 socketsObj = {};
 
 let emit = (data) => {
-    console.log(data.game, data.socket, data.addSocket);
+    console.log(data.game, data.socket.id, data.addSocket);
     if (data.addSocket) {
         gameIdsObj[data.socket.id] = data.game._id;
         if (socketsObj[data.game._id]) {

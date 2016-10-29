@@ -45,25 +45,28 @@ let disconnect = (gameId, socketId) => {
 
 /* FIND GAME BY OBJECT ID AS PROMISE AND REMOVE DISCONNECTED SOCKET */
 let findGame = (gameId, socketId) => {
+    console.log('gameId---->', gameId);
+    console.log('socketId---->', socketId);
     let deleteGame = true;
     return new Promise((resolve, reject) => {
         Game.find({ _id: gameId}, (err, game) => {
+            console.log('game---->', game);
             if (err) {
                 reject(err);
             }
             if (!game.length) {
                 reject(err);
             }
-            let sockets = game[0].sockets;
+            let sockets = game.sockets;
             if (sockets.white) {
-                if (sockets.white.id === socketId) {
+                if (sockets.white === socketId) {
                     sockets[white] = null;
                 } else {
                     deleteGame = false;
                 }
             } 
             if (sockets.black) {
-                if (sockets.black.id === socketId) {
+                if (sockets.black === socketId) {
                     sockets[black] = null;
                 } else {
                     deleteGame = false;

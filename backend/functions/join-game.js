@@ -9,7 +9,7 @@ let joinGame = (data, socket) => {
         promise.then((game) => {
             let players = game[0].players;
             players.black = playerTwo;
-            let sockets = { 'white': game[0].sockets.white, 'black': socket };
+            let sockets = { 'white': game[0].sockets.white, 'black': socket.id };
             Game.findOneAndUpdate({ _id: id }, {
                 players: players,
                 sockets: sockets,   

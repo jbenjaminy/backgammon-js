@@ -3,7 +3,6 @@ const Game = require('../models');
 /* CREATE NEW GAME */
 let newGame = (data, socket) => {
     let playerOne = data.playerOne;
-    console.log('data ---->', data);
     return new Promise((resolve, reject) => {
         Game.create({
             players: {'white': playerOne, 'black': 'PLAYER TWO'},
@@ -26,7 +25,6 @@ let newGame = (data, socket) => {
             validOne: null,       
             validTwo: null       
         }, (err, game) => {
-            console.log('game ---->', game);
             if (err) {
                 console.error(err);
                 reject(err);
