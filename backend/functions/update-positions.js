@@ -1,7 +1,7 @@
 const Game = require('../models');
 
 /* CHANGES POSITIONS TO REFLECT PLAYER'S MOVE AND UPDATES GAME */
-let updatePositions = (data) => {
+let updatePositions = (data, socket) => {
     let toPos = data.toPos;
     let roll = data.roll;
     let state = data.state;
@@ -32,7 +32,7 @@ let updatePositions = (data) => {
                 if (err) {
                     reject(err);
                 }
-                resolve(game);
+                resolve({game: game, socket: socket, addSocket: false});
             });
         });
     });

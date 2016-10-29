@@ -1,7 +1,7 @@
 const Game = require('../models');
 
 /* UNDO MOVES BY OBJECT ID, REVERTING STATE AND POSITIONS TO THE START OF THE TURN */
-let undoMoves = (data) => {
+let undoMoves = (data, socket) => {
     data = data.state;
     let id = data.gameId;
     return new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@ let undoMoves = (data) => {
             if (err) {
                 reject(err);
             }
-            resolve(game);
+            resolve({game: game, socket: socket, addSocket: false});
         });
     });
 }

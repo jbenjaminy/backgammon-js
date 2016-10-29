@@ -1,7 +1,7 @@
 const Game = require('../models');
 
 /* RESTART GAME BY OBJECT ID */
-let restartGame = (data) => {
+let restartGame = (data, socket) => {
     let id = data.state.gameId;
     return new Promise((resolve, reject) => {
         Game.findOneAndUpdate({ _id: id }, {
@@ -27,7 +27,7 @@ let restartGame = (data) => {
             if (err) {
                 reject(err);
             }
-            resolve(game);
+            resolve({game: game, socket: socket, addSocket: false});
         });
     });
 }

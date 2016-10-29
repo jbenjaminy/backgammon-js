@@ -1,7 +1,7 @@
 const Game = require('../models');
 
 /* SWITCHES DICE ARRAY BRIEFLY TO GIF SRCS FOR 'ROLLING' ANIMATION */
-let rollDice = (data) => {
+let rollDice = (data, socket) => {
     data = data.state;
     let id = data.gameId;
     let dice = ['../img/dice-roll-one.gif'];
@@ -32,7 +32,7 @@ let rollDice = (data) => {
             if (err) {
                 reject(err);
             }
-            resolve(game);
+            resolve({game: game, socket: socket, addSocket: false});
         });
     });
 }
