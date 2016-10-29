@@ -31,7 +31,7 @@ let findValidMoves = (data) => {
                 if (err) {
                     reject(err);
                 }
-                resolve(game);
+                resolve({game, socketId});
             });
         });
     });

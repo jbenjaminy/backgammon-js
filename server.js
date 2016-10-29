@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
     socket.on('action', (action) => {
         // console.log('action---->', action)
         let state = action.data.state;
-        // if (state.numPlayers < 2 || state.sockets[state.turn].id === socket.id) {
+        if (state.numPlayers < 2 || state.sockets[state.turn] === socket.id) {
             if (action.type === 'server/createGame') {
                 createGame(action.data, socket).then(emit);
             }
@@ -65,32 +65,32 @@ io.on('connection', (socket) => {
                 resumeGame(action.data, socket).then(emit);
             }
             if (action.type === 'server/restartGame') {
-                restartGame(action.data).then(emit);
+                restartGame(action.data, socket.id).then(emit);
             }
             if (action.type === 'server/rollDice') {
-                rollDice(action.data).then(emit);
+                rollDice(action.data, socket.id).then(emit);
             }
             if (action.type === 'server/makeRoll') {
-                makeRoll(action.data).then(emit);
+                makeRoll(action.data, socket.id).then(emit);
             }
             if (action.type === 'server/findValidMoves') {
-                findValidMoves(action.data).then(emit);
+                findValidMoves(action.data, socket.id).then(emit);
             }
             if (action.type === 'server/updatePositions') {
-                updatePositions(action.data).then(emit);
+                updatePositions(action.data, socket.id).then(emit);
             }
             if (action.type === 'server/unhighlight') {
-                unhighlight(action.data).then(emit);
+                unhighlight(action.data, socket.id).then(emit);
             }
             if (action.type === 'server/undoMoves') {
-                undoMoves(action.data).then(emit);
+                undoMoves(action.data, socket.id).then(emit);
             }
             if (action.type === 'server/endTurn') {
-                endTurn(action.data).then(emit);
+                endTurn(action.data, socket.id).then(emit);
             }
-        // } else {
-        //     console.log('Cannot move for another player.');
-        // }
+        } else {
+            console.log('Cannot move for another player.');
+        }
     });
     socket.on('disconnect', () => {
         let gameId = gameIdsObj[socket.id];
