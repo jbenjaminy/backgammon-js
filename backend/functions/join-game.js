@@ -33,7 +33,7 @@ let joinGame = (data, socket) => {
                 if (err) {
                   reject(err);
                 }
-                resolve(game);
+                resolve({game: game, socket: socket, addSocket: true});
             });
         });
     });

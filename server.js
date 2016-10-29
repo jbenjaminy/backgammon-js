@@ -25,21 +25,23 @@ app.use(express.static('./build'));
 gameIdsObj = {};
 socketsObj = {};
 
-let emit = (game, socket, addSocket) => {
-    console.log(game, socket, addSocket);
-    if (addSocket) {
-        gameIdsObj[socket.id] = game._id;
-        if (socketsObj[game._id]) {
-            socketsObj[game._id].push(socket);
+let emit = (data) => {
+    console.log(data.game, data.socket, data.addSocket);
+    if (data.addSocket) {
+        gameIdsObj[data.socket.id] = data.game._id;
+        if (socketsObj[data.game._id]) {
+            socketsObj[data.game._id].push(data.socket);
         } else {
-            socketsObj[game._id] = [socket];
+            socketsObj[data.game._id] = [data.socket];
         }
         console.log('gameIdsObj --->', gameIdsObj);
         console.log('socketsObj --->', socketsObj);
     }
-    socketsObj[game._id].emit('action', {
+    socketsObj[data.game._id].forEach((client) => {
+        client.emit('action', {
             type:'update', 
-            data: game
+            data: data.game
+        });
     });
 };
 
