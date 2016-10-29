@@ -1,7 +1,7 @@
 const Game = require('../models');
 
 /* MAKE A NEW ROLL AND UPDATE GAME */
-let makeRoll = (data) => {
+let makeRoll = (data, socket) => {
     let numDice = data.numDice;
     let state = data.state;
     let id = state.gameId;
@@ -31,7 +31,7 @@ let makeRoll = (data) => {
                 if (err) {
                     reject(err);
                 }
-                resolve(game);
+                resolve({game: game, socket: socket, addSocket: false});
             });
         });
     });

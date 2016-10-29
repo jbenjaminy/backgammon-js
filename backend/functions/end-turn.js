@@ -1,7 +1,7 @@
 const Game = require('../models');
 
 /* END TURN AND UPDATE GAME */
-let endTurn = (data, socketId) => {
+let endTurn = (data, socket) => {
     let id = data.state.gameId;
     let message = '\'S ROLL';
     let turn = data.state.turn;
@@ -30,7 +30,7 @@ let endTurn = (data, socketId) => {
             if (err) {
                 reject(err);
             }
-            resolve({game, socketId});
+            resolve({game: game, socket: socket, addSocket: false});
         });
     });
 }

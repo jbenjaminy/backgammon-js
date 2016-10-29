@@ -65,28 +65,28 @@ io.on('connection', (socket) => {
                 resumeGame(action.data, socket).then(emit);
             }
             if (action.type === 'server/restartGame') {
-                restartGame(action.data, socket.id).then(emit);
+                restartGame(action.data, socket).then(emit);
             }
             if (action.type === 'server/rollDice') {
-                rollDice(action.data, socket.id).then(emit);
+                rollDice(action.data, socket).then(emit);
             }
             if (action.type === 'server/makeRoll') {
-                makeRoll(action.data, socket.id).then(emit);
+                makeRoll(action.data, socket).then(emit);
             }
             if (action.type === 'server/findValidMoves') {
-                findValidMoves(action.data, socket.id).then(emit);
+                findValidMoves(action.data, socket).then(emit);
             }
             if (action.type === 'server/updatePositions') {
-                updatePositions(action.data, socket.id).then(emit);
+                updatePositions(action.data, socket).then(emit);
             }
             if (action.type === 'server/unhighlight') {
-                unhighlight(action.data, socket.id).then(emit);
+                unhighlight(action.data, socket).then(emit);
             }
             if (action.type === 'server/undoMoves') {
-                undoMoves(action.data, socket.id).then(emit);
+                undoMoves(action.data, socket).then(emit);
             }
             if (action.type === 'server/endTurn') {
-                endTurn(action.data, socket.id).then(emit);
+                endTurn(action.data, socket).then(emit);
             }
         } else {
             console.log('Cannot move for another player.');
