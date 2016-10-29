@@ -1,7 +1,7 @@
 const Game = require('../models');
 
 /* CHECKS FOR VALID MOVES AND UPDATE GAME */
-let findValidMoves = (data) => {
+let findValidMoves = (data, socketId) => {
     let start = data.start;
     let state = data.state;
     let id = state.gameId;
