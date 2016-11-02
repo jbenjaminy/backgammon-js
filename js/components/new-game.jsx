@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 
 class NewGame extends React.Component {
     constructor() {
@@ -21,7 +21,7 @@ class NewGame extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.gameId !== "") {
-            hashHistory.push(`/game/${nextProps.gameId}`);
+            browserHistory.push(`/game/${nextProps.gameId}`);
         }
     }
 

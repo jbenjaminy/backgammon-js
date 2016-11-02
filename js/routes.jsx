@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Route, hashHistory, IndexRoute} from 'react-router';
+import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import LandingPage from './components/landing-page';
 import NewGame from './components/new-game';
 import JoinGame from './components/join-game';
@@ -16,7 +16,7 @@ let App = (props) => {
 }
 
 const routes = (
-	<Router history={hashHistory}>
+	<Router history={browserHistory}>
 		<Route path="/" component={App}>
 			<IndexRoute component={LandingPage} />
 			<Route path='/new' component={NewGame} />
