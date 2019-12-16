@@ -34,7 +34,7 @@
         "url": "https://github.com/jbenjaminy/backgammon-js.git"
     },
     "bugs": {
-    "url": "https://github.com/jbenjaminy/backgammon-js/issues"
+        "url": "https://github.com/jbenjaminy/backgammon-js/issues"
     },
     "homepage": "http://backgammon.jbenjaminy.com",
     "dependencies": {
