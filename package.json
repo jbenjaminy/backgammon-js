@@ -39,7 +39,7 @@
     "homepage": "http://backgammon.jbenjaminy.com",
     "dependencies": {
         "express": "^4.14.0",
-        "http-server": "^0.9.0",
+        "http-server": "^14.1.1",
         "mongoose": "^4.6.0",
         "react": "^15.3.0",
         "react-dom": "^15.3.0",
@@ -56,6 +56,6 @@
         "babel-preset-react": "^6.11.1",
         "chokidar-cli": "^1.2.0",
         "less": "^2.7.1",
-        "webpack": "^1.13.1"
+        "webpack": "^1.15.0"
     }
 }
